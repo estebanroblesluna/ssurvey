@@ -11,8 +11,9 @@
 
   <properties>
     <spring.version>4.0.6.RELEASE</spring.version>
-	<junit.version>4.11</junit.version>
-	<jdk.version>1.7</jdk.version>
+	  <junit.version>4.11</junit.version>
+	  <jdk.version>1.7</jdk.version>
+    <hibernate.version>4.2.5.Final</hibernate.version>
   </properties>
 
 
@@ -23,12 +24,6 @@
         <artifactId>junit</artifactId>
         <version>${junit.version}</version>
         <scope>test</scope>
-      </dependency>
-
-      <dependency>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-context</artifactId>
-          <version>${spring.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
