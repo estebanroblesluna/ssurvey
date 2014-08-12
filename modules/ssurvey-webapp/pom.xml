@@ -1,102 +1,110 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <artifactId>main</artifactId>
-    <groupId>com.ssurvey</groupId>
-    <version>0.1-SNAPSHOT</version>
-    <relativePath>../..</relativePath>
-  </parent>
+	<parent>
+		<artifactId>main</artifactId>
+		<groupId>com.ssurvey</groupId>
+		<version>0.1-SNAPSHOT</version>
+		<relativePath>../..</relativePath>
+	</parent>
 
-  <groupId>com.ssurvey</groupId>
-  <artifactId>ssurvey-webapp</artifactId>
-  <packaging>war</packaging>
-  <version>0.1-SNAPSHOT</version>
-  <name>SSurvey - Webapp</name>
-  <url>http://maven.apache.org</url>
+	<groupId>com.ssurvey</groupId>
+	<artifactId>ssurvey-webapp</artifactId>
+	<packaging>war</packaging>
+	<version>0.1-SNAPSHOT</version>
+	<name>SSurvey - Webapp</name>
+	<url>http://maven.apache.org</url>
 
-  <dependencies>
-  	<dependency>
-  	  <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-  	</dependency>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
 
-  	<dependency>
-	  <groupId>javax.servlet</groupId>
-	  <artifactId>servlet-api</artifactId>
-	  <version>2.5</version>
-	</dependency>
-
-
-  	<dependency>
-	  <groupId>org.springframework</groupId>
-	  <artifactId>spring-core</artifactId>
-	  <version>${spring.version}</version>
-	</dependency>
-
-	<dependency>
-	  <groupId>org.springframework</groupId>
-	  <artifactId>spring-web</artifactId>
-	  <version>${spring.version}</version>
-	</dependency>
-
-	<dependency>
-	  <groupId>org.springframework</groupId>
-	  <artifactId>spring-webmvc</artifactId>
-	  <version>${spring.version}</version>
-	</dependency>
-
-    <dependency>
-	  <groupId>org.springframework</groupId>
-	  <artifactId>spring-jdbc</artifactId>
-	  <version>${spring.version}</version>
-  	</dependency>
-
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-orm</artifactId>
-      <version>${spring.version}</version>
-    </dependency>
-
-	<dependency>
-	  <groupId>mysql</groupId>
-	  <artifactId>mysql-connector-java</artifactId>
-	  <version>5.1.6</version>
-	</dependency>
-
-	<dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-core</artifactId>
-      <version>${hibernate.version}</version>
-    </dependency>
-  </dependencies>
-
-  <build>
-    <finalName>ssurvey-webapp</finalName>
-
-    <plugins>
-         <plugin>
-           <artifactId>maven-compiler-plugin</artifactId>
-             <version>3.0</version>         
-             <configuration>
-               <compilerVersion>1.7</compilerVersion>
-               <source>${jdk.version}</source>
-               <target>${jdk.version}</target>
-             </configuration>
-         </plugin>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+		</dependency>
 
 
-		<plugin>
-	        <groupId>org.mortbay.jetty</groupId>
-	        <artifactId>maven-jetty-plugin</artifactId>
-	        <version>6.1.10</version>
-	        <configuration>
-			    <contextPath>/</contextPath>
-			    <scanIntervalSeconds>2</scanIntervalSeconds>
-			</configuration>
-		</plugin>
-     </plugins>
-     
-  </build>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.6</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.7.2</version>
+		</dependency>
+
+
+	</dependencies>
+
+	<build>
+		<finalName>ssurvey-webapp</finalName>
+
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.0</version>
+				<configuration>
+					<compilerVersion>1.7</compilerVersion>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
+				</configuration>
+			</plugin>
+
+
+			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>maven-jetty-plugin</artifactId>
+				<version>6.1.10</version>
+				<configuration>
+					<contextPath>/</contextPath>
+					<scanIntervalSeconds>2</scanIntervalSeconds>
+				</configuration>
+			</plugin>
+		</plugins>
+
+	</build>
 </project>
