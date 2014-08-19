@@ -1,11 +1,11 @@
 package com.ssurvey.model;
 
-public class Survey {
+public class Question {
 
   private long id;
   private String name;
 
-  public Survey() {
+  public Question() {
   }
 
   public long getId() {
@@ -16,11 +16,11 @@ public class Survey {
     this.id = id;
   }
 
-  public String getName() {
+  public String getTitle() {
     return name;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setTitle(String title) {
+    this.name = title;
   }
 }
