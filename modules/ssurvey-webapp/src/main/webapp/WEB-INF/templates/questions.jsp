@@ -20,8 +20,8 @@
 	</head>
 	<body>	
 	<div class="container" style="margin-top: 25px; margin-bottom: 25px;">
-    <div class="row">
-        <div class="col-md-3">
+    
+        <div class="col-md-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title">
@@ -77,7 +77,7 @@
             </div>
         </div>
         
-        <div class="col-md-3">
+        <div class="col-md-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title">
@@ -129,7 +129,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3 ss-question-open">
+        <div class="col-md-12 ss-question-open">
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title">
@@ -140,14 +140,14 @@
         		</div>
         	</div>
         </div>
-        <div class="col-md-3 ss-question-multiple">
+        <div class="col-md-12 ss-question-multiple">
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title">
                         <span class="glyphicon glyphicon-hand-right"></span> Cuan importante es la cocacola en tu vida?</h3>
                 </div>
                 <div class="panel-body">
-                <div class="col-md-3 list-group-item">
+                <div class="col-md-12 list-group-item">
                 <label class="radio-inline">
   				<input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> 1
 				</label>
@@ -163,7 +163,7 @@
         	</div>
         </div>
         
-        <div class="col-md-3">
+        <div class="col-md-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title">
@@ -225,7 +225,7 @@
     </div>
   </div>
 </nav>
-<div class="col-sm-3">
+<div class="col-sm-12">
     <div id="getting-started"></div>
 </div>
 
