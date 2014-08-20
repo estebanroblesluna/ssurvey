@@ -20,4 +20,10 @@ public class HomeController {
 		return mv;
 		
 	}
+	@RequestMapping("/questions")
+	public ModelAndView showQuestions(){
+		ModelAndView mv = new ModelAndView("questions");
+		return mv;
+		
+	}
 }
