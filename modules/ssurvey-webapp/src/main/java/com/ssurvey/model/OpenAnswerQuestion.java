@@ -1,16 +1,15 @@
 package com.ssurvey.model;
 
-import java.util.List;
-
 public class OpenAnswerQuestion extends Question {
 
-  private List<String> options;
+  private long upperBound;
 
-  public List<String> getOptions() {
-    return options;
+  public long getUpperBound() {
+    return upperBound;
   }
 
-  public void setOptions(List<String> options) {
-    this.options = options;
+  public void setUpperBound(long upperBound) {
+    this.upperBound = upperBound;
   }
+
 }
