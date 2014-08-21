@@ -16,11 +16,11 @@ public class Question {
     this.id = id;
   }
 
-  public String getTitle() {
+  public String getName() {
     return name;
   }
 
-  public void setTitle(String title) {
-    this.name = title;
+  public void setName(String name) {
+    this.name = name;
   }
 }
