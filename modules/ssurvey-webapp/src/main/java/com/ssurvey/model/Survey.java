@@ -1,11 +1,16 @@
 package com.ssurvey.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Survey {
 
   private long id;
   private String name;
+  private List<Question> questions;
 
   public Survey() {
+    this.questions = new ArrayList<Question>();
   }
 
   public long getId() {
@@ -22,5 +27,13 @@ public class Survey {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public List<Question> getQuestions() {
+    return questions;
+  }
+
+  public void setQuestions(List<Question> questions) {
+    this.questions = questions;
   }
 }
