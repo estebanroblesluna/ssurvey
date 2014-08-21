@@ -4,13 +4,56 @@
  "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping default-access="property" package="com.ssurvey.model">
 
-<class name="Survey" table="survey">
-	<id type="long" column="id" access="field">
-		<generator class="native"></generator>
-	</id>
-	
-	<property name="name" column="name"></property>
-</class>
-  
-  
+	<class name="Survey" table="survey">
+		<id type="long" column="id" access="field">
+			<generator class="native"></generator>
+		</id>
+		<!-- properties -> multiple questions -->
+		<property name="name" column="name"></property>
+	</class>
+
+	<class name="Question" table="question">
+		<id name="id" type="long" column="question_id">
+			<generator class="native" />
+		</id>
+		<property name="name" type="string" column="name" />
+
+		<joined-subclass name="SingleChoiceQuestion" table="single_choice_question">
+			<key column="question_id" />
+			<list name="options" table="single_choice_options" lazy="false">
+				<key column="question_id" />
+				<list-index column="index" />
+				<element type="text" />
+			</list>
+		</joined-subclass>
+
+		<joined-subclass name="MultipleChoiceQuestion" table="multiple_choice_question">
+			<key column="question_id" />
+			<property name="upperBound" column="upper_bound" />
+			<list name="options" table="multiple_choice_options" lazy="false">
+				<key column="question_id" />
+				<list-index column="index" />
+				<element type="text" />
+			</list>
+		</joined-subclass>
+
+		<joined-subclass name="NumericAnswerQuestion" table="numeric_answer_question">
+			<key column="question_id" />
+			<property name="upperBound" type="long" column="upper_bound" />
+			<property name="lowerBound" type="long" column="lower_bound" />
+		</joined-subclass>
+
+		<joined-subclass name="RankAnswerQuestion" table="rank_answer_question">
+			<key column="question_id" />
+			<property name="upperBound" type="long" column="upper_bound" />
+		</joined-subclass>
+
+		<joined-subclass name="OpenAnswerQuestion" table="open_answer_question">
+			<key column="question_id" />
+			<property name="upperBound" type="long" column="upper_bound" />
+		</joined-subclass>
+
+
+	</class>
+
 </hibernate-mapping>
