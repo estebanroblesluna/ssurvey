@@ -10,3 +10,5 @@ body { margin-bottom: 20px; margin-top:20px; }
 .ss-question-open textarea { border-radius: 0px; min-height: 120px; } 
 textarea { resize: none; }
 .ss-question-multiple .list-group-item { border-radius: 0px; }
+
+.counter {color: cornflowerblue !important; }
