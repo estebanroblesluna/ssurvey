@@ -14,7 +14,7 @@
   <import resource="classpath:hibernate/datasource.xml" />
   <import resource="classpath:hibernate/hibernate.xml" />
   <import resource="classpath:spring-social.xml" />
-  
+  <import resource="classpath:spring-security.xml" />
   <!-- Repositories -->
   <bean id="surveyRepository" class="com.ssurvey.repositories.SurveyRepository">
   	<property name="sessionFactory" ref="sessionFactory" />

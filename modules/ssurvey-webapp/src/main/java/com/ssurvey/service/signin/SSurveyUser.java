@@ -10,8 +10,16 @@ import com.ssurvey.model.Account;
 public class SSurveyUser extends SocialUser{
 	private Account account;
 	
-	public SSurveyUser(Account account, String providerId){
+	public Account getAccount() {
+    return account;
+  }
+
+  public void setAccount(Account account) {
+    this.account = account;
+  }
+
+  public SSurveyUser(Account account, String providerId){
 		super(providerId, "",  new ArrayList<GrantedAuthority>());
-		this.account = account;
+		this.setAccount(account);
 	}
 }

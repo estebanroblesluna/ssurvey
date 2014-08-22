@@ -82,6 +82,7 @@
 </script>
 </head>
 <body>
+	<h1>${account.firstName}</h1>
 	<div class="container" style="margin-top: 25px; margin-bottom: 55px;">
 
 		<div class="col-md-12">
@@ -264,7 +265,10 @@
 	</div>
 
 	<div class="footer navbar-fixed-bottom">
-		<nav class="navbar navbar-default" role="navigation" style="bottom: -20px">
+
+
+		<nav class="navbar navbar-default" role="navigation"
+			style="bottom: -20px">
 			<div class="col-sm-11" style="padding-top: 15px;">
 
 
@@ -281,6 +285,7 @@
 				<h4 class="counter" id="time">0:00</h4>
 			</div>
 		</nav>
+
 	</div>
 
 </body>
