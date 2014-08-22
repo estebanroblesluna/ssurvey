@@ -4,6 +4,7 @@
  "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping default-access="property" package="com.ssurvey.model">
 
+
 	<class name="Survey" table="survey">
 		<id type="long" column="id" access="field">
 			<generator class="native"></generator>
@@ -55,5 +56,15 @@
 
 
 	</class>
+
+
+	<class name="Account" table="account">
+		<id type="long" name="id" column="id" access="field">
+			<generator class="native"></generator>
+		</id>
+		<property name="firstName"></property>
+		<property name="lastName"></property>
+	</class>
+
 
 </hibernate-mapping>

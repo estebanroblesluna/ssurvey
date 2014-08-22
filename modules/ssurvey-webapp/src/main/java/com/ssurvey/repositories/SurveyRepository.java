@@ -23,7 +23,7 @@ public class SurveyRepository {
 	}
 	
 	@Transactional
-	public void saveSurvey(Survey survey){
-		this.sessionFactory.getCurrentSession().save(survey);
+	public Survey saveSurvey(Survey survey){
+		return (Survey) this.sessionFactory.getCurrentSession().save(survey);
 	}
 }
