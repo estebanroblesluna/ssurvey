@@ -22,7 +22,9 @@
 				<prop key="c3p0.max_statements">50</prop>
 				<prop key="c3p0.min_size">5</prop>
 				<prop key="c3p0.timeout">1800</prop>
-				<prop key="hibernate.hbm2ddl.auto">create</prop>
+				<!-- Make Hibernate auto create schema: 
+					<prop key="hibernate.hbm2ddl.auto">create</prop>
+				-->
 			</props>
 		</property>
 

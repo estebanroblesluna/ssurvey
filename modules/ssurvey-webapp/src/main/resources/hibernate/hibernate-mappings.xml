@@ -20,21 +20,19 @@
 
 		<joined-subclass name="SingleChoiceQuestion" table="single_choice_question">
 			<key column="question_id" />
-			<list name="options" table="single_choice_options" lazy="false">
+			<bag name="options" table="single_choice_question_options">
 				<key column="question_id" />
-				<list-index column="index" />
-				<element type="text" />
-			</list>
+				<element type="string" column="name" />
+			</bag>
 		</joined-subclass>
 
 		<joined-subclass name="MultipleChoiceQuestion" table="multiple_choice_question">
 			<key column="question_id" />
 			<property name="upperBound" column="upper_bound" />
-			<list name="options" table="multiple_choice_options" lazy="false">
+			<bag name="options" table="multiple_choice_question_options">
 				<key column="question_id" />
-				<list-index column="index" />
-				<element type="text" />
-			</list>
+				<element type="string" column="name" />
+			</bag>
 		</joined-subclass>
 
 		<joined-subclass name="NumericAnswerQuestion" table="numeric_answer_question">
