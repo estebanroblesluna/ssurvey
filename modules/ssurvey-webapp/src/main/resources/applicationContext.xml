@@ -13,15 +13,24 @@
 
   <import resource="classpath:hibernate/datasource.xml" />
   <import resource="classpath:hibernate/hibernate.xml" />
-  
+  <import resource="classpath:spring-social.xml" />
+  <import resource="classpath:spring-security.xml" />
   <!-- Repositories -->
   <bean id="surveyRepository" class="com.ssurvey.repositories.SurveyRepository">
+  	<property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+  
+  <bean id="accountRepository" class="com.ssurvey.repositories.AccountRepository">
   	<property name="sessionFactory" ref="sessionFactory" />
   </bean>
   
   <!-- Services -->
   <bean id="surveyService" class="com.ssurvey.service.SurveyService">
   	<property name="surveyRepository" ref="surveyRepository"></property>
+  </bean>
+  
+  <bean id="accountService" class="com.ssurvey.service.AccountService">
+  	<property name="accountRepository" ref="accountRepository"></property>
   </bean>
   
 </beans>

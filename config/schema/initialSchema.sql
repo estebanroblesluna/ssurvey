@@ -10,6 +10,21 @@ CREATE TABLE `survey` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
+
+create table UserConnection (userId varchar(255) not null,
+	providerId varchar(255) not null,
+	providerUserId varchar(255),
+	rank int not null,
+	displayName varchar(255),
+	profileUrl varchar(512),
+	imageUrl varchar(512),
+	accessToken varchar(255) not null,
+	secret varchar(255),
+	refreshToken varchar(255),
+	expireTime bigint,
+	primary key (userId, providerId, providerUserId));
+create unique index UserConnectionRank on UserConnection(userId, providerId, rank);
+
 CREATE TABLE `question` (
   `question_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
@@ -69,4 +84,5 @@ CREATE TABLE `single_choice_question_options` (
   KEY `FK_gbm205nqmdcv9i8ksms9d6nnl` (`question_id`),
   CONSTRAINT `FK_gbm205nqmdcv9i8ksms9d6nnl` FOREIGN KEY (`question_id`) REFERENCES `single_choice_question` (`question_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
