@@ -7,6 +7,10 @@ public class MultipleChoiceQuestion extends Question {
   private List<String> options;
   private long upperBound;
 
+  public MultipleChoiceQuestion() {
+    this.setType(this.getType());
+  }
+
   public List<String> getOptions() {
     return options;
   }
@@ -21,5 +25,9 @@ public class MultipleChoiceQuestion extends Question {
 
   public void setUpperBound(long upperBound) {
     this.upperBound = upperBound;
+  }
+
+  public String getType() {
+    return QuestionType.MULTIPLE_CHOICE_QUESTION.toString();
   }
 }

@@ -5,6 +5,10 @@ public class NumericAnswerQuestion extends Question {
   private long upperBound;
   private long lowerBound;
 
+  public NumericAnswerQuestion() {
+    this.setType(this.getType());
+  }
+
   public long getUpperBound() {
     return upperBound;
   }
@@ -19,5 +23,9 @@ public class NumericAnswerQuestion extends Question {
 
   public void setLowerBound(long lowerBound) {
     this.lowerBound = lowerBound;
+  }
+
+  public String getType() {
+    return QuestionType.NUMERIC_ANSWER_QUESTION.toString();
   }
 }

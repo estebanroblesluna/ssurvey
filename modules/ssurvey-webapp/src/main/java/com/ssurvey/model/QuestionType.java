@@ -1,0 +1,9 @@
+package com.ssurvey.model;
+
+public enum QuestionType {
+  MULTIPLE_CHOICE_QUESTION,
+  NUMERIC_ANSWER_QUESTION,
+  OPEN_ANSWER_QUESTION,
+  RANK_ANSWER_QUESTION,
+  SINGLE_CHOICE_QUESTION;  
+}

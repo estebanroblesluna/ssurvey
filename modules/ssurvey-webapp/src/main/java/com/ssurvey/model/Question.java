@@ -4,6 +4,7 @@ public class Question {
 
   private long id;
   private String name;
+  private String type;
 
   public Question() {
   }
@@ -22,5 +23,9 @@ public class Question {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public void setType(String type) {
+    this.type = type;
   }
 }
