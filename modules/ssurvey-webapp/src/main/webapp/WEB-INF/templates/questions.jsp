@@ -7,12 +7,13 @@
 <link rel="stylesheet" type="text/css" href="css/jquery.countdown.css">
 <script type="text/javascript" src="js/CountDown/jquery.plugin.js"></script>
 <script type="text/javascript" src="js/CountDown/jquery.countdown.js"></script>
+<script type="text/javascript" src="static/js/jqueryUI/jquery-ui.js"></script>
 <link rel="stylesheet" type="text/css" href="static/css/questions.css">
 <link rel="stylesheet" type="text/css" href="static/css/bootstrap.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script type="text/javascript">
 	// two global variables
-	var secondsRemaining;
+	/*var secondsRemaining;
 	var intervalHandle;
 
 	function resetPage() {
@@ -78,7 +79,12 @@
 		// add to the DOM, to the div called "inputArea"
 		document.getElementById("inputArea").appendChild(inputMinutes);
 		document.getElementById("inputArea").appendChild(startButton);
-	};
+	};*/
+	
+	$(function(){
+		$(".sortable").sortable();
+		$(".sortable").disableSelection();
+	})
 </script>
 </head>
 <body>
@@ -231,7 +237,8 @@
 				</div>
 
 				<div class="panel-body">
-					<ol class="list-group">
+					<div class="panel-body">
+					<ol class="list-group sortable">
 						<li class="list-group-item">
 							<div class="checkbox">
 								<label> Internet </label>
