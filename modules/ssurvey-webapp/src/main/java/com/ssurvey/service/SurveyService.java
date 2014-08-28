@@ -21,6 +21,9 @@ public class SurveyService {
 
   public void saveSurvey(Survey survey) {
     this.surveyRepository.saveSurvey(survey);
+    for(Question question : survey.getQuestions()){
+      this.saveQuestion(question);
+    }
   }
 
   public void saveQuestion(Question question) {
