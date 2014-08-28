@@ -1,5 +1,7 @@
 package com.ssurvey.repositories;
 
+import java.util.List;
+
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,13 +25,17 @@ public class SurveyRepository {
     this.sessionFactory = sessionFactory;
   }
 
-  @Transactional
+
   public void saveSurvey(Survey survey) {
     this.sessionFactory.getCurrentSession().save(survey);
   }
 
-  @Transactional
+
   public void saveQuestion(Question question) {
     this.sessionFactory.getCurrentSession().save(question);
+  }
+  
+  public List<Survey> getSurveys(){
+	  return this.sessionFactory.getCurrentSession().createCriteria(Survey.class).list();
   }
 }

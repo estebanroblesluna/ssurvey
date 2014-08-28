@@ -1,5 +1,9 @@
 package com.ssurvey.service;
 
+import java.util.List;
+
+import org.springframework.transaction.annotation.Transactional;
+
 import com.ssurvey.model.Question;
 import com.ssurvey.model.Survey;
 import com.ssurvey.repositories.SurveyRepository;
@@ -19,6 +23,12 @@ public class SurveyService {
     this.surveyRepository = surveyRepository;
   }
 
+  @Transactional
+  public List<Survey> getSurveys(){
+	  return this.surveyRepository.getSurveys();
+  }
+  
+  @Transactional
   public void saveSurvey(Survey survey) {
     this.surveyRepository.saveSurvey(survey);
     for(Question question : survey.getQuestions()){
@@ -26,6 +36,7 @@ public class SurveyService {
     }
   }
 
+  @Transactional
   public void saveQuestion(Question question) {
     this.surveyRepository.saveQuestion(question);
   }
