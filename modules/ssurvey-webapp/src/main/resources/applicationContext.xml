@@ -10,6 +10,7 @@
   <tx:annotation-driven/>
  
   <context:property-placeholder location="classpath:app.properties" ignore-unresolvable="true" />
+  <context:property-placeholder location="classpath:app-secret.properties" ignore-unresolvable="true" />
 
   <import resource="classpath:hibernate/datasource.xml" />
   <import resource="classpath:hibernate/hibernate.xml" />
