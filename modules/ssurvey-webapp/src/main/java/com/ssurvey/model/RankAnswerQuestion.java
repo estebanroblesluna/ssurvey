@@ -1,22 +1,25 @@
 package com.ssurvey.model;
 
+import java.util.List;
+
 public class RankAnswerQuestion extends Question {
 
-  private long upperBound;
+  private List<String> options;
 
   public RankAnswerQuestion() {
     this.setType(this.getType());
   }
 
-  public long getUpperBound() {
-    return upperBound;
-  }
-
-  public void setUpperBound(long upperBound) {
-    this.upperBound = upperBound;
-  }
-
   public String getType() {
     return QuestionType.RANK_ANSWER_QUESTION.toString();
   }
+
+  public List<String> getOptions() {
+    return options;
+  }
+
+  public void setOptions(List<String> options) {
+    this.options = options;
+  }
+
 }

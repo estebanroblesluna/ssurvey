@@ -44,7 +44,10 @@
 
 		<joined-subclass name="RankAnswerQuestion" table="rank_answer_question">
 			<key column="question_id" />
-			<property name="upperBound" type="long" column="upper_bound" />
+			<bag name="options" table="rank_answer_question_options">
+				<key column="question_id" />
+				<element type="string" column="name" />
+			</bag>
 		</joined-subclass>
 
 		<joined-subclass name="OpenAnswerQuestion" table="open_answer_question">

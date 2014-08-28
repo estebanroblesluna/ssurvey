@@ -65,10 +65,16 @@ CREATE TABLE `open_answer_question` (
 
 CREATE TABLE `rank_answer_question` (
   `question_id` bigint(20) NOT NULL,
-  `upper_bound` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`question_id`),
   KEY `FK_l7s67s6bbypv2oj6amc6v0p9i` (`question_id`),
   CONSTRAINT `FK_l7s67s6bbypv2oj6amc6v0p9i` FOREIGN KEY (`question_id`) REFERENCES `question` (`question_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `rank_answer_question_options` (
+  `question_id` bigint(20) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  KEY `FK_2qgrwr3y8h4fgw26bemi6bekk` (`question_id`),
+  CONSTRAINT `FK_2qgrwr3y8h4fgw26bemi6bekk` FOREIGN KEY (`question_id`) REFERENCES `rank_answer_question` (`question_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `single_choice_question` (
