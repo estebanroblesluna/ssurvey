@@ -17,6 +17,7 @@ public class MultipleChoiceQuestion extends Question {
 
   public void setOptions(List<String> options) {
     this.options = options;
+    this.upperBound = options.size();
   }
 
   public long getUpperBound() {
