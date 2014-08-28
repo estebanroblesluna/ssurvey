@@ -9,7 +9,10 @@
 		<id type="long" column="id" access="field">
 			<generator class="native"></generator>
 		</id>
-		<!-- properties -> multiple questions -->
+		<bag name="questions" cascade="all">
+			<key column="survey_id" />
+			<one-to-many class="Question" />
+		</bag>
 		<property name="name" column="name"></property>
 	</class>
 

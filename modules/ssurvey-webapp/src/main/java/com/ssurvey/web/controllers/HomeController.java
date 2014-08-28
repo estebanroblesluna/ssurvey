@@ -35,11 +35,15 @@ public class HomeController {
   @RequestMapping("/questions")
   public ModelAndView showQuestions() {
     ModelAndView mv = new ModelAndView("questions");
-    // SSurveyUser user = (SSurveyUser)
-    // SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    // mv.addObject("account", user.getAccount());
+    SSurveyUser user = (SSurveyUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+    mv.addObject("account", user.getAccount());
+    return mv;
+  }
+
+  @RequestMapping("/createMockForDemo")
+  public void createMockForDemo() {
     MultipleChoiceQuestion multipleChoiceQuestion = new MultipleChoiceQuestion();
-    multipleChoiceQuestion.setId(0);
     multipleChoiceQuestion.setName("Where do you get your news?");
     LinkedList<String> options = new LinkedList<String>();
     options.add("Internet");
@@ -50,7 +54,6 @@ public class HomeController {
     multipleChoiceQuestion.setOptions(options);
 
     SingleChoiceQuestion singleChoiceQuestion = new SingleChoiceQuestion();
-    singleChoiceQuestion.setId(1);
     singleChoiceQuestion.setName("How good is my site?");
     options.clear();
     options.add("Excellent");
@@ -61,18 +64,15 @@ public class HomeController {
     singleChoiceQuestion.setOptions(options);
 
     OpenAnswerQuestion openAnswerQuestion = new OpenAnswerQuestion();
-    openAnswerQuestion.setId(2);
     openAnswerQuestion.setName("Opcional comment:");
     openAnswerQuestion.setUpperBound(1024);
 
     NumericAnswerQuestion numericAnswerQuestion = new NumericAnswerQuestion();
-    numericAnswerQuestion.setId(3);
     numericAnswerQuestion.setName("Rank the company from 1 to 10.");
     numericAnswerQuestion.setLowerBound(1);
     numericAnswerQuestion.setUpperBound(10);
 
     RankAnswerQuestion rankAnswerQuestion = new RankAnswerQuestion();
-    rankAnswerQuestion.setId(4);
     rankAnswerQuestion.setName("Priorize this:");
     options.clear();
     options.add("Internet");
@@ -90,11 +90,9 @@ public class HomeController {
 
     Survey survey = new Survey();
     survey.setQuestions(questions);
-    survey.setId(0);
     survey.setName("Answer questions and feel great about it.");
+
     surveyService.saveSurvey(survey);
-    mv.addObject("survey", survey);
-    return mv;
   }
 
 }
