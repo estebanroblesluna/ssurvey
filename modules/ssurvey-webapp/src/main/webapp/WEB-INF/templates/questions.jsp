@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
 <title>Questions</title>
@@ -80,195 +80,133 @@
 		document.getElementById("inputArea").appendChild(inputMinutes);
 		document.getElementById("inputArea").appendChild(startButton);
 	};*/
-	
-	$(function(){
+
+	$(function() {
 		$(".sortable").sortable();
 		$(".sortable").disableSelection();
 	})
 </script>
 </head>
 <body>
-	<h1>${account.firstName}</h1>
 	<div class="container" style="margin-top: 25px; margin-bottom: 55px;">
-
-		<div class="col-md-12">
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-					<h3 class="panel-title">
-						<span class="glyphicon glyphicon-arrow-right"></span> How is My
-						Site? <span class="glyphicon glyphicon-new-window"></span>
-					</h3>
-				</div>
-				<div class="panel-body">
-					<ul class="list-group">
-						<li class="list-group-item">
-							<div class="radio">
-								<label> <input type="radio" name="optionsRadios">
-									Good
-								</label>
+		<c:forEach var="question" items="${survey.questions}">
+			<c:choose>
+				<c:when test="${question.type == 'SINGLE_CHOICE_QUESTION' }">
+					<div class="col-md-12">
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								<h3 class="panel-title">
+									<span class="glyphicon glyphicon-arrow-right"></span>${question.name}<span
+										class="glyphicon glyphicon-new-window"></span>
+								</h3>
 							</div>
-						</li>
-						<li class="list-group-item">
-							<div class="radio">
-								<label> <input type="radio" name="optionsRadios">
-									Excellent
-								</label>
+							<div class="panel-body">
+								<ul class="list-group">
+									<c:forEach var="option" items="${question.options}">
+										<li class="list-group-item">
+											<div class="radio">
+												<label> <input type="radio" name="optionsRadios">
+													${option}
+												</label>
+											</div>
+										</li>
+									</c:forEach>
+								</ul>
 							</div>
-						</li>
-						<li class="list-group-item">
-							<div class="radio">
-								<label> <input type="radio" name="optionsRadios">
-									Bed
-								</label>
-							</div>
-						</li>
-						<li class="list-group-item">
-							<div class="radio">
-								<label> <input type="radio" name="optionsRadios">
-									Can Be Improved
-								</label>
-							</div>
-						</li>
-						<li class="list-group-item">
-							<div class="radio">
-								<label> <input type="radio" name="optionsRadios">
-									No Comment
-								</label>
-							</div>
-						</li>
-					</ul>
-				</div>
-
-			</div>
-		</div>
-
-		<div class="col-md-12">
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-					<h3 class="panel-title">
-						<span class="glyphicon glyphicon-hand-right"></span> Where do you
-						get your news?
-					</h3>
-				</div>
-				<div class="panel-body">
-					<ul class="list-group">
-						<li class="list-group-item">
-							<div class="checkbox">
-								<label> <input type="checkbox" value="">
-									Internet
-								</label>
-							</div>
-						</li>
-						<li class="list-group-item">
-							<div class="checkbox">
-								<label> <input type="checkbox" value="">
-									Television
-								</label>
-							</div>
-						</li>
-						<li class="list-group-item">
-							<div class="checkbox">
-								<label> <input type="checkbox" value=""> Radio
-								</label>
-							</div>
-						</li>
-						<li class="list-group-item">
-							<div class="checkbox">
-								<label> <input type="checkbox" value="">
-									Newspaper
-								</label>
-							</div>
-						</li>
-						<li class="list-group-item">
-							<div class="checkbox">
-								<label> <input type="checkbox" value=""> Others
-								</label>
-							</div>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-		<div class="col-md-12 ss-question-open">
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-					<h3 class="panel-title">
-						<span class="glyphicon glyphicon-hand-right"></span> Open Answer
-					</h3>
-				</div>
-				<div class="panel-body">
-					<textarea class="form-control" placeholder="1024 chars max"></textarea>
-				</div>
-			</div>
-		</div>
-		<div class="col-md-12 ss-question-multiple">
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-					<h3 class="panel-title">
-						<span class="glyphicon glyphicon-hand-right"></span> Cuan
-						importante es la cocacola en tu vida?
-					</h3>
-				</div>
-				<div class="panel-body">
-					<div class="col-md-12 list-group-item">
-						<label class="radio-inline"> <input type="radio"
-							name="inlineRadioOptions" id="inlineRadio1" value="option1">
-							1
-						</label> <label class="radio-inline"> <input type="radio"
-							name="inlineRadioOptions" id="inlineRadio2" value="option2">
-							2
-						</label> <label class="radio-inline"> <input type="radio"
-							name="inlineRadioOptions" id="inlineRadio3" value="option3">
-							3
-						</label>
+						</div>
 					</div>
-				</div>
+				</c:when>
+				<c:when test="${question.type == 'MULTIPLE_CHOICE_QUESTION' }">
+					<div class="col-md-12">
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								<h3 class="panel-title">
+									<span class="glyphicon glyphicon-hand-right"></span>
+									${question.name}
+								</h3>
+							</div>
+							<div class="panel-body">
+								<ul class="list-group">
+									<c:forEach var="option" items="${question.options}">
+										<li class="list-group-item">
+											<div class="checkbox">
+												<label> <input type="checkbox" value="">
+													${option}
+												</label>
+											</div>
+										</li>
+									</c:forEach>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</c:when>
+				<c:when test="${question.type == 'OPEN_ANSWER_QUESTION' }">
+					<div class="col-md-12 ss-question-open">
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								<h3 class="panel-title">
+									<span class="glyphicon glyphicon-hand-right"></span>
+									${question.name}
+								</h3>
+							</div>
+							<div class="panel-body">
+								<textarea class="form-control" placeholder="1024 chars max"></textarea>
+							</div>
+						</div>
+					</div>
+				</c:when>
+				<c:when test="${question.type == 'NUMERIC_ANSWER_QUESTION' }">
+					<div class="col-md-12 ss-question-multiple">
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								<h3 class="panel-title">
+									<span class="glyphicon glyphicon-hand-right"></span>
+									${question.name}
+								</h3>
+							</div>
+							<div class="panel-body">
+								<c:forEach var="i" begin="${question.lowerBound}" end="${question.upperBound}">
+									<div class="col-md-12 list-group-item">
+										<label class="radio-inline"> <input type="radio"
+											name="inlineRadioOptions" id="inlineRadio${i}" value="option${i}">
+											${i}
+										</label>
+									</div>
+								</c:forEach>
+							</div>
 
-			</div>
-		</div>
+						</div>
+					</div>
+				</c:when>
+				<c:when test="${question.type == 'RANK_ANSWER_QUESTION' }">
+					<div class="col-md-12">
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								<h3 class="panel-title">
+									<span class="glyphicon glyphicon-hand-right"></span> Ranking
+									questions
+								</h3>
+							</div>
 
-		<div class="col-md-12">
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-					<h3 class="panel-title">
-						<span class="glyphicon glyphicon-hand-right"></span> Ranking
-						questions
-					</h3>
-				</div>
-
-				<div class="panel-body">
-					<div class="panel-body">
-					<ol class="list-group sortable">
-						<li class="list-group-item">
-							<div class="checkbox">
-								<label> Internet </label>
+							<div class="panel-body">
+								<div class="panel-body">
+									<ol class="list-group sortable">
+										<c:forEach var="option" items="${question.options}">
+											<li class="list-group-item">
+												<div class="checkbox">
+													<label> ${option} </label>
+												</div>
+											</li>
+										</c:forEach>
+									</ol>
+								</div>
 							</div>
-						</li>
-						<li class="list-group-item">
-							<div class="checkbox">
-								<label> Television </label>
-							</div>
-						</li>
-						<li class="list-group-item">
-							<div class="checkbox">
-								<label> Radio </label>
-							</div>
-						</li>
-						<li class="list-group-item">
-							<div class="checkbox">
-								<label> Newspaper </label>
-							</div>
-						</li>
-						<li class="list-group-item">
-							<div class="checkbox">
-								<label> Others </label>
-							</div>
-						</li>
-					</ol>
-				</div>
-			</div>
-		</div>
-
+						</div>
+					</div>
+				</c:when>
+			</c:choose>
+		</c:forEach>
 	</div>
 
 	<div class="footer navbar-fixed-bottom">
@@ -284,9 +222,6 @@
 						aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
 						60%</div>
 				</div>
-
-
-
 			</div>
 			<div class="col-sm-1" style="padding-top: 8px;">
 				<h4 class="counter" id="time">0:00</h4>
@@ -294,6 +229,5 @@
 		</nav>
 
 	</div>
-
 </body>
 </html>

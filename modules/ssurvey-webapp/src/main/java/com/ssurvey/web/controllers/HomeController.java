@@ -54,7 +54,7 @@ public class HomeController {
 
     SingleChoiceQuestion singleChoiceQuestion = new SingleChoiceQuestion();
     singleChoiceQuestion.setName("How good is my site?");
-    options.clear();
+    options = new LinkedList<String>();
     options.add("Excellent");
     options.add("Good");
     options.add("Can be improved");
@@ -73,7 +73,7 @@ public class HomeController {
 
     RankAnswerQuestion rankAnswerQuestion = new RankAnswerQuestion();
     rankAnswerQuestion.setName("Priorize this:");
-    options.clear();
+    options = new LinkedList<String>();
     options.add("Internet");
     options.add("T.V.");
     options.add("Radio");

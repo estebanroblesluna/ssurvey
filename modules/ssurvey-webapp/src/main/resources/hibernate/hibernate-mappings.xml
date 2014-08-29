@@ -9,7 +9,7 @@
 		<id type="long" column="id" access="field">
 			<generator class="native"></generator>
 		</id>
-		<bag name="questions" cascade="all">
+		<bag name="questions" cascade="all" lazy="false">
 			<key column="survey_id" />
 			<one-to-many class="Question" />
 		</bag>
@@ -24,7 +24,7 @@
 
 		<joined-subclass name="SingleChoiceQuestion" table="single_choice_question">
 			<key column="question_id" />
-			<bag name="options" table="single_choice_question_options">
+			<bag name="options" table="single_choice_question_options" lazy="false">
 				<key column="question_id" />
 				<element type="string" column="name" />
 			</bag>
@@ -33,7 +33,7 @@
 		<joined-subclass name="MultipleChoiceQuestion" table="multiple_choice_question">
 			<key column="question_id" />
 			<property name="upperBound" column="upper_bound" />
-			<bag name="options" table="multiple_choice_question_options">
+			<bag name="options" table="multiple_choice_question_options" lazy="false"> 
 				<key column="question_id" />
 				<element type="string" column="name" />
 			</bag>
@@ -47,7 +47,7 @@
 
 		<joined-subclass name="RankAnswerQuestion" table="rank_answer_question">
 			<key column="question_id" />
-			<bag name="options" table="rank_answer_question_options">
+			<bag name="options" table="rank_answer_question_options" lazy="false">
 				<key column="question_id" />
 				<element type="string" column="name" />
 			</bag>
