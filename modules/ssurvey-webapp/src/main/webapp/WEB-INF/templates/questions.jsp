@@ -89,6 +89,9 @@
 </head>
 <body>
 	<div class="container" style="margin-top: 25px; margin-bottom: 55px;">
+		<div class="col-md-12">
+			<h3 class="text-center">${survey.name}</h3>
+		</div>
 		<c:forEach var="question" items="${survey.questions}">
 			<c:choose>
 				<c:when test="${question.type == 'SINGLE_CHOICE_QUESTION' }">
@@ -166,11 +169,12 @@
 								</h3>
 							</div>
 							<div class="panel-body">
-								<c:forEach var="i" begin="${question.lowerBound}" end="${question.upperBound}">
+								<c:forEach var="i" begin="${question.lowerBound}"
+									end="${question.upperBound}">
 									<div class="col-md-12 list-group-item">
 										<label class="radio-inline"> <input type="radio"
-											name="inlineRadioOptions" id="inlineRadio${i}" value="option${i}">
-											${i}
+											name="inlineRadioOptions" id="inlineRadio${i}"
+											value="option${i}"> ${i}
 										</label>
 									</div>
 								</c:forEach>
@@ -207,6 +211,18 @@
 				</c:when>
 			</c:choose>
 		</c:forEach>
+		<div class="row" style="margin-top: 25px; margin-bottom: 55px;">
+			<div class="col-sm-2 col-sm-offset-4">
+				<button type="button" class="btn btn-success">
+					<span class="glyphicon glyphicon-ok-sign"></span> Confirmar
+				</button>
+			</div>
+			<div class="col-sm-4">
+				<button type="button" class="btn btn-danger">
+					<span class="glyphicon glyphicon-remove-sign"></span> Cancelar
+				</button>
+			</div>
+		</div>
 	</div>
 
 	<div class="footer navbar-fixed-bottom">
@@ -214,7 +230,11 @@
 
 		<nav class="navbar navbar-default" role="navigation"
 			style="bottom: -20px">
-			<div class="col-sm-11" style="padding-top: 15px;">
+			<div class="col-sm-2" style="padding-top: 8px;">
+				<h5>Mariano Grasso</h5>
+			</div>
+
+			<div class="col-sm-9" style="padding-top: 15px;">
 
 
 				<div class="progress">
