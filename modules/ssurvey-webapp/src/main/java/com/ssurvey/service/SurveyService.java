@@ -11,6 +11,7 @@ import com.ssurvey.repositories.SurveyRepository;
 public class SurveyService {
 
   private SurveyRepository surveyRepository;
+  private QuestionService questionService;
 
   public SurveyService() {
   }
@@ -21,6 +22,14 @@ public class SurveyService {
 
   public void setSurveyRepository(SurveyRepository surveyRepository) {
     this.surveyRepository = surveyRepository;
+  }
+
+  public QuestionService getQuestionService() {
+    return questionService;
+  }
+
+  public void setQuestionService(QuestionService questionService) {
+    this.questionService = questionService;
   }
 
   @Transactional
@@ -37,13 +46,8 @@ public class SurveyService {
   public void saveSurvey(Survey survey) {
     this.surveyRepository.saveSurvey(survey);
     for (Question question : survey.getQuestions()) {
-      this.saveQuestion(question);
+      this.questionService.saveQuestion(question);
     }
-  }
-
-  @Transactional
-  public void saveQuestion(Question question) {
-    this.surveyRepository.saveQuestion(question);
   }
 
 }

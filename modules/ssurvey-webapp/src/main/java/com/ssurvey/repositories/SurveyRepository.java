@@ -5,7 +5,6 @@ import java.util.List;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
-import com.ssurvey.model.Question;
 import com.ssurvey.model.Survey;
 
 @Repository
@@ -26,10 +25,6 @@ public class SurveyRepository {
 
   public void saveSurvey(Survey survey) {
     this.sessionFactory.getCurrentSession().save(survey);
-  }
-
-  public void saveQuestion(Question question) {
-    this.sessionFactory.getCurrentSession().save(question);
   }
 
   @SuppressWarnings("unchecked")
