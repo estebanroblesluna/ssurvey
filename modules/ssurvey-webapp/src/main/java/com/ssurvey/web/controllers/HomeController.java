@@ -36,7 +36,7 @@ public class HomeController {
     SSurveyUser user = (SSurveyUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
     mv.addObject("account", user.getAccount());
-    mv.addObject("survey", surveyService.getSurveys().get(0));
+    mv.addObject("survey", surveyService.getSurveyById(1));
     return mv;
   }
 

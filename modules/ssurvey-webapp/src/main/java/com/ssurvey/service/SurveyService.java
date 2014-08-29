@@ -24,14 +24,19 @@ public class SurveyService {
   }
 
   @Transactional
-  public List<Survey> getSurveys(){
-	  return this.surveyRepository.getSurveys();
+  public List<Survey> getSurveys() {
+    return this.surveyRepository.getSurveys();
   }
-  
+
+  @Transactional
+  public Survey getSurveyById(long id) {
+    return this.surveyRepository.getSurveyById(id);
+  }
+
   @Transactional
   public void saveSurvey(Survey survey) {
     this.surveyRepository.saveSurvey(survey);
-    for(Question question : survey.getQuestions()){
+    for (Question question : survey.getQuestions()) {
       this.saveQuestion(question);
     }
   }

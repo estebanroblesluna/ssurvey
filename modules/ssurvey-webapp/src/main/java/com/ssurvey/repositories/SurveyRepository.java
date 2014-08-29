@@ -36,4 +36,8 @@ public class SurveyRepository {
   public List<Survey> getSurveys() {
     return this.sessionFactory.getCurrentSession().createCriteria(Survey.class).list();
   }
+
+  public Survey getSurveyById(long id) {
+    return (Survey) this.sessionFactory.getCurrentSession().get(Survey.class, id);
+  }
 }
