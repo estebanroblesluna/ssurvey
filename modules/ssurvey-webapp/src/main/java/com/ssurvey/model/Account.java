@@ -1,33 +1,34 @@
 package com.ssurvey.model;
 
-import org.springframework.social.security.SocialUser;
+// import org.springframework.social.security.SocialUser;
 
-public class Account{
-	Long id;
-	String firstName;
-	String lastName;
-	
-	public Long getId() {
-		return id;
-	}
+public class Account {
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+  Long id;
+  String firstName;
+  String lastName;
 
-	public String getFirstName() {
-		return firstName;
-	}
+  public Long getId() {
+    return id;
+  }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-	public String getLastName() {
-		return lastName;
-	}
+  public String getFirstName() {
+    return firstName;
+  }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
+
+  public String getLastName() {
+    return lastName;
+  }
+
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
 }

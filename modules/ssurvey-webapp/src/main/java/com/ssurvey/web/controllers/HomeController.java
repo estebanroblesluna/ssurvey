@@ -12,8 +12,6 @@ import com.ssurvey.model.MultipleChoiceQuestion;
 import com.ssurvey.model.NumericAnswerQuestion;
 import com.ssurvey.model.OpenAnswerQuestion;
 import com.ssurvey.model.Question;
-import com.ssurvey.model.Account;
-import com.ssurvey.model.QuestionType;
 import com.ssurvey.model.RankAnswerQuestion;
 import com.ssurvey.model.SingleChoiceQuestion;
 import com.ssurvey.model.Survey;

@@ -4,6 +4,7 @@ public class Question {
 
   private long id;
   private String name;
+  @SuppressWarnings("unused")
   private String type;
 
   public Question() {
