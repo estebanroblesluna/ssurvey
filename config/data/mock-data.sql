@@ -1,0 +1,11 @@
+USE ssurvey;
+INSERT INTO `survey` VALUES (1,'Answer questions and feel great about it.'),(2,'Answer questions and feel great about it.'),(3,'Answer questions and feel great about it.'),(4,'Answer questions and feel great about it.');
+INSERT INTO `question` VALUES (1,'Where do you get your news?',1),(2,'How good is my site?',1),(3,'Opcional comment:',1),(4,'Priorize this:',1),(5,'Rank the company from 1 to 10.',1),(6,'Where do you get your news?',2),(7,'How good is my site?',2),(8,'Opcional comment:',2),(9,'Priorize this:',2),(10,'Rank the company from 1 to 10.',2),(11,'Where do you get your news?',3),(12,'How good is my site?',3),(13,'Opcional comment:',3),(14,'Priorize this:',3),(15,'Rank the company from 1 to 10.',3),(16,'Where do you get your news?',4),(17,'How good is my site?',4),(18,'Opcional comment:',4),(19,'Priorize this:',4),(20,'Rank the company from 1 to 10.',4);
+INSERT INTO `multiple_choice_question` VALUES (1,5),(6,5),(11,5),(16,5);
+INSERT INTO `numeric_answer_question` VALUES (5,10,1),(10,10,1),(15,10,1),(20,10,1);
+INSERT INTO `open_answer_question` VALUES (3,1024),(8,1024),(13,1024),(18,1024);
+INSERT INTO `rank_answer_question` VALUES (4),(9),(14),(19);
+INSERT INTO `single_choice_question` VALUES (2),(7),(12),(17);
+INSERT INTO `rank_answer_question_options` VALUES (4,'Internet'),(4,'T.V.'),(4,'Radio'),(4,'Newspaper'),(9,'Internet'),(9,'T.V.'),(9,'Radio'),(9,'Newspaper'),(14,'Internet'),(14,'T.V.'),(14,'Radio'),(14,'Newspaper'),(19,'Internet'),(19,'T.V.'),(19,'Radio'),(19,'Newspaper');
+INSERT INTO `single_choice_question_options` VALUES (2,'Excellent'),(2,'Good'),(2,'Can be improved'),(2,'Bad'),(2,'No comments'),(7,'Excellent'),(7,'Good'),(7,'Can be improved'),(7,'Bad'),(7,'No comments'),(12,'Excellent'),(12,'Good'),(12,'Can be improved'),(12,'Bad'),(12,'No comments'),(17,'Excellent'),(17,'Good'),(17,'Can be improved'),(17,'Bad'),(17,'No comments');
+INSERT INTO `multiple_choice_question_options` VALUES (1,'Internet'),(1,'T.V.'),(1,'Radio'),(1,'Newspaper'),(1,'Others'),(6,'Internet'),(6,'T.V.'),(6,'Radio'),(6,'Newspaper'),(6,'Others'),(11,'Internet'),(11,'T.V.'),(11,'Radio'),(11,'Newspaper'),(11,'Others'),(16,'Internet'),(16,'T.V.'),(16,'Radio'),(16,'Newspaper'),(16,'Others');
