@@ -1,16 +1,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
-<title>Questions</title>
-<script type="text/javascript"
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<link rel="stylesheet" type="text/css" href="css/jquery.countdown.css">
-<script type="text/javascript" src="/static/js/CountDown/jquery.plugin.js"></script>
-<script type="text/javascript" src="/static/js/CountDown/jquery.countdown.js"></script>
-<script type="text/javascript" src="/static/js/jqueryUI/jquery-ui.js"></script>
-<link rel="stylesheet" type="text/css" href="/static/css/questions.css">
-<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script type="text/javascript"
+		src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/jquery.countdown.css">
+	<script type="text/javascript" src="/static/js/CountDown/jquery.plugin.js"></script>
+	<script type="text/javascript" src="/static/js/CountDown/jquery.countdown.js"></script>
+	<script type="text/javascript" src="/static/js/jqueryUI/jquery-ui.js"></script>
+	<link rel="stylesheet" type="text/css" href="/static/css/questions.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/main.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>${survey.name}</title>
 <script type="text/javascript">
 	// two global variables
 	/*var secondsRemaining;
@@ -88,10 +89,15 @@
 </script>
 </head>
 <body>
+	<nav class="navbar navbar-blue" role="navigation">
+	    <div class="navbar-header">
+	      	<a class="navbar-brand" href="#">SSurvey</a>
+	    </div>
+	    <div class="col-md-offset-4">
+			<a class="navbar-brand" style="font-size:22px">${survey.name}</a>
+	    </div>
+	</nav>
 	<div class="container" style="margin-top: 25px; margin-bottom: 55px;">
-		<div class="col-md-12">
-			<h3 class="text-center">${survey.name}</h3>
-		</div>
 		<c:forEach var="question" items="${survey.questions}">
 			<c:choose>
 				<c:when test="${question.type == 'SINGLE_CHOICE_QUESTION' }">
