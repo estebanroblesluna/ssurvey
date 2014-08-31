@@ -1,5 +1,7 @@
 package com.ssurvey.web.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,13 @@ public class SurveyController extends SSurveyGenericController {
 		ModelAndView mv = this.createModelAndView("survey");
 		Survey survey = this.surveyService.getSurveyById(surveyId);
 		mv.addObject("survey", survey);
+		return mv;
+	}
+	@RequestMapping("/")
+	public ModelAndView showRecommendedSurveys(){
+		ModelAndView mv = this.createModelAndView("recommended-surveys");
+		List<Survey> surveys = this.surveyService.getSurveys();
+		mv.addObject("surveys", surveys);
 		return mv;
 	}
 	

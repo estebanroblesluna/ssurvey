@@ -28,7 +28,7 @@ public class SSurveySignInAdapter implements SignInAdapter{
 		User user = new SSurveyUser(account, connection.getProfileUrl());
 		SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(user,null));
 		
-		return "/surveys/1";
+		return "/surveys/";
 	}
 
 
