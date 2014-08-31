@@ -6,7 +6,6 @@ red='\033[0;31m';
 reset='\033[0m';
 
 BASEDIR=$(dirname $0)
-DATABASE=ssurvey
 USER="-u root"
 HOST="-h localhost"
 PASS=

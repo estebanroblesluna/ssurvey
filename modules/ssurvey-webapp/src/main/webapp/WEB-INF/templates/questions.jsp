@@ -231,7 +231,7 @@
 		<nav class="navbar navbar-default" role="navigation"
 			style="bottom: -20px">
 			<div class="col-sm-2" style="padding-top: 8px;">
-				<h5>Mariano Grasso</h5>
+				<h5>${account.firstName} ${account.lastName}</h5>
 			</div>
 
 			<div class="col-sm-9" style="padding-top: 15px;">

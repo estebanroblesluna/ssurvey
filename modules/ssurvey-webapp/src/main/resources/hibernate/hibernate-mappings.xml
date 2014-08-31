@@ -6,7 +6,7 @@
 
 
 	<class name="Survey" table="survey">
-		<id type="long" column="id" access="field">
+		<id type="long" name="id" column="survey_id" access="field">
 			<generator class="native"></generator>
 		</id>
 		<bag name="questions" cascade="all" lazy="false">
@@ -66,8 +66,8 @@
 		<id type="long" name="id" column="id" access="field">
 			<generator class="native"></generator>
 		</id>
-		<property name="firstName"></property>
-		<property name="lastName"></property>
+		<property name="firstName" column="first_name" />
+		<property name="lastName" column="last_name" />
 	</class>
 
 
