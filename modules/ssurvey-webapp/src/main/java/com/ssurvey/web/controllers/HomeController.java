@@ -19,7 +19,7 @@ import com.ssurvey.service.SurveyService;
 import com.ssurvey.service.signin.SSurveyUser;
 
 @Controller
-public class HomeController {
+public class HomeController extends SSurveyGenericController{
 
   @Autowired
   private SurveyService surveyService;
@@ -27,16 +27,6 @@ public class HomeController {
   @RequestMapping("/")
   public ModelAndView showLogin() {
     ModelAndView mv = new ModelAndView("login");
-    return mv;
-  }
-
-  @RequestMapping("/questions")
-  public ModelAndView showQuestions() {
-    ModelAndView mv = new ModelAndView("questions");
-    SSurveyUser user = (SSurveyUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-    mv.addObject("account", user.getAccount());
-    mv.addObject("survey", surveyService.getSurveyById(1));
     return mv;
   }
 
