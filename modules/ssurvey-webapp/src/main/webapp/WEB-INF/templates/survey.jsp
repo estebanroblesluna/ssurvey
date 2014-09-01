@@ -99,8 +99,7 @@
 						<div class="panel panel-primary">
 							<div class="panel-heading">
 								<h3 class="panel-title">
-									<span class="glyphicon glyphicon-arrow-right"></span>${question.name}<span
-										class="glyphicon glyphicon-new-window"></span>
+									<span class="glyphicon glyphicon-hand-right"></span>${question.name}
 								</h3>
 							</div>
 							<div class="panel-body">

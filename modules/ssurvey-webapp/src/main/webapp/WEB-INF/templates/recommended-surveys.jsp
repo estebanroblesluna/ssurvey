@@ -19,8 +19,7 @@
 		<div class="panel-heading">
 			<h3 class="panel-title">
 				<span class="glyphicon glyphicon-arrow-right" />
-				Recommended Surveys
-				<span class="glyphicon glyphicon-new-window"/>
+				Recommended Surveysys
 			</h3>
 		</div>
 		<div class="panel-body">
