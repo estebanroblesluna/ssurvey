@@ -17,18 +17,20 @@
 	<import resource="classpath:hibernate/hibernate.xml" />
 	<import resource="classpath:spring-social.xml" />
 	<import resource="classpath:spring-security.xml" />
+
 	<!-- Repositories -->
-	<bean id="surveyRepository" class="com.ssurvey.repositories.SurveyRepository">
-		<property name="sessionFactory" ref="sessionFactory" />
+	<bean id="genericRepository" class="com.ssurvey.repositories.GenericRepository">
+		<constructor-arg index="0" ref="sessionFactory" />
 	</bean>
 
-	<bean id="accountRepository" class="com.ssurvey.repositories.AccountRepository">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
-
-	<bean id="questionRepository" class="com.ssurvey.repositories.QuestionRepository">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
+	<bean id="surveyRepository" class="com.ssurvey.repositories.SurveyRepository"
+		parent="genericRepository" />
+	<bean id="accountRepository" class="com.ssurvey.repositories.AccountRepository"
+		parent="genericRepository" />
+	<bean id="answerRepository" class="com.ssurvey.repositories.AnswerRepository"
+		parent="genericRepository" />
+	<bean id="questionRepository" class="com.ssurvey.repositories.QuestionRepository"
+		parent="genericRepository" />
 
 	<!-- Services -->
 	<bean id="surveyService" class="com.ssurvey.service.SurveyService">

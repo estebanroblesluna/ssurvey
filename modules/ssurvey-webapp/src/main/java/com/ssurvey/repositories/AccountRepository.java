@@ -1,27 +1,26 @@
 package com.ssurvey.repositories;
 
 import org.hibernate.SessionFactory;
+import org.jsoup.helper.Validate;
 
 import com.ssurvey.model.Account;
 
-public class AccountRepository {
+public class AccountRepository extends GenericRepository {
 
-  private SessionFactory sessionFactory;
-
-  public SessionFactory getSessionFactory() {
-    return sessionFactory;
+  public AccountRepository() {
   }
 
-  public void setSessionFactory(SessionFactory sessionFactory) {
-    this.sessionFactory = sessionFactory;
+  public AccountRepository(SessionFactory sessionFactory) {
+    Validate.notNull(sessionFactory);
+    this.setSessionFactory(sessionFactory);
   }
 
   public Account createAccount(Account account) {
-    account.setId((Long) this.sessionFactory.getCurrentSession().save(account));
+    account.setId((Long) this.getSessionFactory().getCurrentSession().save(account));
     return account;
   }
 
   public Account getAccountById(long id) {
-    return (Account) this.sessionFactory.getCurrentSession().get(Account.class, id);
+    return this.get(Account.class, id);
   }
 }

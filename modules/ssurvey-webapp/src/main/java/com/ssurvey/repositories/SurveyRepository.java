@@ -3,36 +3,31 @@ package com.ssurvey.repositories;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
+import org.jsoup.helper.Validate;
 import org.springframework.stereotype.Repository;
 
 import com.ssurvey.model.Survey;
 
 @Repository
-public class SurveyRepository {
-
-  private SessionFactory sessionFactory;
+public class SurveyRepository extends GenericRepository {
 
   public SurveyRepository() {
   }
 
-  public SessionFactory getSessionFactory() {
-    return sessionFactory;
-  }
-
-  public void setSessionFactory(SessionFactory sessionFactory) {
-    this.sessionFactory = sessionFactory;
+  public SurveyRepository(SessionFactory sessionFactory) {
+    Validate.notNull(sessionFactory);
+    this.setSessionFactory(sessionFactory);
   }
 
   public void saveSurvey(Survey survey) {
-    this.sessionFactory.getCurrentSession().save(survey);
+    this.save(survey);
   }
 
-  @SuppressWarnings("unchecked")
   public List<Survey> getSurveys() {
-    return this.sessionFactory.getCurrentSession().createCriteria(Survey.class).list();
+    return this.get(Survey.class);
   }
 
   public Survey getSurveyById(long id) {
-    return (Survey) this.sessionFactory.getCurrentSession().get(Survey.class, id);
+    return this.get(Survey.class, id);
   }
 }
