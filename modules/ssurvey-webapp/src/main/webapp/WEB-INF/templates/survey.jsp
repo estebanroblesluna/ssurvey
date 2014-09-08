@@ -13,75 +13,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>${survey.name}</title>
 <script type="text/javascript">
-	// two global variables
-	/*var secondsRemaining;
-	var intervalHandle;
-
-	function resetPage() {
-		document.getElementById("inputArea").style.display = "block";
-	}
-
-	function tick() {
-		// grab the h1
-		var timeDisplay = document.getElementById("time");
-
-		// turn seconds into mm:ss
-		var min = Math.floor(secondsRemaining / 60);
-		var sec = secondsRemaining - (min * 60);
-
-		// add a leading zero (as a string value) if seconds less than 10
-		if (sec < 10) {
-			sec = "0" + sec;
-		}
-		// concatenate with colon
-		var message = min + ":" + sec;
-		// now change the display
-		timeDisplay.innerHTML = message;
-
-		// stop if down to zero
-		if (secondsRemaining === 0) {
-			alert("Done!");
-			clearInterval(intervalHandle);
-			resetPage();
-		}
-		// subtract from seconds remaining
-		secondsRemaining--;
-	}
-
-	function startCountdown() {
-		// get contents of the "minutes" text box
-		var minutes = document.getElementById("minutes").value;
-		// check if not a number
-		if (isNaN(minutes)) {
-			alert("Please enter a number!");
-			return;
-		}
-		// how many seconds?
-		secondsRemaining = minutes * 60;
-		// every second, call the "tick" function
-		intervalHandle = setInterval(tick, 1000);
-		// hide the form
-		document.getElementById("inputArea").style.display = "none";
-	}
-
-	// as soon as the page is loaded...
-	window.onload = function() {
-		// create input text box and give it an id of "minutes"
-		var inputMinutes = document.createElement("input");
-		inputMinutes.setAttribute("id", "minutes");
-		inputMinutes.setAttribute("type", "text");
-		// create a button
-		var startButton = document.createElement("input");
-		startButton.setAttribute("type", "button");
-		startButton.setAttribute("value", "Start Countdown");
-		startButton.onclick = function() {
-			startCountdown();
-		};
-		// add to the DOM, to the div called "inputArea"
-		document.getElementById("inputArea").appendChild(inputMinutes);
-		document.getElementById("inputArea").appendChild(startButton);
-	};*/
-
 	$(function() {
 		$(".sortable").sortable();
 		$(".sortable").disableSelection();
@@ -97,7 +28,7 @@
 			<a class="navbar-brand" style="font-size:22px">${survey.name}</a>
 	    </div>
 	</nav>
-	<div class="container" style="margin-top: 25px; margin-bottom: 55px;">
+	<div class="container question-container">
 		<c:forEach var="question" items="${survey.questions}">
 			<c:choose>
 				<c:when test="${question.type == 'SINGLE_CHOICE_QUESTION' }">
@@ -193,8 +124,7 @@
 						<div class="panel panel-primary">
 							<div class="panel-heading">
 								<h3 class="panel-title">
-									<span class="glyphicon glyphicon-hand-right"></span> Ranking
-									questions
+									<span class="glyphicon glyphicon-hand-right"></span> Ranking questions
 								</h3>
 							</div>
 
@@ -216,15 +146,15 @@
 				</c:when>
 			</c:choose>
 		</c:forEach>
-		<div class="row" style="margin-top: 25px; margin-bottom: 55px;">
+		<div class="row bottom-survey-buttons">
 			<div class="col-sm-2 col-sm-offset-4">
 				<button type="button" class="btn btn-success">
-					<span class="glyphicon glyphicon-ok-sign"></span> Confirmar
+					<span class="glyphicon glyphicon-ok-sign"></span> Accept
 				</button>
 			</div>
 			<div class="col-sm-4">
 				<button type="button" class="btn btn-danger">
-					<span class="glyphicon glyphicon-remove-sign"></span> Cancelar
+					<span class="glyphicon glyphicon-remove-sign"></span> Cancel
 				</button>
 			</div>
 		</div>
