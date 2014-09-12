@@ -34,7 +34,7 @@ public class GenericRepository {
   public <T> List<T> get(Class< ? > theClass, String orderBy) {
     return this.getSessionFactory().getCurrentSession().createCriteria(theClass).addOrder(Order.asc(orderBy)).list();
   }
-  
+
   @SuppressWarnings("unchecked")
   public <T> List<T> get(Class< ? > theClass) {
     return this.getSessionFactory().getCurrentSession().createCriteria(theClass).list();

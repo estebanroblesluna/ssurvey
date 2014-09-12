@@ -24,7 +24,6 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">
                         Sign In
-                        <span class="glyphicon glyphicon-ok-circle"></span> 
                     </h3>
                 </div>
                 <form id="linkedin-signin" class="form-horizontal" role="form" action="<c:url value="/signin/linkedin"/>" method="POST" >
