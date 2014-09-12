@@ -45,5 +45,9 @@
 	<bean id="questionService" class="com.ssurvey.service.QuestionService">
 		<property name="questionRepository" ref="questionRepository"></property>
 	</bean>
+	
+	<bean id="answerService" class="com.ssurvey.service.AnswerService">
+		<property name="answerRepository" ref="answerRepository"></property>
+	</bean>
 
 </beans>
