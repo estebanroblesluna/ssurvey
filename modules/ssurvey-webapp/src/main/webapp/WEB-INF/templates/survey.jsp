@@ -1,17 +1,20 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
-	<script type="text/javascript"
-		src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="css/jquery.countdown.css">
-	<script type="text/javascript" src="/static/js/CountDown/jquery.plugin.js"></script>
-	<script type="text/javascript" src="/static/js/CountDown/jquery.countdown.js"></script>
-	<script type="text/javascript" src="/static/js/jqueryUI/jquery-ui.js"></script>
-	<link rel="stylesheet" type="text/css" href="/static/css/questions.css">
-	<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="/static/css/main.css">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>${survey.name}</title>
+<script type="text/javascript"
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="css/jquery.countdown.css">
+<script type="text/javascript"
+	src="/static/js/CountDown/jquery.plugin.js"></script>
+<script type="text/javascript"
+	src="/static/js/CountDown/jquery.countdown.js"></script>
+<script type="text/javascript" src="/static/js/jqueryUI/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/css/questions.css">
+<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="/static/css/main.css">
+<script src="/static/js/bootstrap.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${survey.name}</title>
 <script type="text/javascript">
 	// two global variables
 	/*var secondsRemaining;
@@ -89,15 +92,44 @@
 </script>
 </head>
 <body>
-	<nav class="navbar navbar-blue" role="navigation">
-	    <div class="navbar-header">
-	      	<a class="navbar-brand" href="#">SSurvey</a>
-	    </div>
-	    <div class="col-md-offset-4">
-			<a class="navbar-brand" style="font-size:22px">${survey.name}</a>
-	    </div>
+	<nav class="navbar navbar-blue navbar-fixed-top" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Survey</a>
+			</div>
+
+
+			<div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#">${survey.name}</a></li>
+				</ul>
+				<div class="col-sm-4">
+				<div class="progress" style="margin-top: 15px; margin-bottom: 0px;">
+						<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="60"
+							aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+							60%</div>
+				</div>
+				</div>
+				<div class="col-sm-1" style="padding-top: 8px;">
+					<h4 class="counter" id="time">0:00</h4>
+				</div>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a>${user.firstName} ${user.lastName}</a></li>
+				</ul>
+			</div>
+		</div>
+
+		</div>
 	</nav>
-	<div class="container" style="margin-top: 25px; margin-bottom: 55px;">
+	<form method="POST">
+	<div class="container" style="margin-top: 80px;">
 		<c:forEach var="question" items="${survey.questions}">
 			<c:choose>
 				<c:when test="${question.type == 'SINGLE_CHOICE_QUESTION' }">
@@ -113,7 +145,7 @@
 									<c:forEach var="option" items="${question.options}">
 										<li class="list-group-item">
 											<div class="radio">
-												<label> <input type="radio" name="optionsRadios">
+												<label> <input type="radio" name="question_${question.id}" value="${option}">
 													${option}
 												</label>
 											</div>
@@ -138,7 +170,7 @@
 									<c:forEach var="option" items="${question.options}">
 										<li class="list-group-item">
 											<div class="checkbox">
-												<label> <input type="checkbox" value="">
+												<label> <input name="question_${question.id}" type="checkbox" value="${option}">
 													${option}
 												</label>
 											</div>
@@ -159,7 +191,7 @@
 								</h3>
 							</div>
 							<div class="panel-body">
-								<textarea class="form-control" placeholder="1024 chars max"></textarea>
+								<textarea name="question_${question.id}" class="form-control" placeholder="1024 chars max"></textarea>
 							</div>
 						</div>
 					</div>
@@ -178,8 +210,8 @@
 									end="${question.upperBound}">
 									<div class="col-md-12 list-group-item">
 										<label class="radio-inline"> <input type="radio"
-											name="inlineRadioOptions" id="inlineRadio${i}"
-											value="option${i}"> ${i}
+											name="question_${question.id}" id="inlineRadio${i}"
+											value="${i}"> ${i}
 										</label>
 									</div>
 								</c:forEach>
@@ -216,43 +248,20 @@
 				</c:when>
 			</c:choose>
 		</c:forEach>
-		<div class="row" style="margin-top: 25px; margin-bottom: 55px;">
+		<div class="row" style="margin-top: 25px; margin-bottom: 20px;">
 			<div class="col-sm-2 col-sm-offset-4">
-				<button type="button" class="btn btn-success">
-					<span class="glyphicon glyphicon-ok-sign"></span> Confirmar
+				<button type="submit" class="btn btn-success">
+					<span class="glyphicon glyphicon-ok-sign"></span> Confirm
 				</button>
 			</div>
 			<div class="col-sm-4">
 				<button type="button" class="btn btn-danger">
-					<span class="glyphicon glyphicon-remove-sign"></span> Cancelar
+					<span class="glyphicon glyphicon-remove-sign"></span> Cancel
 				</button>
 			</div>
 		</div>
 	</div>
+	</form>
 
-	<div class="footer navbar-fixed-bottom">
-
-
-		<nav class="navbar navbar-default" role="navigation"
-			style="bottom: -20px">
-			<div class="col-sm-2" style="padding-top: 8px;">
-				<h5>${user.firstName} ${user.lastName}</h5>
-			</div>
-
-			<div class="col-sm-9" style="padding-top: 15px;">
-
-
-				<div class="progress">
-					<div class="progress-bar" role="progressbar" aria-valuenow="60"
-						aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-						60%</div>
-				</div>
-			</div>
-			<div class="col-sm-1" style="padding-top: 8px;">
-				<h4 class="counter" id="time">0:00</h4>
-			</div>
-		</nav>
-
-	</div>
 </body>
 </html>
