@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ssurvey.model.Account;
@@ -34,9 +35,8 @@ public class SurveyController extends SSurveyGenericController {
     return mv;
   }
 
-  @RequestMapping("/{surveyId}")
+  @RequestMapping(value="/{surveyId}", method=RequestMethod.POST)
   public ModelAndView postAnsweredSurvey(@PathVariable(value = "surveyId") Long surveyId) {
-    this.surveyService.answerSurvey(surveyId);
     ModelAndView mv = this.createModelAndView("recommended-surveys");
     List<Survey> surveys = this.surveyService.getSurveys();
     mv.addObject("surveys", surveys);

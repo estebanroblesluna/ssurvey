@@ -31,11 +31,14 @@
 		parent="genericRepository" />
 	<bean id="questionRepository" class="com.ssurvey.repositories.QuestionRepository"
 		parent="genericRepository" />
+	<bean id="linkedInUserProfileRepository" class="com.ssurvey.repositories.LinkedInUserProfileRepository" 
+		parent="genericRepository" />
+
 
 	<!-- Services -->
 	<bean id="surveyService" class="com.ssurvey.service.SurveyService">
-		<property name="surveyRepository" ref="surveyRepository"></property>
-		<property name="questionService" ref="questionService"></property>
+		<constructor-arg ref="surveyRepository" />
+		<constructor-arg ref="questionService" />
 	</bean>
 
 	<bean id="accountService" class="com.ssurvey.service.AccountService">
@@ -45,5 +48,9 @@
 	<bean id="questionService" class="com.ssurvey.service.QuestionService">
 		<property name="questionRepository" ref="questionRepository"></property>
 	</bean>
-
+	
+	<bean id="linkedInInformationService" class="com.ssurvey.service.LinkedInInformationService">
+		<constructor-arg ref="connectionRepository" />
+		<constructor-arg ref="linkedInUserProfileRepository" />
+	</bean>
 </beans>

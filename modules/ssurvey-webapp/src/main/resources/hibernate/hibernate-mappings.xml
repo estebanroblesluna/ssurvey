@@ -69,6 +69,36 @@
 		<property name="firstName" column="first_name" />
 		<property name="lastName" column="last_name" />
 	</class>
+	
+	<class name="LinkedInCompany" table="linkedin_company">
+		<id name="id" column="company_id" access="field">
+			<generator class="assigned"></generator>
+		</id>
+		<property name="name" />
+	</class>
+	
+	<class name="LinkedInPosition" table="linkedin_position">
+		<id type="string" name="id" column="position_id" access="field">
+			<generator class="assigned"></generator>
+		</id>
+		<many-to-one name="company" class="LinkedInCompany"></many-to-one>
+		<property name="startDate" column="start_date" />
+		<property name="endDate" column="end_date" />
+	</class>
+	
+	<class name="LinkedInUserProfile" table="linkedin_profile">
+		<id type="string" name="id" column="linkedin_profile_id" access="field">
+			<generator class="assigned"></generator>
+		</id>
+		<bag name="connections" table="linkedin_connections" cascade="all">
+			<key column="linkedin_profile_id" />
+			<many-to-many class="LinkedInUserProfile" />
+		</bag>
+		<bag name="positions" table="linkedin_positions" lazy="false" cascade="all">
+			<key column="linkedin_profile_id" />
+			<one-to-many class="LinkedInPosition"/>
+		</bag>
+	</class>
 
 
 </hibernate-mapping>
