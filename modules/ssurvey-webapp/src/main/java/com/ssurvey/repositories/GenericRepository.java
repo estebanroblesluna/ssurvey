@@ -10,7 +10,7 @@ import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
-import org.jsoup.helper.Validate;
+
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -22,7 +22,6 @@ public class GenericRepository {
   }
 
   public GenericRepository(SessionFactory sessionFactory) {
-    Validate.notNull(sessionFactory);
 
     this.setSessionFactory(sessionFactory);
   }
@@ -44,7 +43,7 @@ public class GenericRepository {
   public void delete(Class< ? > theClass, Serializable id) {
     String query = "delete from :class where id = :id".replace(":class", theClass.getCanonicalName());
     Query q = this.getSessionFactory().getCurrentSession().createQuery(query);
-    q.setLong("id", id);
+    q.setParameter("id", id);
     q.executeUpdate();
   }
 
