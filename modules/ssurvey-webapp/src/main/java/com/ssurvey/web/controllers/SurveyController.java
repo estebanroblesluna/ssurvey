@@ -4,7 +4,6 @@ import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +14,7 @@ import com.ssurvey.model.Account;
 import com.ssurvey.model.AnsweredSurvey;
 import com.ssurvey.model.LinkedInUserProfile;
 import com.ssurvey.model.Survey;
+import com.ssurvey.service.AnswerService;
 import com.ssurvey.service.LinkedInInformationService;
 import com.ssurvey.service.SurveyService;
 
@@ -26,8 +26,10 @@ public class SurveyController extends SSurveyGenericController {
   private SurveyService surveyService;
   @Autowired
   private LinkedInInformationService linkedInInformationService;
+  @Autowired
+  private AnswerService answerService;
 
-  @RequestMapping("/{surveyId}")
+  @RequestMapping(value = "/{surveyId}", method = RequestMethod.GET)
   public ModelAndView renderSurvey(@PathVariable(value = "surveyId") Long surveyId) {
     ModelAndView mv = this.createModelAndView("survey");
     Survey survey = this.surveyService.getSurveyById(surveyId);
@@ -37,6 +39,7 @@ public class SurveyController extends SSurveyGenericController {
 
   @RequestMapping(value="/{surveyId}", method=RequestMethod.POST)
   public ModelAndView postAnsweredSurvey(@PathVariable(value = "surveyId") Long surveyId) {
+    this.answerService.answer(surveyId);
     ModelAndView mv = this.createModelAndView("recommended-surveys");
     List<Survey> surveys = this.surveyService.getSurveys();
     mv.addObject("surveys", surveys);
@@ -44,7 +47,7 @@ public class SurveyController extends SSurveyGenericController {
     
   }
 
-  @RequestMapping("/")
+  @RequestMapping(value = "/", method = RequestMethod.GET)
   public ModelAndView showRecommendedSurveys() {
     ModelAndView mv = this.createModelAndView("recommended-surveys");
     List<Survey> surveys = this.surveyService.getSurveys();

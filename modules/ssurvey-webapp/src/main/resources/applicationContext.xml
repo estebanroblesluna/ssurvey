@@ -48,9 +48,16 @@
 	<bean id="questionService" class="com.ssurvey.service.QuestionService">
 		<property name="questionRepository" ref="questionRepository"></property>
 	</bean>
-	
+
 	<bean id="linkedInInformationService" class="com.ssurvey.service.LinkedInInformationService">
 		<constructor-arg ref="connectionRepository" />
 		<constructor-arg ref="linkedInUserProfileRepository" />
 	</bean>
+
+	<bean id="answerService" class="com.ssurvey.service.AnswerService">
+		<constructor-arg ref="answerRepository" />
+		<constructor-arg ref="linkedInInformationService" />
+		<constructor-arg ref="surveyService" />
+	</bean>
+
 </beans>
