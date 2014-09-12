@@ -2,58 +2,85 @@
 	background-color: #428bca;
 	border-color: #387ab2;
 }
+
 .navbar-blue .navbar-brand {
 	color: #ffffff;
 }
-.navbar-blue .navbar-brand:hover, .navbar-blue .navbar-brand:focus {
+
+.navbar-blue .navbar-brand:hover,.navbar-blue .navbar-brand:focus {
 	color: #ffffff;
 }
+
 .navbar-blue .navbar-text {
 	color: #ffffff;
 }
-.navbar-blue .navbar-nav > li > a {
+
+.navbar-blue .navbar-nav>li>a {
 	color: #ffffff;
 }
-.navbar-blue .navbar-nav > li > a:hover, .navbar-blue .navbar-nav > li > a:focus {
+
+.navbar-blue .navbar-nav>li>a:hover,.navbar-blue .navbar-nav>li>a:focus
+	{
 	color: #ffffff;
 }
-.navbar-blue .navbar-nav > .active > a, .navbar-blue .navbar-nav > .active > a:hover, .navbar-blue .navbar-nav > .active > a:focus {
+
+.navbar-blue .navbar-nav>.active>a,.navbar-blue .navbar-nav>.active>a:hover,.navbar-blue .navbar-nav>.active>a:focus
+	{
 	color: #ffffff;
 	background-color: #387ab2;
 }
-.navbar-blue .navbar-nav > .open > a, .navbar-blue .navbar-nav > .open > a:hover, .navbar-blue .navbar-nav > .open > a:focus {
+
+.navbar-blue .navbar-nav>.open>a,.navbar-blue .navbar-nav>.open>a:hover,.navbar-blue .navbar-nav>.open>a:focus
+	{
 	color: #ffffff;
 	background-color: #387ab2;
 }
+
 .navbar-blue .navbar-toggle {
 	border-color: #387ab2;
 }
-.navbar-blue .navbar-toggle:hover, .navbar-blue .navbar-toggle:focus {
+
+.navbar-blue .navbar-toggle:hover,.navbar-blue .navbar-toggle:focus {
 	background-color: #387ab2;
 }
+
 .navbar-blue .navbar-toggle .icon-bar {
 	background-color: #ffffff;
 }
-.navbar-blue .navbar-collapse,
-.navbar-blue .navbar-form {
+
+.navbar-blue .navbar-collapse,.navbar-blue .navbar-form {
 	border-color: #ffffff;
 }
+
 .navbar-blue .navbar-link {
 	color: #ffffff;
 }
+
 .navbar-blue .navbar-link:hover {
 	color: #ffffff;
 }
 
-@media (max-width: 767px) {
-	.navbar-blue .navbar-nav .open .dropdown-menu > li > a {
+@media ( max-width : 767px) {
+	.navbar-blue .navbar-nav .open .dropdown-menu>li>a {
 		color: #ffffff;
 	}
-	.navbar-blue .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-blue .navbar-nav .open .dropdown-menu > li > a:focus {
+	.navbar-blue .navbar-nav .open .dropdown-menu>li>a:hover,.navbar-blue .navbar-nav .open .dropdown-menu>li>a:focus
+		{
 		color: #ffffff;
 	}
-	.navbar-blue .navbar-nav .open .dropdown-menu > .active > a, .navbar-blue .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-blue .navbar-nav .open .dropdown-menu > .active > a:focus {
+	.navbar-blue .navbar-nav .open .dropdown-menu>.active>a,.navbar-blue .navbar-nav .open .dropdown-menu>.active>a:hover,.navbar-blue .navbar-nav .open .dropdown-menu>.active>a:focus
+		{
 		color: #ffffff;
 		background-color: #387ab2;
 	}
+}
+
+.question-container {
+	margin-top: 25px;
+	margin-bottom: 55px;
+}
+
+.bottom-survey-buttons {
+	margin-top: 25px;
+	margin-bottom: 55px;
 }

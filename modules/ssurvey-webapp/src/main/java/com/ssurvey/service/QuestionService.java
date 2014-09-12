@@ -1,7 +1,5 @@
 package com.ssurvey.service;
 
-import java.util.List;
-
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ssurvey.model.Question;
@@ -21,7 +19,7 @@ public class QuestionService {
   public void setQuestionRepository(QuestionRepository questionRepository) {
     this.questionRepository = questionRepository;
   }
-  
+
   @Transactional
   public void saveQuestion(Question question) {
     this.questionRepository.saveQuestion(question);
