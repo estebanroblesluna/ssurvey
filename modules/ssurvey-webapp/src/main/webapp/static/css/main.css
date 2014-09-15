@@ -84,3 +84,9 @@
 	margin-top: 25px;
 	margin-bottom: 55px;
 }
+
+label.rank-item{
+	display: inline;
+	font-weight: normal;
+	margin-left:5px
+}

@@ -17,8 +17,20 @@
 <title>${survey.name}</title>
 <script type="text/javascript">
 	$(function() {
+		
 		$(".sortable").sortable();
 		$(".sortable").disableSelection();
+		
+		$("#surveyForm").submit(function(){
+			$(".rank-question").each(function(){
+				var items = $(".rank-item",this);
+				var itemValues = []
+				for(var i = 0;i<items.length;i++){
+					itemValues.push($(items[i]).text());
+				}
+				$(".rank-question-answer",this).val(itemValues.join("|"));
+			})
+		})
 	})
 </script>
 </head>
@@ -58,7 +70,7 @@
 		</div>
 	</nav>
 
-	<form method="POST">
+	<form method="POST" id="surveyForm">
 	<div class="container question-container">
 
 		<c:forEach var="question" items="${survey.questions}">
@@ -161,16 +173,17 @@
 							</div>
 
 							<div class="panel-body">
-								<div class="panel-body">
+								<div class="panel-body rank-question">
 									<ol class="list-group sortable">
 										<c:forEach var="option" items="${question.options}">
 											<li class="list-group-item">
-												<div class="checkbox">
-													<label> ${option} </label>
+												<div>
+													<span class="glyphicon glyphicon-move"/><label class="rank-item">${option}</label>
 												</div>
 											</li>
 										</c:forEach>
 									</ol>
+									<input type="hidden" class="rank-question-answer" name="question_${question.id}">
 								</div>
 							</div>
 						</div>
