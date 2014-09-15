@@ -1,5 +1,6 @@
 package com.ssurvey.repositories;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -9,7 +10,7 @@ import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
-import org.jsoup.helper.Validate;
+
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -21,7 +22,6 @@ public class GenericRepository {
   }
 
   public GenericRepository(SessionFactory sessionFactory) {
-    Validate.notNull(sessionFactory);
 
     this.setSessionFactory(sessionFactory);
   }
@@ -31,29 +31,29 @@ public class GenericRepository {
   }
 
   @SuppressWarnings("unchecked")
-  public <T> List<T> get(Class< ? > theClass, String orderBy) {
+  public <T> List<T> list(Class< ? > theClass, String orderBy) {
     return this.getSessionFactory().getCurrentSession().createCriteria(theClass).addOrder(Order.asc(orderBy)).list();
   }
 
   @SuppressWarnings("unchecked")
-  public <T> List<T> get(Class< ? > theClass) {
+  public <T> List<T> list(Class< ? > theClass) {
     return this.getSessionFactory().getCurrentSession().createCriteria(theClass).list();
   }
 
-  public void delete(Class< ? > theClass, long id) {
+  public void delete(Class< ? > theClass, Serializable id) {
     String query = "delete from :class where id = :id".replace(":class", theClass.getCanonicalName());
     Query q = this.getSessionFactory().getCurrentSession().createQuery(query);
-    q.setLong("id", id);
+    q.setParameter("id", id);
     q.executeUpdate();
   }
 
   @SuppressWarnings("unchecked")
-  public <T> T get(Class< ? > theClass, long id) {
+  public <T> T get(Class< ? > theClass, Serializable id) {
     return (T) this.getSessionFactory().getCurrentSession().get(theClass, id);
   }
 
   @SuppressWarnings("unchecked")
-  public <T> List<T> get(Class<T> theClass, String assocProperty, long anID) {
+  public <T> List<T> get(Class<T> theClass, String assocProperty, Serializable anID) {
     return (List<T>) this.getSessionFactory().getCurrentSession().createCriteria(theClass).createAlias(assocProperty, "a").add(Restrictions.eq("a.id", anID))
             .list();
   }

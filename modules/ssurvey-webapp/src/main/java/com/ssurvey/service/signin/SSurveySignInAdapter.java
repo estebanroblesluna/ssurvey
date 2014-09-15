@@ -25,7 +25,7 @@ public class SSurveySignInAdapter implements SignInAdapter{
 	public String signIn(java.lang.String userId, Connection<?> connection, org.springframework.web.context.request.NativeWebRequest request){
 		
 		Account account = this.accountService.getAccountById(Long.parseLong(userId));
-		User user = new SSurveyUser(account, connection.getProfileUrl());
+		User user = new SSurveyUser(account, userId);
 		SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(user,null));
 		
 		return "/surveys/";

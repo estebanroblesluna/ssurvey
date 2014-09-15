@@ -24,7 +24,7 @@ public class SurveyRepository extends GenericRepository {
   }
 
   public List<Survey> getSurveys() {
-    return this.get(Survey.class);
+    return this.list(Survey.class);
   }
 
   public Survey getSurveyById(long id) {

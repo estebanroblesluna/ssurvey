@@ -19,6 +19,8 @@ import com.ssurvey.model.Question;
 import com.ssurvey.model.Survey;
 import com.ssurvey.service.AnswerService;
 import com.ssurvey.service.QuestionService;
+
+import com.ssurvey.service.LinkedInInformationService;
 import com.ssurvey.service.SurveyService;
 
 @Controller
@@ -27,7 +29,11 @@ public class SurveyController extends SSurveyGenericController {
 
   @Autowired
   private SurveyService surveyService;
+  @Autowired
   private QuestionService questionService;
+  @Autowired
+  private LinkedInInformationService linkedInInformationService;
+  @Autowired
   private AnswerService answerService;
 
   @RequestMapping(value = "/{surveyId}", method = RequestMethod.GET)
@@ -36,6 +42,16 @@ public class SurveyController extends SSurveyGenericController {
     Survey survey = this.surveyService.getSurveyById(surveyId);
     mv.addObject("survey", survey);
     return mv;
+  }
+
+  @RequestMapping(value = "/{surveyId}", method = RequestMethod.POST)
+  public ModelAndView postAnsweredSurvey(@PathVariable(value = "surveyId") Long surveyId) {
+    this.answerService.answer(surveyId);
+    ModelAndView mv = this.createModelAndView("recommended-surveys");
+    List<Survey> surveys = this.surveyService.getSurveys();
+    mv.addObject("surveys", surveys);
+    return mv;
+
   }
 
   @RequestMapping(value = "/", method = RequestMethod.GET)
