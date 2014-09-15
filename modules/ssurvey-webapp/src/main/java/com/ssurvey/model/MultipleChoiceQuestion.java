@@ -31,8 +31,8 @@ public class MultipleChoiceQuestion extends Question {
   public String getType() {
     return QuestionType.MULTIPLE_CHOICE_QUESTION.toString();
   }
-  
-  public Answer answer(List<String> answers){
+
+  public Answer answer(List<String> answers) {
     return new MultipleChoiceAnswer(answers);
   }
 }

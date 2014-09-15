@@ -3,10 +3,10 @@ package com.ssurvey.web.controllers;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,10 +16,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ssurvey.model.Answer;
 import com.ssurvey.model.AnsweredSurvey;
 import com.ssurvey.model.Question;
+import com.ssurvey.model.QuestionType;
 import com.ssurvey.model.Survey;
 import com.ssurvey.service.AnswerService;
 import com.ssurvey.service.QuestionService;
-
 import com.ssurvey.service.LinkedInInformationService;
 import com.ssurvey.service.SurveyService;
 
@@ -63,14 +63,19 @@ public class SurveyController extends SSurveyGenericController {
   }
 
   @RequestMapping(value = "/{surveyId}", method = RequestMethod.POST)
-  public String submitAnsweredSurvey(@PathVariable(value = "surveyId") Long surveyId, @RequestParam Map<String, String> params) {
+  public String submitAnsweredSurvey(@PathVariable(value = "surveyId") Long surveyId, @RequestParam MultiValueMap<String, String> params) {
     AnsweredSurvey answeredSurvey = new AnsweredSurvey();
     answeredSurvey.setId(surveyId);
     for (String s : params.keySet()) {
-      LinkedList<String> answers = new LinkedList<String>(Arrays.asList(params.get(s).split("|")));
       Long questionId = Long.parseLong(s.split("_")[1]);
       Question question = questionService.getQuestion(questionId);
-      Answer answer = question.answer(answers);
+      Answer answer;
+      if (question.getType().equals(QuestionType.RANK_ANSWER_QUESTION.toString())) {
+        LinkedList<String> answers = new LinkedList<String>(Arrays.asList(params.get(s).get(0).split("|")));
+        answer = question.answer(answers);
+      } else {
+        answer = question.answer(params.get(s));
+      }
       answeredSurvey.addAnswer(answer);
     }
     this.answerService.saveAnsweredSurvey(answeredSurvey);

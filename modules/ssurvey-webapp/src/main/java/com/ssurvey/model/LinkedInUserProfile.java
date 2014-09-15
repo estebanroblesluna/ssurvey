@@ -1,17 +1,12 @@
 package com.ssurvey.model;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.springframework.social.linkedin.api.LinkedInProfile;
-import org.springframework.social.linkedin.api.LinkedInProfileFull;
-import org.springframework.social.linkedin.api.Position;
-import org.springframework.social.linkedin.api.Recommendation;
 
 public class LinkedInUserProfile {
 
