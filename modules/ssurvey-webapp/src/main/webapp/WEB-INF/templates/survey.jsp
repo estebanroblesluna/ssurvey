@@ -56,8 +56,6 @@
 				</ul>
 			</div>
 		</div>
-
-		</div>
 	</nav>
 
 	<form method="POST">
@@ -183,7 +181,7 @@
 
 		<div class="row bottom-survey-buttons">
 			<div class="col-sm-2 col-sm-offset-4">
-				<button type="button" class="btn btn-success">
+				<button type="submit" class="btn btn-success">
 					<span class="glyphicon glyphicon-ok-sign"></span> Accept
 				</button>
 			</div>

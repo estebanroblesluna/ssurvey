@@ -1,6 +1,6 @@
 package com.ssurvey.model;
 
-public class Answer {
+abstract public class Answer {
 
   private long id;
   @SuppressWarnings("unused")
@@ -20,4 +20,6 @@ public class Answer {
   public void setType(String type) {
     this.type = type;
   }
+
+  abstract public String getType();
 }

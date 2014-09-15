@@ -1,11 +1,18 @@
 package com.ssurvey.model;
 
+import java.util.List;
+
 public class SingleChoiceAnswer extends Answer {
 
   private String answer;
 
   public SingleChoiceAnswer() {
     this.setType(this.getType());
+  }
+
+  public SingleChoiceAnswer(List<String> answers) {
+    this.setType(this.getType());
+    this.setAnswers(answers.get(0));
   }
 
   public String getAnswer() {

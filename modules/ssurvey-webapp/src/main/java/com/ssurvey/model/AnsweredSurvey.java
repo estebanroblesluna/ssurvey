@@ -37,4 +37,8 @@ public class AnsweredSurvey {
     this.surveyId = surveyId;
   }
 
+  public void addAnswer(Answer answer) {
+    this.answers.add(answer);
+  }
+
 }

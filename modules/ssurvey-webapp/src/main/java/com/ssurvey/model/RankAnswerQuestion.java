@@ -22,4 +22,7 @@ public class RankAnswerQuestion extends Question {
     this.options = options;
   }
 
+  public Answer answer(List<String> answers) {
+    return new RankAnswerAnswer(answers);
+  }
 }

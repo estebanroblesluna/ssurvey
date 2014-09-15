@@ -25,4 +25,8 @@ public class QuestionService {
     this.questionRepository.saveQuestion(question);
   }
 
+  public Question getQuestion(Long questionId) {
+    return this.questionRepository.get(Question.class, questionId);
+  }
+
 }

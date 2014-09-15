@@ -21,4 +21,8 @@ public class SingleChoiceQuestion extends Question {
   public String getType(){
     return QuestionType.SINGLE_CHOICE_QUESTION.toString();
   }
+  
+  public Answer answer(List<String> answers){
+    return new SingleChoiceAnswer(answers);
+  }
 }

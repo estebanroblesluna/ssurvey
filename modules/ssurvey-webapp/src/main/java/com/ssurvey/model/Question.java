@@ -1,6 +1,8 @@
 package com.ssurvey.model;
 
-public class Question {
+import java.util.List;
+
+abstract public class Question {
 
   private long id;
   private String name;
@@ -29,4 +31,9 @@ public class Question {
   public void setType(String type) {
     this.type = type;
   }
+
+  abstract public String getType();
+
+  abstract public Answer answer(List<String> answers);
+
 }

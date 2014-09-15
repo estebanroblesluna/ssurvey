@@ -1,10 +1,17 @@
 package com.ssurvey.model;
 
+import java.util.List;
+
 public class OpenAnswerAnswer extends Answer {
 
   private String answer;
 
   public OpenAnswerAnswer() {
+    this.setType(this.getType());
+  }
+
+  public OpenAnswerAnswer(List<String> answers) {
+    this.setAnswer(answers.get(0));
     this.setType(this.getType());
   }
 

@@ -1,5 +1,7 @@
 package com.ssurvey.model;
 
+import java.util.List;
+
 public class NumericAnswerQuestion extends Question {
 
   private long upperBound;
@@ -27,5 +29,9 @@ public class NumericAnswerQuestion extends Question {
 
   public String getType() {
     return QuestionType.NUMERIC_ANSWER_QUESTION.toString();
+  }
+
+  public Answer answer(List<String> answers) {
+    return new NumericAnswerAnswer(answers);
   }
 }
