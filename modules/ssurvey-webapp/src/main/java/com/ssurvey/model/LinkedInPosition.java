@@ -8,7 +8,7 @@ import com.ssurvey.util.LinkedInAPIHelper;
 
 public class LinkedInPosition {
 	
-	private Long id;
+	private String id;
 	private LinkedInCompany company;
 	private Date startDate;
 	private Date endDate;
@@ -18,6 +18,7 @@ public class LinkedInPosition {
 	}
 	
 	public LinkedInPosition(Position linkedinPosition){
+	  this.id = linkedinPosition.getId();
 	  this.company = new LinkedInCompany(linkedinPosition.getCompany());
 		this.setEndDate(LinkedInAPIHelper.convertDate(linkedinPosition.getEndDate()));
 		this.setStartDate(LinkedInAPIHelper.convertDate(linkedinPosition.getStartDate()));
@@ -41,11 +42,11 @@ public class LinkedInPosition {
 
 
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

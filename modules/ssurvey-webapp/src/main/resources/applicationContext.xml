@@ -51,7 +51,7 @@
 
 	<bean id="linkedInInformationService" class="com.ssurvey.service.LinkedInInformationService">
 		<constructor-arg ref="connectionRepository" />
-		<constructor-arg ref="linkedInUserProfileRepository" />
+		<constructor-arg ref="genericRepository" />
 	</bean>
 
 	<bean id="answerService" class="com.ssurvey.service.AnswerService">

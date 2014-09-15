@@ -1,5 +1,7 @@
 package com.ssurvey.model;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.springframework.social.linkedin.api.Company;
 
 
@@ -33,6 +35,22 @@ public class LinkedInCompany {
     this.name = name;
   }
   
+  @Override
+  public boolean equals(Object obj){
+    if(! (obj instanceof LinkedInCompany)){
+      return false;
+    }
+    if(obj == this){
+      return true;
+    }
+    LinkedInCompany rhs = (LinkedInCompany) obj;
+    return new EqualsBuilder().append(this.getId(), rhs.getId()).build();
+  }
+  
+  @Override
+  public int hashCode(){
+    return new HashCodeBuilder().append(this.getId()).build();
+  }
   
   
 }

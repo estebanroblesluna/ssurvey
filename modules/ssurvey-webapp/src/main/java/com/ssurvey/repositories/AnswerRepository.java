@@ -18,11 +18,11 @@ public class AnswerRepository extends GenericRepository {
   }
 
   public void saveAnsweredSurvey(AnsweredSurvey answeredSurvey) {
-    this.save(answeredSurvey);
+    this.getSessionFactory().getCurrentSession().save(answeredSurvey);
   }
 
   public List<AnsweredSurvey> getAnsweredSurveys() {
-    return this.get(AnsweredSurvey.class);
+    return this.list(AnsweredSurvey.class);
   }
 
   public AnsweredSurvey getAnsweredSurveyById(long id) {

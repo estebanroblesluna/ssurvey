@@ -21,15 +21,7 @@ public class LinkedInUserProfile {
   private Set<LinkedInUserProfile> connections;
   
   public LinkedInUserProfile(){
-    
-  }
-
-  public LinkedInUserProfile(LinkedInProfileFull profile) {
-    this.id = profile.getId();
     this.positions = new ArrayList<LinkedInPosition>();
-    for(Position position : profile.getPositions()){
-      this.addPosition(new LinkedInPosition(position));
-    }
     this.recommenders = new HashSet<LinkedInUserProfile>();
     this.connections = new HashSet<LinkedInUserProfile>();
   }
