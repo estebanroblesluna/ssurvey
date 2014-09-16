@@ -18,7 +18,7 @@ public class AnswerRepository extends GenericRepository {
   }
 
   public void saveAnsweredSurvey(AnsweredSurvey answeredSurvey) {
-    this.getSessionFactory().getCurrentSession().save(answeredSurvey);
+    this.save(answeredSurvey);
   }
 
   public List<AnsweredSurvey> getAnsweredSurveys() {

@@ -25,6 +25,7 @@ public class QuestionService {
     this.questionRepository.saveQuestion(question);
   }
 
+  @Transactional
   public Question getQuestion(Long questionId) {
     return this.questionRepository.get(Question.class, questionId);
   }

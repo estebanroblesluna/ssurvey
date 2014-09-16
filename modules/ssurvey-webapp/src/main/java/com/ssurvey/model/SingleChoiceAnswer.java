@@ -12,14 +12,14 @@ public class SingleChoiceAnswer extends Answer {
 
   public SingleChoiceAnswer(List<String> answers) {
     this.setType(this.getType());
-    this.setAnswers(answers.get(0));
+    this.setAnswer(answers.get(0));
   }
 
   public String getAnswer() {
     return answer;
   }
 
-  public void setAnswers(String answer) {
+  public void setAnswer(String answer) {
     this.answer = answer;
   }
 

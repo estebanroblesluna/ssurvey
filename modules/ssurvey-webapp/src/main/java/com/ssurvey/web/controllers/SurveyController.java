@@ -44,16 +44,6 @@ public class SurveyController extends SSurveyGenericController {
     return mv;
   }
 
-  @RequestMapping(value = "/{surveyId}", method = RequestMethod.POST)
-  public ModelAndView postAnsweredSurvey(@PathVariable(value = "surveyId") Long surveyId) {
-    this.answerService.answer(surveyId);
-    ModelAndView mv = this.createModelAndView("recommended-surveys");
-    List<Survey> surveys = this.surveyService.getSurveys();
-    mv.addObject("surveys", surveys);
-    return mv;
-
-  }
-
   @RequestMapping(value = "/", method = RequestMethod.GET)
   public ModelAndView showRecommendedSurveys() {
     ModelAndView mv = this.createModelAndView("recommended-surveys");
@@ -65,13 +55,13 @@ public class SurveyController extends SSurveyGenericController {
   @RequestMapping(value = "/{surveyId}", method = RequestMethod.POST)
   public String submitAnsweredSurvey(@PathVariable(value = "surveyId") Long surveyId, @RequestParam MultiValueMap<String, String> params) {
     AnsweredSurvey answeredSurvey = new AnsweredSurvey();
-    answeredSurvey.setId(surveyId);
+    answeredSurvey.setSurveyId(surveyId);
     for (String s : params.keySet()) {
       Long questionId = Long.parseLong(s.split("_")[1]);
       Question question = questionService.getQuestion(questionId);
       Answer answer;
       if (question.getType().equals(QuestionType.RANK_ANSWER_QUESTION.toString())) {
-        LinkedList<String> answers = new LinkedList<String>(Arrays.asList(params.get(s).get(0).split("|")));
+        LinkedList<String> answers = new LinkedList<String>(Arrays.asList(params.get(s).get(0).split("[|]")));
         answer = question.answer(answers);
       } else {
         answer = question.answer(params.get(s));

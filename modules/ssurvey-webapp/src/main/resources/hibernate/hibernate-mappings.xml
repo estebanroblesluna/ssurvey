@@ -33,7 +33,8 @@
 		<joined-subclass name="MultipleChoiceQuestion" table="multiple_choice_question">
 			<key column="question_id" />
 			<property name="upperBound" column="upper_bound" />
-			<bag name="options" table="multiple_choice_question_options" lazy="false"> 
+			<bag name="options" table="multiple_choice_question_options"
+				lazy="false">
 				<key column="question_id" />
 				<element type="string" column="name" />
 			</bag>
@@ -69,43 +70,88 @@
 		<property name="firstName" column="first_name" />
 		<property name="lastName" column="last_name" />
 	</class>
-	
+
 	<class name="LinkedInCompany" table="linkedin_company">
 		<id name="id" column="company_id" access="field">
 			<generator class="assigned"></generator>
 		</id>
 		<property name="name" />
 	</class>
-	
+
 	<class name="LinkedInPosition" table="linkedin_position">
 		<id type="string" name="id" column="position_id" access="field">
 			<generator class="assigned"></generator>
 		</id>
-		<many-to-one name="company" class="LinkedInCompany"/>
+		<many-to-one name="company" class="LinkedInCompany" />
 		<property name="startDate" column="start_date" />
 		<property name="endDate" column="end_date" />
 	</class>
-	
+
 	<class name="LinkedInUserProfile" table="linkedin_profile">
 		<id type="string" name="id" column="linkedin_profile_id" access="field">
 			<generator class="assigned"></generator>
 		</id>
-		<set name="connections"  table="linkedin_connections">
+		<set name="connections" table="linkedin_connections">
 			<key column="linkedin_profile_id" />
-			<many-to-many class="LinkedInUserProfile" column="connection_id"/>
+			<many-to-many class="LinkedInUserProfile" column="connection_id" />
 		</set>
 		<bag name="positions" table="linkedin_positions" lazy="false">
 			<key column="linkedin_profile_id" />
-			<one-to-many class="LinkedInPosition"/>
+			<one-to-many class="LinkedInPosition" />
 		</bag>
 	</class>
-	
+
 	<class name="AnsweredSurvey" table="answered_survey">
 		<id type="long" name="id" access="field">
 			<generator class="native" />
 		</id>
 		<property name="surveyId" column="survey_id" />
-		<one-to-one name="linkedInUserProfile" class="LinkedInUserProfile" cascade="all"/>
+		<one-to-one name="linkedInUserProfile" class="LinkedInUserProfile"
+			cascade="all" />
+		<bag name="answers" cascade="all" lazy="false">
+			<key column="id" />
+			<one-to-many class="Answer" />
+		</bag>
+	</class>
+
+
+	<class name="Answer" table="answer">
+		<id name="id" type="long" column="answer_id">
+			<generator class="native" />
+		</id>
+
+		<joined-subclass name="SingleChoiceAnswer" table="single_choice_answer">
+			<key column="answer_id" />
+			<property type="string" name="answer" column="answer" />
+		</joined-subclass>
+
+		<joined-subclass name="MultipleChoiceAnswer" table="multiple_choice_answer">
+			<key column="answer_id" />
+			<bag name="answers" table="multiple_choice_answer_answers" lazy="false">
+				<key column="answer_id" />
+				<element type="string" column="name" />
+			</bag>
+		</joined-subclass>
+
+		<joined-subclass name="NumericAnswerAnswer" table="numeric_answer_answer">
+			<key column="answer_id" />
+			<property name="answer" type="int" column="answer" />
+		</joined-subclass>
+
+		<joined-subclass name="RankAnswerAnswer" table="rank_answer_answer">
+			<key column="answer_id" />
+			<bag name="answers" table="rank_answer_answer_answers" lazy="false">
+				<key column="answer_id" />
+				<element type="string" column="name" />
+			</bag>
+		</joined-subclass>
+
+		<joined-subclass name="OpenAnswerAnswer" table="open_answer_answer">
+			<key column="answer_id" />
+			<property type="string" name="answer" column="answer" />
+		</joined-subclass>
+
+
 	</class>
 
 
