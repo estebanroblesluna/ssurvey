@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ssurvey.model.Account;
 import com.ssurvey.model.Answer;
 import com.ssurvey.model.AnsweredSurvey;
 import com.ssurvey.model.Question;
@@ -38,10 +39,15 @@ public class SurveyController extends SSurveyGenericController {
 
   @RequestMapping(value = "/{surveyId}", method = RequestMethod.GET)
   public ModelAndView renderSurvey(@PathVariable(value = "surveyId") Long surveyId) {
-    ModelAndView mv = this.createModelAndView("survey");
-    Survey survey = this.surveyService.getSurveyById(surveyId);
-    mv.addObject("survey", survey);
-    return mv;
+    if (this.answerService.userHasAnsweredSurvey(this.getAccount().getId(), surveyId)) {
+      ModelAndView mv = new ModelAndView("error");
+      return mv;
+    } else {
+      ModelAndView mv = this.createModelAndView("survey");
+      Survey survey = this.surveyService.getSurveyById(surveyId);
+      mv.addObject("survey", survey);
+      return mv;
+    }
   }
 
   @RequestMapping(value = "/", method = RequestMethod.GET)
