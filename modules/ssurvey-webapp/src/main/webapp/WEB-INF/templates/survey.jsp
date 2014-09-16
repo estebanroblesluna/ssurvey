@@ -168,7 +168,7 @@
 						<div class="panel panel-primary">
 							<div class="panel-heading">
 								<h3 class="panel-title">
-									<span class="glyphicon glyphicon-hand-right"></span> Ranking questions
+									<span class="glyphicon glyphicon-hand-right"></span> ${question.name}
 								</h3>
 							</div>
 
