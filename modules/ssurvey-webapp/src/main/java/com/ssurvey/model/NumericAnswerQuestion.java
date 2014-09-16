@@ -32,6 +32,6 @@ public class NumericAnswerQuestion extends Question {
   }
 
   public Answer answer(List<String> answers) {
-    return new NumericAnswerAnswer(answers);
+    return new NumericAnswerAnswer(this,answers);
   }
 }

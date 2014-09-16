@@ -54,21 +54,7 @@ public class SurveyController extends SSurveyGenericController {
 
   @RequestMapping(value = "/{surveyId}", method = RequestMethod.POST)
   public String submitAnsweredSurvey(@PathVariable(value = "surveyId") Long surveyId, @RequestParam MultiValueMap<String, String> params) {
-    AnsweredSurvey answeredSurvey = new AnsweredSurvey();
-    answeredSurvey.setSurveyId(surveyId);
-    for (String s : params.keySet()) {
-      Long questionId = Long.parseLong(s.split("_")[1]);
-      Question question = questionService.getQuestion(questionId);
-      Answer answer;
-      if (question.getType().equals(QuestionType.RANK_ANSWER_QUESTION.toString())) {
-        LinkedList<String> answers = new LinkedList<String>(Arrays.asList(params.get(s).get(0).split("[|]")));
-        answer = question.answer(answers);
-      } else {
-        answer = question.answer(params.get(s));
-      }
-      answeredSurvey.addAnswer(answer);
-    }
-    this.answerService.saveAnsweredSurvey(answeredSurvey);
+    this.answerService.answer(surveyId, params);;
     return "redirect:/surveys/";
   }
 }

@@ -10,7 +10,8 @@ public class OpenAnswerAnswer extends Answer {
     this.setType(this.getType());
   }
 
-  public OpenAnswerAnswer(List<String> answers) {
+  public OpenAnswerAnswer(Question question, List<String> answers) {
+    super(question);
     this.setAnswer(answers.get(0));
     this.setType(this.getType());
   }

@@ -3,11 +3,17 @@ package com.ssurvey.model;
 abstract public class Answer {
 
   private long id;
+  private Question question;
   @SuppressWarnings("unused")
   private String type;
 
   public Answer() {
   }
+
+  public Answer(Question question) {
+    this.setQuestion(question);
+  }
+
 
   public long getId() {
     return id;
@@ -22,4 +28,12 @@ abstract public class Answer {
   }
 
   abstract public String getType();
+
+  public Question getQuestion() {
+    return question;
+  }
+
+  public void setQuestion(Question question) {
+    this.question = question;
+  }
 }

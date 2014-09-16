@@ -10,7 +10,8 @@ public class NumericAnswerAnswer extends Answer {
     this.setType(this.getType());
   }
 
-  public NumericAnswerAnswer(List<String> answers) {
+  public NumericAnswerAnswer(Question question, List<String> answers) {
+    super(question);
     this.setType(this.getType());
     this.answer = Integer.parseInt(answers.get(0));
   }

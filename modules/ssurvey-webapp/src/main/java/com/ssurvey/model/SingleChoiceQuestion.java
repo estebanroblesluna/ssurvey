@@ -23,6 +23,6 @@ public class SingleChoiceQuestion extends Question {
   }
 
   public Answer answer(List<String> answers) {
-    return new SingleChoiceAnswer(answers);
+    return new SingleChoiceAnswer(this,answers);
   }
 }
