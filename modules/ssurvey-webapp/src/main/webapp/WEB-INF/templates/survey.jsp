@@ -55,7 +55,7 @@
 				</ul>
 				<div class="col-sm-4">
 				<div class="progress" style="margin-top: 15px; margin-bottom: 0px;">
-						<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="60"
+						<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60"
 							aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
 							60%</div>
 				</div>
