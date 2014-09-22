@@ -16,4 +16,4 @@ function apply {
 }
 
 apply mock-data.sql
-
+apply example-data.sql

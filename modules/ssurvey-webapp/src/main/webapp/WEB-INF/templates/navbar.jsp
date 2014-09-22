@@ -3,6 +3,10 @@
       	<a class="navbar-brand" href="#">SSurvey</a>
     </div>
     <div>
-    	<a class="navbar-brand pull-right" href="#"><small>Logged as ${user.firstName} ${user.lastName}</small></a>
+    	<sec:authorize access="isAuthenticated()">
+            <a class="navbar-brand pull-right" href="/j_spring_security_logout"><small>Log out</a>
+       		<a class="navbar-brand pull-right" href="#"><small>Logged as ${user.firstName} ${user.lastName}</small></a>
+        </sec:authorize>
+    	
     </div>
 </nav>
