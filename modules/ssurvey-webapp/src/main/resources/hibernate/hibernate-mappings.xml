@@ -75,7 +75,8 @@
 		<id name="id" column="company_id" access="field">
 			<generator class="assigned"></generator>
 		</id>
-		<property name="name" />
+		<property name="name" />		
+		<property name="url" column="url" />
 	</class>
 
 	<class name="LinkedInPosition" table="linkedin_position">
