@@ -9,14 +9,16 @@ public class LinkedInCompany {
   
   private int id;
   private String name;
+  private String url;
   
   public LinkedInCompany(){
     
   }
   
   public LinkedInCompany(Company company){
-    this.id = company.getId();
+    this.setId(company.getId());
     this.setName(company.getName());
+    this.setUrl(company.getWebsiteUrl());
   }
 
   public int getId() {
@@ -50,6 +52,14 @@ public class LinkedInCompany {
   @Override
   public int hashCode(){
     return new HashCodeBuilder().append(this.getId()).build();
+  }
+
+  public String getUrl() {
+    return url;
+  }
+
+  public void setUrl(String url) {
+    this.url = url;
   }
   
   
