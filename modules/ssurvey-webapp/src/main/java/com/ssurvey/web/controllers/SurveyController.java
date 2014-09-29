@@ -60,7 +60,7 @@ public class SurveyController extends SSurveyGenericController {
 
   @RequestMapping(value = "/{surveyId}", method = RequestMethod.POST)
   public String submitAnsweredSurvey(@PathVariable(value = "surveyId") Long surveyId, @RequestParam MultiValueMap<String, String> params) {
-    this.answerService.answer(surveyId, params);;
+    this.answerService.answer(surveyId, params);
     return "redirect:/surveys/";
   }
 }

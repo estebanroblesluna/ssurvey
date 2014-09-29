@@ -10,5 +10,6 @@ body { margin-bottom: 20px; margin-top:20px; }
 .ss-question-open textarea { border-radius: 0px; min-height: 120px; } 
 textarea { resize: none; }
 .ss-question-multiple .list-group-item { border-radius: 0px; }
+.ss-question-multiple .form-control { max-width: 80px; }
 
 .counter {color: white !important; }

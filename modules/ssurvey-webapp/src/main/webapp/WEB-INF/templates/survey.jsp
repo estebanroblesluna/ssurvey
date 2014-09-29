@@ -55,7 +55,7 @@
 				</ul>
 				<div class="col-sm-4">
 				<div class="progress" style="margin-top: 15px; margin-bottom: 0px;">
-						<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="60"
+						<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60"
 							aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
 							60%</div>
 				</div>
@@ -149,15 +149,15 @@
 								</h3>
 							</div>
 							<div class="panel-body">
-								<c:forEach var="i" begin="${question.lowerBound}"
-									end="${question.upperBound}">
-									<div class="col-md-12 list-group-item">
-										<label class="radio-inline"> <input required="required" type="radio"
+								<div class="col-md-12 list-group-item">
+									<select class="form-control">
+										<c:forEach var="i" begin="${question.lowerBound}" end="${question.upperBound}">
+											<option required="required" type="radio"
 											name="question_${question.id}" id="inlineRadio${i}"
-											value="${i}"> ${i}
-										</label>
-									</div>
-								</c:forEach>
+											value="${i}">${i}</option>
+										</c:forEach>
+									</select>
+								</div>
 							</div>
 
 						</div>
@@ -168,7 +168,7 @@
 						<div class="panel panel-primary">
 							<div class="panel-heading">
 								<h3 class="panel-title">
-									<span class="glyphicon glyphicon-hand-right"></span> Ranking questions
+									<span class="glyphicon glyphicon-hand-right"></span> ${question.name}
 								</h3>
 							</div>
 
