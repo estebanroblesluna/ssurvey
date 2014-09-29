@@ -58,6 +58,7 @@
 		<constructor-arg ref="answerRepository" />
 		<constructor-arg ref="linkedInInformationService" />
 		<constructor-arg ref="surveyService" />
+		<constructor-arg ref="questionService" />
 	</bean>
 
 </beans>

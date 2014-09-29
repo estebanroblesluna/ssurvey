@@ -10,7 +10,8 @@ public class SingleChoiceAnswer extends Answer {
     this.setType(this.getType());
   }
 
-  public SingleChoiceAnswer(List<String> answers) {
+  public SingleChoiceAnswer(Question question, List<String> answers) {
+    super(question);
     this.setType(this.getType());
     this.setAnswer(answers.get(0));
   }

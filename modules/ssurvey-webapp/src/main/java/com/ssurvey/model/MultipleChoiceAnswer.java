@@ -10,7 +10,8 @@ public class MultipleChoiceAnswer extends Answer {
     this.setType(this.getType());
   }
 
-  public MultipleChoiceAnswer(List<String> answers) {
+  public MultipleChoiceAnswer(Question question, List<String> answers) {
+    super(question);
     this.setType(this.getType());
     this.setAnswers(answers);
   }

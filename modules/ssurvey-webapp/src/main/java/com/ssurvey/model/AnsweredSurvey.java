@@ -6,7 +6,7 @@ import java.util.List;
 public class AnsweredSurvey {
 
   private long id;
-  private long surveyId;
+  private Survey survey;
   private LinkedInUserProfile linkedInUserProfile;
   private List<Answer> answers;
 
@@ -30,14 +30,6 @@ public class AnsweredSurvey {
     this.answers = answers;
   }
 
-  public long getSurveyId() {
-    return surveyId;
-  }
-
-  public void setSurveyId(long surveyId) {
-    this.surveyId = surveyId;
-  }
-
   public void addAnswer(Answer answer) {
     this.answers.add(answer);
   }
@@ -48,5 +40,13 @@ public class AnsweredSurvey {
 
   public void setLinkedInUserProfile(LinkedInUserProfile linkedInUserProfile) {
     this.linkedInUserProfile = linkedInUserProfile;
+  }
+
+  public Survey getSurvey() {
+    return survey;
+  }
+
+  public void setSurvey(Survey survey) {
+    this.survey = survey;
   }
 }

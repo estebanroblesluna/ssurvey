@@ -1,5 +1,7 @@
 package com.ssurvey.model;
 
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 public class RankAnswerAnswer extends Answer {
@@ -10,7 +12,9 @@ public class RankAnswerAnswer extends Answer {
     this.setType(this.getType());
   }
 
-  public RankAnswerAnswer(List<String> answers) {
+  public RankAnswerAnswer(Question question, List<String> answers) {
+    super(question);
+    answers = new LinkedList<String>(Arrays.asList(answers.get(0).split("[|]")));
     this.setType(this.getType());
     this.setAnswers(answers);
   }

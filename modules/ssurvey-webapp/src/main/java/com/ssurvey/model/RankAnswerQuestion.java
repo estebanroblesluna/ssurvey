@@ -23,6 +23,6 @@ public class RankAnswerQuestion extends Question {
   }
 
   public Answer answer(List<String> answers) {
-    return new RankAnswerAnswer(answers);
+    return new RankAnswerAnswer(this,answers);
   }
 }

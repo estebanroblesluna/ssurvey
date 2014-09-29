@@ -88,7 +88,7 @@
 									<c:forEach var="option" items="${question.options}">
 										<li class="list-group-item">
 											<div class="radio">
-												<label> <input type="radio" name="question_${question.id}" value="${option}">
+												<label> <input type="radio" required="required" name="question_${question.id}" value="${option}">
 													${option}
 												</label>
 											</div>
@@ -134,7 +134,7 @@
 								</h3>
 							</div>
 							<div class="panel-body">
-								<textarea name="question_${question.id}" class="form-control" placeholder="1024 chars max"></textarea>
+								<textarea required="required" name="question_${question.id}" class="form-control" placeholder="1024 chars max"></textarea>
 							</div>
 						</div>
 					</div>
@@ -152,7 +152,7 @@
 								<c:forEach var="i" begin="${question.lowerBound}"
 									end="${question.upperBound}">
 									<div class="col-md-12 list-group-item">
-										<label class="radio-inline"> <input type="radio"
+										<label class="radio-inline"> <input required="required" type="radio"
 											name="question_${question.id}" id="inlineRadio${i}"
 											value="${i}"> ${i}
 										</label>
@@ -174,11 +174,12 @@
 
 							<div class="panel-body">
 								<div class="panel-body rank-question">
+									
 									<ol class="list-group sortable">
 										<c:forEach var="option" items="${question.options}">
 											<li class="list-group-item">
 												<div>
-													<span class="glyphicon glyphicon-move"/><label class="rank-item">${option}</label>
+													<span class="glyphicon glyphicon-move"></span><label class="rank-item">${option}</label>
 												</div>
 											</li>
 										</c:forEach>

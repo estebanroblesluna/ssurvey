@@ -33,6 +33,6 @@ public class MultipleChoiceQuestion extends Question {
   }
 
   public Answer answer(List<String> answers) {
-    return new MultipleChoiceAnswer(answers);
+    return new MultipleChoiceAnswer(this,answers);
   }
 }

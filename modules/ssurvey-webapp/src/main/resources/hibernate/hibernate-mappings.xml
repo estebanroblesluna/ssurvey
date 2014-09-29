@@ -105,7 +105,7 @@
 		<id type="long" name="id" access="field">
 			<generator class="native" />
 		</id>
-		<property name="surveyId" column="survey_id" />
+		<many-to-one name="survey" class="Survey" />
 		<one-to-one name="linkedInUserProfile" class="LinkedInUserProfile"
 			cascade="all" />
 		<bag name="answers" cascade="all" lazy="false">
@@ -119,6 +119,7 @@
 		<id name="id" type="long" column="answer_id">
 			<generator class="native" />
 		</id>
+		<many-to-one name="question" class="Question" />
 
 		<joined-subclass name="SingleChoiceAnswer" table="single_choice_answer">
 			<key column="answer_id" />
@@ -140,10 +141,11 @@
 
 		<joined-subclass name="RankAnswerAnswer" table="rank_answer_answer">
 			<key column="answer_id" />
-			<bag name="answers" table="rank_answer_answer_answers" lazy="false">
+			<list name="answers" table="rank_answer_answer_answers"  lazy="false">
 				<key column="answer_id" />
+				<list-index column="ord" />
 				<element type="string" column="name" />
-			</bag>
+			</list>
 		</joined-subclass>
 
 		<joined-subclass name="OpenAnswerAnswer" table="open_answer_answer">

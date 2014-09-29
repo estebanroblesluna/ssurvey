@@ -23,6 +23,6 @@ public class OpenAnswerQuestion extends Question {
   }
 
   public Answer answer(List<String> answers) {
-    return new OpenAnswerAnswer(answers);
+    return new OpenAnswerAnswer(this,answers);
   }
 }

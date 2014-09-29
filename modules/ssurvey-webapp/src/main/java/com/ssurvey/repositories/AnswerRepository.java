@@ -29,7 +29,7 @@ public class AnswerRepository extends GenericRepository {
     return this.get(AnsweredSurvey.class, id);
   }
 
-  public AnsweredSurvey getAnsweredSurveyBySurveyId(long id) {
-    return this.get(AnsweredSurvey.class, "survey", id).get(0);
+  public List<AnsweredSurvey> getAnsweredSurveysBySurveyId(long id) {
+    return this.get(AnsweredSurvey.class, "survey", id);
   }
 }
