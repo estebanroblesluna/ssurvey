@@ -1,7 +1,5 @@
 package com.ssurvey.web.controllers;
 
-import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ssurvey.model.Answer;
-import com.ssurvey.model.AnsweredSurvey;
-import com.ssurvey.model.Question;
-import com.ssurvey.model.QuestionType;
 import com.ssurvey.model.Survey;
 import com.ssurvey.service.AnswerService;
 import com.ssurvey.service.QuestionService;
