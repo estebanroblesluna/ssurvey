@@ -37,8 +37,8 @@ public class AnswerService {
   }
 
   @Transactional
-  public void answer(long surveyId, MultiValueMap<String, String> params) {
-    Survey survey = this.surveyService.getSurveyById(surveyId);
+  public void answer(long permalink, MultiValueMap<String, String> params) {
+    Survey survey = this.surveyService.getSurveyByPermalink(permalink);
     LinkedInUserProfile linkedInProfile = this.linkedInInformationService.getRespondentInformation();
     AnsweredSurvey answeredSurvey = new AnsweredSurvey();
     answeredSurvey.setSurvey(survey);

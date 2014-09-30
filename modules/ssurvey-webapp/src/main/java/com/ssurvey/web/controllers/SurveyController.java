@@ -30,10 +30,10 @@ public class SurveyController extends SSurveyGenericController {
   @Autowired
   private AnswerService answerService;
 
-  @RequestMapping(value = "/{surveyId}", method = RequestMethod.GET)
-  public ModelAndView renderSurvey(@PathVariable(value = "surveyId") Long surveyId) {
+  @RequestMapping(value = "/{permalink}", method = RequestMethod.GET)
+  public ModelAndView renderSurvey(@PathVariable(value = "permalink") Long permalink) {
     ModelAndView mv = this.createModelAndView("survey");
-    Survey survey = this.surveyService.getSurveyById(surveyId);
+    Survey survey = this.surveyService.getSurveyByPermalink(permalink);
     mv.addObject("survey", survey);
     return mv;
   }
@@ -46,9 +46,9 @@ public class SurveyController extends SSurveyGenericController {
     return mv;
   }
 
-  @RequestMapping(value = "/{surveyId}", method = RequestMethod.POST)
-  public String submitAnsweredSurvey(@PathVariable(value = "surveyId") Long surveyId, @RequestParam MultiValueMap<String, String> params) {
-    this.answerService.answer(surveyId, params);
+  @RequestMapping(value = "/{permalink}", method = RequestMethod.POST)
+  public String submitAnsweredSurvey(@PathVariable(value = "permalink") Long permalink, @RequestParam MultiValueMap<String, String> params) {
+    this.answerService.answer(permalink, params);
     return "redirect:/surveys/";
   }
 }
