@@ -8,10 +8,10 @@
         <link rel="stylesheet" type="text/css" href="../static/css/bootstrap-social.css" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
     </head>
-    <body>
-		<div class="jumbotron">
+    <body class="jumbotron">
+		<div>
 			<div class="container">
-				<h3>You can only answer the survey once.</h3>
+				<h3>${errorMessage}</h3>
 			</div>
 		</div>
     </body>

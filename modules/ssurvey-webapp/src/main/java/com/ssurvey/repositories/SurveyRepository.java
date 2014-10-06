@@ -1,5 +1,6 @@
 package com.ssurvey.repositories;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
@@ -32,7 +33,14 @@ public class SurveyRepository extends GenericRepository {
     return this.get(Survey.class, id);
   }
 
+  @SuppressWarnings("unchecked")
   public Survey getSurveyByPermalink(long permalink) {
-    return (Survey) this.getSessionFactory().getCurrentSession().createCriteria(Survey.class).add(Restrictions.eq("permalink", permalink)).list().get(0);
+    ArrayList<Survey> surveys = (ArrayList<Survey>) this.getSessionFactory().getCurrentSession().createCriteria(Survey.class)
+            .add(Restrictions.eq("permalink", permalink)).list();
+    if (!surveys.isEmpty()) {
+      return surveys.get(0);
+    } else {
+      return null;
+    }
   }
 }

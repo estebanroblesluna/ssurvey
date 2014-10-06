@@ -18,7 +18,6 @@ import com.ssurvey.service.AnswerService;
 import com.ssurvey.service.QuestionService;
 import com.ssurvey.service.LinkedInInformationService;
 import com.ssurvey.service.SurveyService;
-import com.ssurvey.service.signin.SSurveyUser;
 
 @Controller
 @RequestMapping("/surveys/")
@@ -35,29 +34,44 @@ public class SurveyController extends SSurveyGenericController {
 
   @RequestMapping(value = "/{permalink}", method = RequestMethod.GET)
   public ModelAndView renderSurvey(@PathVariable(value = "permalink") Long permalink) {
-    Account account = ((SSurveyUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAccount();
     Survey survey = this.surveyService.getSurveyByPermalink(permalink);
-    if (this.answerService.userHasAnsweredSurvey(account.getId(), survey.getId())) {
-      ModelAndView mv = this.createModelAndView("error");
+    if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() == "anonymousUser") {
+      ModelAndView mv = new ModelAndView("redirect:/");
       return mv;
     } else {
-      ModelAndView mv = this.createModelAndView("survey");
-      mv.addObject("survey", survey);
-      return mv;
+      Account account = this.getLoggedUser();
+      if (this.answerService.userHasAnsweredSurvey(account.getId(), survey.getId())) {
+        ModelAndView mv = this.createModelAndView("error");
+        mv.addObject("errorMessage", "You can only answer the survey once.");
+        return mv;
+      } else {
+        ModelAndView mv = this.createModelAndView("survey");
+        mv.addObject("survey", survey);
+        return mv;
+      }
     }
   }
 
   @RequestMapping(value = "/", method = RequestMethod.GET)
   public ModelAndView showRecommendedSurveys() {
-    ModelAndView mv = this.createModelAndView("recommended-surveys");
-    List<Survey> surveys = this.surveyService.getSurveys();
-    mv.addObject("surveys", surveys);
-    return mv;
+    if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() == "anonymousUser") {
+      ModelAndView mv = new ModelAndView("redirect:/");
+      return mv;
+    } else {
+      ModelAndView mv = this.createModelAndView("recommended-surveys");
+      List<Survey> surveys = this.surveyService.getSurveys();
+      mv.addObject("surveys", surveys);
+      return mv;
+    }
   }
 
   @RequestMapping(value = "/{permalink}", method = RequestMethod.POST)
   public String submitAnsweredSurvey(@PathVariable(value = "permalink") Long permalink, @RequestParam MultiValueMap<String, String> params) {
-    this.answerService.answer(permalink, params);
-    return "redirect:/surveys/";
+    if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() == "anonymousUser") {
+      return "redirect:/";
+    } else {
+      this.answerService.answer(this.getLoggedUser().getId(), permalink, params);
+      return "redirect:/surveys/";
+    }
   }
 }
