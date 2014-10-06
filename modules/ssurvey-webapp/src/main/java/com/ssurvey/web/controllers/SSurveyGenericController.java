@@ -8,10 +8,14 @@ import com.ssurvey.service.signin.SSurveyUser;
 
 public abstract class SSurveyGenericController {
 	
+  public Account getLoggedUser(){
+    return ((SSurveyUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAccount();
+  }
+  
 	public ModelAndView createModelAndView(String template){
 		ModelAndView mv = new ModelAndView(template);
-		Account account = ((SSurveyUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAccount();
-		mv.addObject("user", account);
+		
+		mv.addObject("user", this.getLoggedUser());
 		return mv;
 	}
 	

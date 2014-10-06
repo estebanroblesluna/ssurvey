@@ -1,9 +1,8 @@
-package com.ssurvey.repository;
+package com.ssurvey.repositories;
 
 import org.springframework.stereotype.Repository;
 
 import com.ssurvey.model.LinkedInCompany;
-import com.ssurvey.repositories.GenericRepository;
 
 @Repository
 public class LinkedInCompanyRepository extends GenericRepository{

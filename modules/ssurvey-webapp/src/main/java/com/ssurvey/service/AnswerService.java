@@ -6,6 +6,7 @@ import org.springframework.util.MultiValueMap;
 
 import com.ssurvey.model.Answer;
 import com.ssurvey.model.AnsweredSurvey;
+import com.ssurvey.model.GetRespondentInformationTicket;
 import com.ssurvey.model.LinkedInUserProfile;
 import com.ssurvey.model.Question;
 import com.ssurvey.model.Survey;
@@ -17,18 +18,21 @@ public class AnswerService {
   private LinkedInInformationService linkedInInformationService;
   private SurveyService surveyService;
   private QuestionService questionService;
+  private TicketService ticketService;
 
   public AnswerService(AnswerRepository answerRepository, LinkedInInformationService linkedInInformationService, SurveyService surveyService,
-          QuestionService questionService) {
+          QuestionService questionService, TicketService ticketService) {
     Validate.notNull(answerRepository);
     Validate.notNull(linkedInInformationService);
     Validate.notNull(surveyService);
     Validate.notNull(questionService);
+    Validate.notNull(ticketService);
 
     this.answerRepository = answerRepository;
     this.linkedInInformationService = linkedInInformationService;
     this.surveyService = surveyService;
     this.questionService = questionService;
+    this.ticketService = ticketService;
   }
 
   @Transactional
@@ -37,12 +41,11 @@ public class AnswerService {
   }
 
   @Transactional
-  public void answer(long permalink, MultiValueMap<String, String> params) {
-    Survey survey = this.surveyService.getSurveyByPermalink(permalink);
-    LinkedInUserProfile linkedInProfile = this.linkedInInformationService.getRespondentInformation();
+  public void answer(long userId, Long surveyId, MultiValueMap<String, String> params){
+    Survey survey = this.surveyService.getSurveyByPermalink(surveyId);
     AnsweredSurvey answeredSurvey = new AnsweredSurvey();
     answeredSurvey.setSurvey(survey);
-    answeredSurvey.setLinkedInUserProfile(linkedInProfile);
+
     for (String s : params.keySet()) {
       Long questionId = Long.parseLong(s.split("_")[1]);
       Question question = questionService.getQuestion(questionId);
@@ -51,6 +54,7 @@ public class AnswerService {
     }
 
     this.saveAnsweredSurvey(answeredSurvey);
+    this.ticketService.saveTicket(new GetRespondentInformationTicket(answeredSurvey,userId));
   }
 
 }
