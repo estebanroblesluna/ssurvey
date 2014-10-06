@@ -1,7 +1,6 @@
 package com.ssurvey.service;
 
 import java.util.List;
-
 import org.jsoup.helper.Validate;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.MultiValueMap;
@@ -44,8 +43,8 @@ public class AnswerService {
   }
 
   @Transactional
-  public void answer(long surveyId, MultiValueMap<String, String> params) {
-    Survey survey = this.surveyService.getSurveyById(surveyId);
+  public void answer(long permalink, MultiValueMap<String, String> params) {
+    Survey survey = this.surveyService.getSurveyByPermalink(permalink);
     LinkedInUserProfile linkedInProfile = this.linkedInInformationService.getRespondentInformation();
     AnsweredSurvey answeredSurvey = new AnsweredSurvey();
     answeredSurvey.setSurvey(survey);
@@ -59,9 +58,10 @@ public class AnswerService {
     this.saveAnsweredSurvey(answeredSurvey);
   }
 
-  public boolean userHasAnsweredSurvey(long linkedInUserId, long surveyId) {
+  @Transactional
+  public boolean userHasAnsweredSurvey(long accountId, long surveyId) {
     for (AnsweredSurvey answeredSurvey : this.getAnsweredSurveysBySurveyId(surveyId)) {
-      if (answeredSurvey.getLinkedInUserProfile().getId().equals(Long.toString(linkedInUserId))) {
+      if (answeredSurvey.getAccountId() == accountId) {
         return true;
       }
     }

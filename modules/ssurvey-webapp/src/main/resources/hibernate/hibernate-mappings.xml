@@ -14,6 +14,8 @@
 			<one-to-many class="Question" />
 		</bag>
 		<property name="name" column="name"></property>
+		<property name="permalink" column="permalink" unique="true"
+			not-null="true"></property>
 	</class>
 
 	<class name="Question" table="question">
@@ -75,7 +77,7 @@
 		<id name="id" column="company_id" access="field">
 			<generator class="assigned"></generator>
 		</id>
-		<property name="name" />		
+		<property name="name" />
 		<property name="url" column="url" />
 	</class>
 
@@ -107,7 +109,7 @@
 			<generator class="native" />
 		</id>
 		<many-to-one name="survey" class="Survey" />
-		<one-to-one name="linkedInUserProfile" class="LinkedInUserProfile"
+		<many-to-one name="linkedInUserProfile" class="LinkedInUserProfile" lazy="false"
 			cascade="all" />
 		<bag name="answers" cascade="all" lazy="false">
 			<key column="id" />
@@ -142,7 +144,7 @@
 
 		<joined-subclass name="RankAnswerAnswer" table="rank_answer_answer">
 			<key column="answer_id" />
-			<list name="answers" table="rank_answer_answer_answers"  lazy="false">
+			<list name="answers" table="rank_answer_answer_answers" lazy="false">
 				<key column="answer_id" />
 				<list-index column="ord" />
 				<element type="string" column="name" />

@@ -8,6 +8,7 @@ public class Survey {
   private long id;
   private String name;
   private List<Question> questions;
+  private long permalink;
 
   public Survey() {
     this.questions = new ArrayList<Question>();
@@ -35,5 +36,14 @@ public class Survey {
 
   public void setQuestions(List<Question> questions) {
     this.questions = questions;
+  }
+
+  public long getPermalink() {
+    this.permalink = id ^ (id << 40);
+    return permalink;
+  }
+
+  public void setPermalink(long permalink) {
+    this.permalink = permalink;
   }
 }

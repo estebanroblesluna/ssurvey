@@ -19,5 +19,4 @@ public class HomeController extends SSurveyGenericController {
     ModelAndView mv = new ModelAndView("login");
     return mv;
   }
-
 }
