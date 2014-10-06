@@ -12,6 +12,7 @@
 <script src="/static/js/bootstrap.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${survey.name}</title>
+<link rel=icon href=/static/img/favicon.ico type="image/png">
 <script type="text/javascript">
 	$(function() {
 

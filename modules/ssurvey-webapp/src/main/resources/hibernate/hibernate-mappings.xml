@@ -14,7 +14,8 @@
 			<one-to-many class="Question" />
 		</bag>
 		<property name="name" column="name"></property>
-		<property name="permalink" column="permalink" unique="true" not-null="true"></property>
+		<property name="permalink" column="permalink" unique="true"
+			not-null="true"></property>
 	</class>
 
 	<class name="Question" table="question">
@@ -76,7 +77,7 @@
 		<id name="id" column="company_id" access="field">
 			<generator class="assigned"></generator>
 		</id>
-		<property name="name" />		
+		<property name="name" />
 		<property name="url" column="url" />
 	</class>
 
@@ -108,8 +109,9 @@
 			<generator class="native" />
 		</id>
 		<many-to-one name="survey" class="Survey" />
-		<one-to-one name="linkedInUserProfile" class="LinkedInUserProfile"
-			cascade="all" />
+		<many-to-one name="linkedInUserProfile" class="LinkedInUserProfile"
+			lazy="false" cascade="all" />
+		<property name="accountId" type="long"></property>
 		<bag name="answers" cascade="all" lazy="false">
 			<key column="id" />
 			<one-to-many class="Answer" />
@@ -143,7 +145,7 @@
 
 		<joined-subclass name="RankAnswerAnswer" table="rank_answer_answer">
 			<key column="answer_id" />
-			<list name="answers" table="rank_answer_answer_answers"  lazy="false">
+			<list name="answers" table="rank_answer_answer_answers" lazy="false">
 				<key column="answer_id" />
 				<list-index column="ord" />
 				<element type="string" column="name" />
@@ -156,6 +158,34 @@
 		</joined-subclass>
 
 
+	</class>
+
+	<class name="Ticket" table="ticket">
+		<id name="id" type="long" column="ticket_id">
+			<generator class="native" />
+		</id>
+		<property name="ticketOwnerId" column="owner" />
+		<property name="processed" column="processed" />
+
+		<joined-subclass name="GetRespondentInformationTicket"
+			table="respondent_information_ticket">
+			<key column="ticket_id" />
+			<many-to-one name="survey" class="AnsweredSurvey" unique="true"
+				not-null="true" column="answered_survey" lazy="false" />
+		</joined-subclass>
+
+		<joined-subclass name="GetRecommenderTicket" table="recommendation_ticket">
+			<key column="ticket_id" />
+			<property name="recommenderProfileId" column="recommender" />
+			<property name="recommendeeProfileId" column="recommendee" />
+		</joined-subclass>
+
+		<joined-subclass name="GetConnectionTicket" table="connection_ticket">
+			<key column="ticket_id" />
+			<property name="connectionProfileId" column="connection" />
+			<property name="connectionOfProfileId" column="connectionOf" />
+			<property name="depth" column="depth" />
+		</joined-subclass>
 	</class>
 
 
