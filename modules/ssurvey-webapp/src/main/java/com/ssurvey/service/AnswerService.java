@@ -1,6 +1,7 @@
 package com.ssurvey.service;
 
 import java.util.List;
+
 import org.jsoup.helper.Validate;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.MultiValueMap;
@@ -8,6 +9,7 @@ import org.springframework.util.MultiValueMap;
 import com.ssurvey.model.Answer;
 import com.ssurvey.model.AnsweredSurvey;
 import com.ssurvey.model.GetRespondentInformationTicket;
+import com.ssurvey.model.LinkedInUserProfile;
 import com.ssurvey.model.Question;
 import com.ssurvey.model.Survey;
 import com.ssurvey.repositories.AnswerRepository;
