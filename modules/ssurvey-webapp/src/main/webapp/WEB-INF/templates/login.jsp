@@ -3,6 +3,7 @@
 <html>
     <head>
         <title>Login</title>
+		<link rel=icon href=/static/img/favicon.ico type="image/png">
         <link rel="stylesheet" type="text/css" href="static/css/bootstrap.css" />
         <link rel="stylesheet" type="text/css" href="static/css/font-awesome.min.css" />
         <link rel="stylesheet" type="text/css" href="static/css/bootstrap-social.css" />
