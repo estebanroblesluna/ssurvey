@@ -1,6 +1,7 @@
 package com.ssurvey.service;
 
 import org.springframework.social.connect.ConnectionRepository;
+import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.linkedin.api.Company;
 import org.springframework.social.linkedin.api.LinkedIn;
 import org.springframework.social.linkedin.api.LinkedInProfile;
@@ -10,6 +11,11 @@ import org.springframework.social.linkedin.api.Recommendation;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ssurvey.model.Account;
+import com.ssurvey.model.AnsweredSurvey;
+import com.ssurvey.model.GetConnectionTicket;
+import com.ssurvey.model.GetRecommenderTicket;
+import com.ssurvey.model.GetRespondentInformationTicket;
 import com.ssurvey.model.LinkedInCompany;
 import com.ssurvey.model.LinkedInPosition;
 import com.ssurvey.model.LinkedInUserProfile;
@@ -18,12 +24,13 @@ import com.ssurvey.util.LinkedInAPIHelper;
 
 @Service
 public class LinkedInInformationService {
-
-  private ConnectionRepository connectionRepository;
   private GenericRepository repository;
+  private UsersConnectionRepository usersConnectionRepository;
+  private TicketService ticketService;
 
-  public LinkedInInformationService(ConnectionRepository connectionRepository, GenericRepository repository) {
-    this.connectionRepository = connectionRepository;
+  public LinkedInInformationService(GenericRepository repository, TicketService ticketService, UsersConnectionRepository usersConnectionRepository) {
+    this.ticketService = ticketService;
+    this.usersConnectionRepository = usersConnectionRepository;
     this.repository = repository;
   }
 
@@ -45,7 +52,8 @@ public class LinkedInInformationService {
     return (LinkedInCompany) this.repository.get(LinkedInCompany.class, companyId);
   }
 
-  private LinkedInCompany updateCompany(Company company) {
+  @Transactional
+  public LinkedInCompany updateCompany(Company company) {
     LinkedInCompany ret = this.getLinkedInCompany(company.getId());
     if (ret == null) {
       ret = new LinkedInCompany();
@@ -56,7 +64,8 @@ public class LinkedInInformationService {
     return ret;
   }
 
-  private LinkedInPosition updatePosition(Position position) {
+  @Transactional
+  public LinkedInPosition updatePosition(Position position) {
     LinkedInPosition ret = this.getLinkedInPosition(position.getId());
     if (ret == null) {
       ret = new LinkedInPosition();
@@ -69,8 +78,15 @@ public class LinkedInInformationService {
     return ret;
   }
 
-  private LinkedInUserProfile updateProfile(String linkedInProfileId, int depth) {
-    LinkedIn linkedIn = this.connectionRepository.getPrimaryConnection(LinkedIn.class).getApi();
+  @Transactional
+  public LinkedInUserProfile updateProfile(Long connectionOwnerId, String linkedInProfileId, int depth) {
+    LinkedIn linkedIn = this.usersConnectionRepository.createConnectionRepository(connectionOwnerId.toString())
+            .getPrimaryConnection(LinkedIn.class).getApi();
+    
+    if(linkedInProfileId == null){
+      linkedInProfileId = linkedIn.profileOperations().getProfileId();
+    }
+    
     LinkedInProfileFull profile;
     try {
       profile = linkedIn.profileOperations().getProfileFullById(linkedInProfileId);
@@ -97,31 +113,21 @@ public class LinkedInInformationService {
     // Recomenders
     if (depth == 1 && profile.getRecommendationsReceived() != null) {
       for (Recommendation recommendation : profile.getRecommendationsReceived()) {
-        LinkedInUserProfile recommender = this.updateProfile(recommendation.getRecommender().getId(), 0);
-        if (recommender != null) {
-          ret.addRecommender(recommender);
-        }
+        this.ticketService.saveTicket(new GetRecommenderTicket(connectionOwnerId,linkedInProfileId,recommendation.getRecommender().getId()));
       }
     }
 
     // Connections
     if (depth > 0 && linkedIn.connectionOperations().getConnections() != null) {
       for (LinkedInProfile connection : linkedIn.connectionOperations().getConnections()) {
-        LinkedInUserProfile connectionProfile = this.updateProfile(connection.getId(), depth - 1);
-        if (connectionProfile != null) {
-          ret.addConnection(connectionProfile);
-        }
+        this.ticketService.saveTicket(new GetConnectionTicket(connectionOwnerId,linkedInProfileId,connection.getId(),depth-1));
       }
     }
     this.repository.save(ret);
     return ret;
   }
-
-  @Transactional
-  public LinkedInUserProfile getRespondentInformation() {
-    LinkedIn linkedIn = this.connectionRepository.getPrimaryConnection(LinkedIn.class).getApi();
-    LinkedInUserProfile linkedInUserProfile = this.updateProfile(linkedIn.profileOperations().getProfileId(), 1);
-    return linkedInUserProfile;
+  
+  public void saveLinkedInUserProfile(LinkedInUserProfile profile){
+    this.repository.save(profile);
   }
-
 }
