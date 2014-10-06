@@ -41,8 +41,8 @@ public class AnswerService {
   }
 
   @Transactional
-  public void answer(long userId, long surveyId, MultiValueMap<String, String> params){
-    Survey survey = this.surveyService.getSurveyById(surveyId);
+  public void answer(long userId, Long surveyId, MultiValueMap<String, String> params){
+    Survey survey = this.surveyService.getSurveyByPermalink(surveyId);
     AnsweredSurvey answeredSurvey = new AnsweredSurvey();
     answeredSurvey.setSurvey(survey);
 

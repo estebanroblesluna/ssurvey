@@ -162,11 +162,12 @@
 		<id name="id" type="long" column="ticket_id">
 			<generator class="native" />
 		</id>
+		<property name="ticketOwnerId" column="owner" />
 		<property name="processed" column="processed" />
 		
 		<joined-subclass name="GetRespondentInformationTicket" table="respondent_information_ticket">
 			<key column="ticket_id" />
-			<one-to-one name="survey" class="AnsweredSurvey" />
+			<many-to-one name="survey" class="AnsweredSurvey" unique="true" not-null="true" column="answered_survey" lazy="false"/>
 		</joined-subclass>
 		
 		<joined-subclass name="GetRecommenderTicket" table="recommendation_ticket">

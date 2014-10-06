@@ -83,7 +83,6 @@ public class TicketProcessor implements TicketVisitor{
     this.linkedinInformationService.saveLinkedInUserProfile(connection);
     ticket.setProcessed(true);
     this.ticketService.saveTicket(ticket);
-    
   }
 
 }

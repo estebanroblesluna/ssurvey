@@ -7,6 +7,10 @@ public class GetRespondentInformationTicket extends Ticket{
   
   private AnsweredSurvey survey;
   
+  public GetRespondentInformationTicket(){
+    
+  }
+  
   public GetRespondentInformationTicket(AnsweredSurvey survey, Long userId) {
     this.setSurvey(survey);
     this.setTicketOwnerId(userId);
