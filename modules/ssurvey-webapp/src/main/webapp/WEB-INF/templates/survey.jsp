@@ -1,10 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
-<script type="text/javascript"
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script type="text/javascript"
-	src="/static/js/CountDown/jquery.plugin.js"></script>
+<script src="/static/js/jquery-1.11.1.js"></script>
 <script type="text/javascript" src="/static/js/jqueryUI/jquery-ui.js"></script>
 <link rel="stylesheet" type="text/css" href="/static/css/questions.css">
 <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css">
