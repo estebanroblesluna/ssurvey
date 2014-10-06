@@ -5,7 +5,6 @@ import java.util.List;
 import org.jsoup.helper.Validate;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ssurvey.model.AnsweredSurvey;
 import com.ssurvey.model.Question;
 import com.ssurvey.model.Survey;
 import com.ssurvey.repositories.SurveyRepository;
@@ -18,14 +17,13 @@ public class SurveyService {
   public SurveyService() {
   }
 
-  public SurveyService(SurveyRepository surveyRepository, QuestionService questionService){
+  public SurveyService(SurveyRepository surveyRepository, QuestionService questionService) {
     Validate.notNull(surveyRepository);
     Validate.notNull(questionService);
-    
+
     this.surveyRepository = surveyRepository;
     this.questionService = questionService;
   }
-
 
   @Transactional
   public List<Survey> getSurveys() {
@@ -35,6 +33,11 @@ public class SurveyService {
   @Transactional
   public Survey getSurveyById(long id) {
     return this.surveyRepository.getSurveyById(id);
+  }
+  
+  @Transactional
+  public Survey getSurveyByPermalink(long permalink) {
+    return this.surveyRepository.getSurveyByPermalink(permalink);
   }
 
   @Transactional

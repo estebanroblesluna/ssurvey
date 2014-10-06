@@ -1,8 +1,5 @@
 package com.ssurvey.service;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-
 import org.jsoup.helper.Validate;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.MultiValueMap;
@@ -12,7 +9,6 @@ import com.ssurvey.model.AnsweredSurvey;
 import com.ssurvey.model.GetRespondentInformationTicket;
 import com.ssurvey.model.LinkedInUserProfile;
 import com.ssurvey.model.Question;
-import com.ssurvey.model.QuestionType;
 import com.ssurvey.model.Survey;
 import com.ssurvey.repositories.AnswerRepository;
 
@@ -31,7 +27,7 @@ public class AnswerService {
     Validate.notNull(surveyService);
     Validate.notNull(questionService);
     Validate.notNull(ticketService);
-    
+
     this.answerRepository = answerRepository;
     this.linkedInInformationService = linkedInInformationService;
     this.surveyService = surveyService;
@@ -39,12 +35,11 @@ public class AnswerService {
     this.ticketService = ticketService;
   }
 
-
   @Transactional
   public void saveAnsweredSurvey(AnsweredSurvey answeredSurvey) {
     this.answerRepository.saveAnsweredSurvey(answeredSurvey);
   }
-  
+
   @Transactional
   public void answer(long userId, long surveyId, MultiValueMap<String, String> params){
     Survey survey = this.surveyService.getSurveyById(surveyId);
@@ -61,5 +56,5 @@ public class AnswerService {
     this.saveAnsweredSurvey(answeredSurvey);
     this.ticketService.saveTicket(new GetRespondentInformationTicket(answeredSurvey,userId));
   }
-  
+
 }

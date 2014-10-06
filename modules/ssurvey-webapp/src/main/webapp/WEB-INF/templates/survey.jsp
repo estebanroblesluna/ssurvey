@@ -3,11 +3,8 @@
 <head>
 <script type="text/javascript"
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<link rel="stylesheet" type="text/css" href="css/jquery.countdown.css">
 <script type="text/javascript"
 	src="/static/js/CountDown/jquery.plugin.js"></script>
-<script type="text/javascript"
-	src="/static/js/CountDown/jquery.countdown.js"></script>
 <script type="text/javascript" src="/static/js/jqueryUI/jquery-ui.js"></script>
 <link rel="stylesheet" type="text/css" href="/static/css/questions.css">
 <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css">
@@ -149,15 +146,15 @@
 								</h3>
 							</div>
 							<div class="panel-body">
-								<c:forEach var="i" begin="${question.lowerBound}"
-									end="${question.upperBound}">
-									<div class="col-md-12 list-group-item">
-										<label class="radio-inline"> <input required="required" type="radio"
+								<div class="col-md-12 list-group-item">
+									<select class="form-control">
+										<c:forEach var="i" begin="${question.lowerBound}" end="${question.upperBound}">
+											<option required="required" type="radio"
 											name="question_${question.id}" id="inlineRadio${i}"
-											value="${i}"> ${i}
-										</label>
-									</div>
-								</c:forEach>
+											value="${i}">${i}</option>
+										</c:forEach>
+									</select>
+								</div>
 							</div>
 
 						</div>

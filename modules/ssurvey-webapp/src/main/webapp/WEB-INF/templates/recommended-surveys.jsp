@@ -26,7 +26,7 @@
 		<div class="panel-body">
 			<ul class="list-group">
 				<c:forEach var="survey" items="${surveys}">
-					<li class="list-group-item"><a href="/surveys/${survey.id}">${survey.name}</a></li>
+					<li class="list-group-item"><a href="/surveys/${survey.permalink}">${survey.name}</a></li>
 				</c:forEach>
 			</ul>
 		</div>

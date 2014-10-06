@@ -1,7 +1,5 @@
 package com.ssurvey.web.controllers;
 
-import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ssurvey.model.Answer;
-import com.ssurvey.model.AnsweredSurvey;
-import com.ssurvey.model.Question;
-import com.ssurvey.model.QuestionType;
 import com.ssurvey.model.Survey;
 import com.ssurvey.service.AnswerService;
 import com.ssurvey.service.QuestionService;
@@ -36,10 +30,10 @@ public class SurveyController extends SSurveyGenericController {
   @Autowired
   private AnswerService answerService;
 
-  @RequestMapping(value = "/{surveyId}", method = RequestMethod.GET)
-  public ModelAndView renderSurvey(@PathVariable(value = "surveyId") Long surveyId) {
+  @RequestMapping(value = "/{permalink}", method = RequestMethod.GET)
+  public ModelAndView renderSurvey(@PathVariable(value = "permalink") Long permalink) {
     ModelAndView mv = this.createModelAndView("survey");
-    Survey survey = this.surveyService.getSurveyById(surveyId);
+    Survey survey = this.surveyService.getSurveyByPermalink(permalink);
     mv.addObject("survey", survey);
     return mv;
   }
