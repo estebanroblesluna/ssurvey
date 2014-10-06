@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ssurvey.model.Account;
 import com.ssurvey.model.Survey;
 import com.ssurvey.service.AnswerService;
 import com.ssurvey.service.QuestionService;
@@ -33,14 +34,21 @@ public class SurveyController extends SSurveyGenericController {
 
   @RequestMapping(value = "/{permalink}", method = RequestMethod.GET)
   public ModelAndView renderSurvey(@PathVariable(value = "permalink") Long permalink) {
+    Survey survey = this.surveyService.getSurveyByPermalink(permalink);
     if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() == "anonymousUser") {
       ModelAndView mv = new ModelAndView("redirect:/");
       return mv;
     } else {
-      ModelAndView mv = this.createModelAndView("survey");
-      Survey survey = this.surveyService.getSurveyByPermalink(permalink);
-      mv.addObject("survey", survey);
-      return mv;
+      Account account = this.getLoggedUser();
+      if (this.answerService.userHasAnsweredSurvey(account.getId(), survey.getId())) {
+        ModelAndView mv = this.createModelAndView("error");
+        mv.addObject("errorMessage", "You can only answer the survey once.");
+        return mv;
+      } else {
+        ModelAndView mv = this.createModelAndView("survey");
+        mv.addObject("survey", survey);
+        return mv;
+      }
     }
   }
 
@@ -62,7 +70,7 @@ public class SurveyController extends SSurveyGenericController {
     if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() == "anonymousUser") {
       return "redirect:/";
     } else {
-      this.answerService.answer(this.getLoggedUser().getId(),permalink, params);
+      this.answerService.answer(this.getLoggedUser().getId(), permalink, params);
       return "redirect:/surveys/";
     }
   }

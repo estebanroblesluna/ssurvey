@@ -8,6 +8,7 @@ public class AnsweredSurvey {
   private long id;
   private Survey survey;
   private LinkedInUserProfile linkedInUserProfile;
+  private long accountId;
   private List<Answer> answers;
 
   public AnsweredSurvey() {
@@ -48,5 +49,13 @@ public class AnsweredSurvey {
 
   public void setSurvey(Survey survey) {
     this.survey = survey;
+  }
+
+  public long getAccountId() {
+    return accountId;
+  }
+
+  public void setAccountId(long accountId) {
+    this.accountId = accountId;
   }
 }

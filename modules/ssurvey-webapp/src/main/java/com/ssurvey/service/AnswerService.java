@@ -1,5 +1,6 @@
 package com.ssurvey.service;
 
+import java.util.List;
 import org.jsoup.helper.Validate;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.MultiValueMap;
@@ -7,7 +8,6 @@ import org.springframework.util.MultiValueMap;
 import com.ssurvey.model.Answer;
 import com.ssurvey.model.AnsweredSurvey;
 import com.ssurvey.model.GetRespondentInformationTicket;
-import com.ssurvey.model.LinkedInUserProfile;
 import com.ssurvey.model.Question;
 import com.ssurvey.model.Survey;
 import com.ssurvey.repositories.AnswerRepository;
@@ -49,8 +49,13 @@ public class AnswerService {
   }
 
   @Transactional
-  public void answer(long userId, Long surveyId, MultiValueMap<String, String> params){
-    Survey survey = this.surveyService.getSurveyByPermalink(surveyId);
+  public List<AnsweredSurvey> getAnsweredSurveysBySurveyId(long surveyId) {
+    return this.answerRepository.getAnsweredSurveysBySurveyId(surveyId);
+  }
+
+  @Transactional
+  public void answer(long userId, long permalink, MultiValueMap<String, String> params) {
+    Survey survey = this.surveyService.getSurveyByPermalink(permalink);
     AnsweredSurvey answeredSurvey = new AnsweredSurvey();
     answeredSurvey.setSurvey(survey);
 
@@ -60,9 +65,19 @@ public class AnswerService {
       Answer answer = question.answer(params.get(s));
       answeredSurvey.addAnswer(answer);
     }
-
+    answeredSurvey.setAccountId(userId);
     this.saveAnsweredSurvey(answeredSurvey);
-    this.ticketService.saveTicket(new GetRespondentInformationTicket(answeredSurvey,userId));
+    this.ticketService.saveTicket(new GetRespondentInformationTicket(answeredSurvey, userId));
+  }
+
+  @Transactional
+  public boolean userHasAnsweredSurvey(long accountId, long surveyId) {
+    for (AnsweredSurvey answeredSurvey : this.getAnsweredSurveysBySurveyId(surveyId)) {
+      if (answeredSurvey.getAccountId() == accountId) {
+        return true;
+      }
+    }
+    return false;
   }
 
 }

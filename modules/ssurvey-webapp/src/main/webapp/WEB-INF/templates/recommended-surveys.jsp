@@ -2,7 +2,8 @@
 <html>
 <head>
 	<title>Recommended surveys</title>
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<link rel=icon href=/static/img/favicon.ico type="image/png">
+	<script src="/static/js/jquery-1.11.1.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/jquery.countdown.css">
 	<script type="text/javascript" src="/static/js/CountDown/jquery.plugin.js"></script>
 	<script type="text/javascript" src="/static/js/CountDown/jquery.countdown.js"></script>

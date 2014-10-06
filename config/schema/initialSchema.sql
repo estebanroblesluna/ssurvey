@@ -177,6 +177,7 @@ DROP TABLE IF EXISTS `survey`;
 CREATE TABLE `survey` (
   `survey_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
+  `permalink` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`survey_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;

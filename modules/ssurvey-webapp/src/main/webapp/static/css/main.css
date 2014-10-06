@@ -1,6 +1,7 @@
 .navbar-blue {
 	background-color: #428bca;
 	border-color: #387ab2;
+	border-radius: 0;
 }
 
 .navbar-blue .navbar-brand {
@@ -9,6 +10,10 @@
 
 .navbar-blue .navbar-brand:hover,.navbar-blue .navbar-brand:focus {
 	color: #ffffff;
+}
+
+.navbar-blue>li::hover, .navbar-blue .navbar-right>li::focus  {
+	background-color: #428bca;
 }
 
 .navbar-blue .navbar-text {
@@ -21,6 +26,7 @@
 
 .navbar-blue .navbar-nav>li>a:hover,.navbar-blue .navbar-nav>li>a:focus
 	{
+	background-color: #428bca;
 	color: #ffffff;
 }
 
@@ -85,8 +91,21 @@
 	margin-bottom: 15px;
 }
 
-label.rank-item{
+label.rank-item {
 	display: inline;
 	font-weight: normal;
-	margin-left:5px
+	margin-left: 5px
+}
+
+.panel-primary {
+	border-radius: 0;
+}
+
+.panel-primary .panel-heading {
+	border-radius: 0;
+}
+
+.panel-primary .list-group-item {
+	border-radius: 0;
+	border-color: #ccf;
 }
