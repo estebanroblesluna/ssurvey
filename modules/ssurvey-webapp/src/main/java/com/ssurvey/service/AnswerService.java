@@ -39,6 +39,14 @@ public class AnswerService {
   public void saveAnsweredSurvey(AnsweredSurvey answeredSurvey) {
     this.answerRepository.saveAnsweredSurvey(answeredSurvey);
   }
+  
+  @Transactional
+  public void setAnswerLinkedInProfile(AnsweredSurvey answeredSurvey, LinkedInUserProfile profile){
+    profile = this.linkedInInformationService.getLinkedInUserProfile(profile.getId());
+    answeredSurvey = this.answerRepository.getAnsweredSurveyById(answeredSurvey.getId());
+    answeredSurvey.setLinkedInUserProfile(profile);
+    this.answerRepository.saveAnsweredSurvey(answeredSurvey);
+  }
 
   @Transactional
   public void answer(long userId, Long surveyId, MultiValueMap<String, String> params){

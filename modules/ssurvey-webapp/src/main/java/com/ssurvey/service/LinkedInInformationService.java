@@ -113,20 +113,47 @@ public class LinkedInInformationService {
     // Recomenders
     if (depth == 1 && profile.getRecommendationsReceived() != null) {
       for (Recommendation recommendation : profile.getRecommendationsReceived()) {
-        this.ticketService.saveTicket(new GetRecommenderTicket(connectionOwnerId,linkedInProfileId,recommendation.getRecommender().getId()));
+        this.ticketService.saveTicket(new GetRecommenderTicket(connectionOwnerId,recommendation.getRecommender().getId(),linkedInProfileId));
       }
     }
 
     // Connections
     if (depth > 0 && linkedIn.connectionOperations().getConnections() != null) {
       for (LinkedInProfile connection : linkedIn.connectionOperations().getConnections()) {
-        this.ticketService.saveTicket(new GetConnectionTicket(connectionOwnerId,linkedInProfileId,connection.getId(),depth-1));
+        this.ticketService.saveTicket(new GetConnectionTicket(connectionOwnerId,connection.getId(),linkedInProfileId,depth-1));
       }
     }
     this.repository.save(ret);
     return ret;
   }
   
+  @Transactional
+  public void addConnection(LinkedInUserProfile p1, LinkedInUserProfile p2){
+    if(p1 == null || p2 == null){
+      return;
+    }
+    p1 = this.getLinkedInUserProfile(p1.getId());
+    p2 = this.getLinkedInUserProfile(p2.getId());
+    p1.addConnection(p2);
+    p2.addConnection(p1);
+    this.repository.save(p1);
+    this.repository.save(p2);
+  }
+  
+  @Transactional
+  public void addRecommendation(LinkedInUserProfile recommender, LinkedInUserProfile recommendee){
+    if(recommendee == null || recommender == null){
+      return;
+    }
+    recommendee = this.getLinkedInUserProfile(recommendee.getId());
+    recommender = this.getLinkedInUserProfile(recommender.getId());
+    recommender.addConnection(recommendee);
+    recommendee.addRecommender(recommender);
+    this.repository.save(recommendee);
+    this.repository.save(recommender);
+  }
+  
+  @Transactional
   public void saveLinkedInUserProfile(LinkedInUserProfile profile){
     this.repository.save(profile);
   }

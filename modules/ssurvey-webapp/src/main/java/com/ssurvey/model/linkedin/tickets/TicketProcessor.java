@@ -50,39 +50,33 @@ public class TicketProcessor implements TicketVisitor{
     this.linkedinInformationService = linkedInInformationService;
   }
   
+  
   public void process(Ticket ticket){
     ticket.accept(this);
   }
-  
+
+  @Override
   public void visit(GetRespondentInformationTicket ticket){
     AnsweredSurvey answeredSurvey = ticket.getSurvey();
-    answeredSurvey.setLinkedInUserProfile(this.linkedinInformationService.updateProfile(ticket.getTicketOwnerId(), null, 1));
-    this.answerService.saveAnsweredSurvey(answeredSurvey);
-    ticket.setProcessed(true);
-    this.ticketService.saveTicket(ticket);
+    this.answerService.setAnswerLinkedInProfile(answeredSurvey, this.linkedinInformationService.updateProfile(ticket.getTicketOwnerId(), null, 1));
+    this.ticketService.markAsProcessed(ticket);
   }
   
+  @Override
   public void visit(GetRecommenderTicket ticket){
     LinkedInUserProfile recommendee = this.linkedinInformationService.getLinkedInUserProfile(ticket.getRecommendeeProfileId());
     LinkedInUserProfile recommender = this.linkedinInformationService.updateProfile(ticket.getTicketOwnerId(), ticket.getRecommenderProfileId(), 0);
-    recommendee.addRecommender(recommender);
-    recommender.addConnection(recommendee);
-    this.linkedinInformationService.saveLinkedInUserProfile(recommendee);
-    this.linkedinInformationService.saveLinkedInUserProfile(recommender);
-    ticket.setProcessed(true);
-    this.ticketService.saveTicket(ticket);
+    this.linkedinInformationService.addRecommendation(recommender, recommendee);
+    
+    this.ticketService.markAsProcessed(ticket);
   }
 
   @Override
   public void visit(GetConnectionTicket ticket) {
     LinkedInUserProfile connection = this.linkedinInformationService.updateProfile(ticket.getTicketOwnerId(),ticket.getConnectionProfileId(), ticket.getDepth());
     LinkedInUserProfile connectionOf = this.linkedinInformationService.getLinkedInUserProfile(ticket.getConnectionOfProfileId());
-    connectionOf.addConnection(connection);
-    connection.addConnection(connectionOf);
-    this.linkedinInformationService.saveLinkedInUserProfile(connectionOf);
-    this.linkedinInformationService.saveLinkedInUserProfile(connection);
-    ticket.setProcessed(true);
-    this.ticketService.saveTicket(ticket);
+    this.linkedinInformationService.addConnection(connection, connectionOf);
+    this.ticketService.markAsProcessed(ticket);
   }
 
 }

@@ -103,12 +103,12 @@
 		</bag>
 	</class>
 
-	<class name="AnsweredSurvey" table="answered_survey">
+	<class name="AnsweredSurvey" table="answered_survey" >
 		<id type="long" name="id" access="field">
 			<generator class="native" />
 		</id>
-		<many-to-one name="survey" class="Survey" />
-		<one-to-one name="linkedInUserProfile" class="LinkedInUserProfile"
+		<many-to-one name="survey" class="Survey"/>
+		<many-to-one name="linkedInUserProfile" class="LinkedInUserProfile"
 			cascade="all" />
 		<bag name="answers" cascade="all" lazy="false">
 			<key column="id" />

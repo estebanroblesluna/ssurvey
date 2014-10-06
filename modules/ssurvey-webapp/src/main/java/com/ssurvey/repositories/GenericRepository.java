@@ -29,6 +29,10 @@ public class GenericRepository {
   public void save(Object object) {
     this.getSessionFactory().getCurrentSession().save(object);
   }
+  
+  public <T> T merge(T object) {
+    return (T) this.getSessionFactory().getCurrentSession().merge(object);
+  }
 
   @SuppressWarnings("unchecked")
   public <T> List<T> list(Class< ? > theClass, String orderBy) {

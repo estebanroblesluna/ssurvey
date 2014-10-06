@@ -24,6 +24,12 @@ public class TicketService {
   }
   
   @Transactional
+  public void markAsProcessed(Ticket ticket){
+    ticket.setProcessed(true);
+    this.ticketRepository.merge(ticket);
+  }
+  
+  @Transactional
   public void saveTicket(Ticket ticket){
     this.ticketRepository.save(ticket);
   }
