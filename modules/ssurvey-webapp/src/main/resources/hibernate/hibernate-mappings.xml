@@ -15,7 +15,7 @@
 		</bag>
 		<property name="name" column="name"></property>
 		<property name="permalink" column="permalink" unique="true"
-			not-null="true"></property>
+			type="text" not-null="true"></property>
 	</class>
 
 	<class name="Question" table="question">
@@ -104,11 +104,11 @@
 		</bag>
 	</class>
 
-	<class name="AnsweredSurvey" table="answered_survey" >
+	<class name="AnsweredSurvey" table="answered_survey">
 		<id type="long" name="id" access="field">
 			<generator class="native" />
 		</id>
-		<many-to-one name="survey" class="Survey"/>
+		<many-to-one name="survey" class="Survey" />
 		<many-to-one name="linkedInUserProfile" class="LinkedInUserProfile"
 			cascade="all" />
 		<property name="accountId" type="long"></property>

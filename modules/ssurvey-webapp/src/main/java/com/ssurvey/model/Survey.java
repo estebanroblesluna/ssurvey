@@ -2,15 +2,17 @@ package com.ssurvey.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Survey {
 
   private long id;
   private String name;
   private List<Question> questions;
-  private long permalink;
+  private String permalink;
 
   public Survey() {
+    this.permalink = UUID.randomUUID().toString();
     this.questions = new ArrayList<Question>();
   }
 
@@ -38,12 +40,11 @@ public class Survey {
     this.questions = questions;
   }
 
-  public long getPermalink() {
-    this.permalink = id ^ (id << 40);
+  public String getPermalink() {
     return permalink;
   }
 
-  public void setPermalink(long permalink) {
+  public void setPermalink(String permalink) {
     this.permalink = permalink;
   }
 }

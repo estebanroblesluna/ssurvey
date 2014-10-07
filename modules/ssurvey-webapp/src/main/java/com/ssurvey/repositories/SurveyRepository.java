@@ -34,7 +34,7 @@ public class SurveyRepository extends GenericRepository {
   }
 
   @SuppressWarnings("unchecked")
-  public Survey getSurveyByPermalink(long permalink) {
+  public Survey getSurveyByPermalink(String permalink) {
     ArrayList<Survey> surveys = (ArrayList<Survey>) this.getSessionFactory().getCurrentSession().createCriteria(Survey.class)
             .add(Restrictions.eq("permalink", permalink)).list();
     if (!surveys.isEmpty()) {
