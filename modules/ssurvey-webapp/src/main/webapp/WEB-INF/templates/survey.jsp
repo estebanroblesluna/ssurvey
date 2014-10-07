@@ -107,9 +107,27 @@
 		}
 		});*/
 
-		$("#cancel").click(function() {
-			window.location.replace("../");
-		});
+		$(".submit-answer-button").click(function(){
+			var container = $(this).closest(".question-container");
+			container.hide(500, function(){
+				if(container.next().length == 0){
+					$("#surveyForm").submit();
+				} else {
+					container.next().show(500);
+				}
+			})
+		})
+		
+		$(".previous-question-button").click(function(){
+			var container = $(this).closest(".question-container");
+			if(container.prev().length == 0){
+				return;
+			} else {
+				container.hide(500, function(){
+					container.prev().show(500);
+				});
+			}
+		})
 
 	});
 </script>
@@ -118,148 +136,116 @@
 	<jsp:include page="/WEB-INF/templates/navbarWithProgress.jsp" />
 
 	<form method="POST" id="surveyForm">
-		<div class="container question-container">
+		<div class="container">
 
-			<c:forEach var="question" items="${survey.questions}">
+			<c:forEach varStatus="status" var="question" items="${survey.questions}">
 				<c:choose>
-					<c:when test="${question.type == 'SINGLE_CHOICE_QUESTION' }">
-						<div class="col-md-12">
-							<div class="panel panel-primary">
-								<div class="panel-heading">
-									<h3 class="panel-title">
-										<span class="glyphicon glyphicon-hand-right"></span>${question.name}
-									</h3>
-								</div>
-								<div class="panel-body">
-									<ul class="list-group">
-										<c:forEach var="option" items="${question.options}">
-											<li class="list-group-item">
-												<div class="radio">
-													<label> <input type="radio" required="required"
-														name="question_${question.id}"
-														class="question_${question.id}" value="${option}">
-														${option}
-													</label>
-												</div>
-											</li>
-										</c:forEach>
-									</ul>
-								</div>
-							</div>
-						</div>
+					<c:when test="${status.index == 0}">
+						<div class="question-container">
 					</c:when>
-					<c:when test="${question.type == 'MULTIPLE_CHOICE_QUESTION' }">
-						<div class="col-md-12">
-							<div class="panel panel-primary">
-								<div class="panel-heading">
-									<h3 class="panel-title">
-										<span class="glyphicon glyphicon-hand-right"></span>
-										${question.name}
-									</h3>
-								</div>
-								<div class="panel-body">
-									<ul class="list-group">
-										<c:forEach var="option" items="${question.options}">
-											<li class="list-group-item">
-												<div class="checkbox">
-													<label> <input name="question_${question.id}"
-														type="checkbox" value="${option}"> ${option}
-													</label>
-												</div>
-											</li>
-										</c:forEach>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</c:when>
-					<c:when test="${question.type == 'OPEN_ANSWER_QUESTION' }">
-						<div class="col-md-12 ss-question-open">
-							<div class="panel panel-primary">
-								<div class="panel-heading">
-									<h3 class="panel-title">
-										<span class="glyphicon glyphicon-hand-right"></span>
-										${question.name}
-									</h3>
-								</div>
-								<div class="panel-body body">
-									<textarea id="open" required="required"
-										name="question_${question.id}" class="form-control"
-										placeholder="1024 chars max"></textarea>
-								</div>
-							</div>
-						</div>
-					</c:when>
-					<c:when test="${question.type == 'NUMERIC_ANSWER_QUESTION' }">
-						<div class="col-md-12 ss-question-multiple">
-							<div class="panel panel-primary">
-								<div class="panel-heading">
-									<h3 class="panel-title">
-										<span class="glyphicon glyphicon-hand-right"></span>
-										${question.name}
-									</h3>
-								</div>
-								<div class="panel-body">
-									<div class="col-md-12 list-group-item">
-										<select class="form-control">
-											<c:forEach var="i" begin="${question.lowerBound}"
-												end="${question.upperBound}">
-												<option required="required" type="radio"
-													name="question_${question.id}" id="inlineRadio${i}"
-													value="${i}">${i}</option>
-											</c:forEach>
-										</select>
-									</div>
-								</div>
-
-							</div>
-						</div>
-					</c:when>
-					<c:when test="${question.type == 'RANK_ANSWER_QUESTION' }">
-						<div class="col-md-12">
-							<div class="panel panel-primary">
-								<div class="panel-heading">
-									<h3 class="panel-title">
-										<span class="glyphicon glyphicon-hand-right"></span>
-										${question.name}
-									</h3>
-								</div>
-
-								<div class="panel-body">
-									<div class="panel-body rank-question">
-
-										<ol class="list-group sortable">
-											<c:forEach var="option" items="${question.options}">
-												<li class="list-group-item">
-													<div>
-														<span class="glyphicon glyphicon-move"></span><label
-															class="rank-item">${option}</label>
-													</div>
-												</li>
-											</c:forEach>
-										</ol>
-										<input type="hidden" class="rank-question-answer"
-											name="question_${question.id}">
-									</div>
-								</div>
-							</div>
-						</div>
-					</c:when>
+					<c:otherwise>
+						<div class="question-container" hidden="hidden">
+					</c:otherwise>
 				</c:choose>
+				<div class="col-md-12">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							<span class="glyphicon glyphicon-hand-right"></span>
+							${question.name}
+						</h3>
+					</div>
+					<c:choose>
+						<c:when test="${question.type == 'SINGLE_CHOICE_QUESTION' }">
+							<div class="panel-body">
+								<ul class="list-group">
+									<c:forEach var="option" items="${question.options}">
+										<li class="list-group-item">
+											<div class="radio">
+												<label> <input type="radio" required="required"
+													name="question_${question.id}"
+													class="question_${question.id}" value="${option}">
+													${option}
+												</label>
+											</div>
+										</li>
+									</c:forEach>
+								</ul>
+							</div>
+						</c:when>
+						<c:when test="${question.type == 'MULTIPLE_CHOICE_QUESTION' }">
+							<div class="panel-body">
+								<ul class="list-group">
+									<c:forEach var="option" items="${question.options}">
+										<li class="list-group-item">
+											<div class="checkbox">
+												<label> <input name="question_${question.id}"
+													type="checkbox" value="${option}"> ${option}
+												</label>
+											</div>
+										</li>
+									</c:forEach>
+								</ul>
+							</div>
+						</c:when>
+						<c:when test="${question.type == 'OPEN_ANSWER_QUESTION' }">
+							<div class="panel-body body ss-question-open">
+								<textarea id="open" required="required"
+									name="question_${question.id}" class="form-control"
+									placeholder="1024 chars max"></textarea>
+							</div>
+						</c:when>
+						<c:when test="${question.type == 'NUMERIC_ANSWER_QUESTION' }">
+							<div class="panel-body ss-question-multiple">
+								<div class="col-md-12 list-group-item">
+									<select class="form-control">
+										<c:forEach var="i" begin="${question.lowerBound}"
+											end="${question.upperBound}">
+											<option required="required" type="radio"
+												name="question_${question.id}" id="inlineRadio${i}"
+												value="${i}">${i}</option>
+										</c:forEach>
+									</select>
+								</div>
+							</div>
+						</c:when>
+						
+						<c:when test="${question.type == 'RANK_ANSWER_QUESTION' }">
+							<div class="panel-body">
+								<div class="panel-body rank-question">
+
+									<ol class="list-group sortable">
+										<c:forEach var="option" items="${question.options}">
+											<li class="list-group-item">
+												<div>
+													<span class="glyphicon glyphicon-move"></span><label
+														class="rank-item">${option}</label>
+												</div>
+											</li>
+										</c:forEach>
+									</ol>
+									<input type="hidden" class="rank-question-answer"
+										name="question_${question.id}">
+								</div>
+							</div>
+						</c:when>
+						
+					</c:choose>
+					<div class="panel-footer text-right" >
+															
+						<button type="button" class="btn btn-primary previous-question-button" <c:if test="${status.index==0}">disabled="disabled" </c:if> >
+								<span class="glyphicon glyphicon-arrow-left"></span> Previous
+						</button>
+						<button type="button" class="btn btn-success submit-answer-button">
+								<span class="glyphicon glyphicon-ok-sign"></span> Next
+						</button>
+					</div>
+				</div>
+				</div>
+				</div>
 			</c:forEach>
 
-			<div class="row bottom-survey-buttons">
-				<div class="col-sm-2 col-sm-offset-4">
-					<button type="submit" class="btn btn-success">
-						<span class="glyphicon glyphicon-ok-sign"></span> Accept
-					</button>
-				</div>
-				<div class="col-sm-4">
-					<button type="button" id="cancel" class="btn btn-danger">
-						<span class="glyphicon glyphicon-remove-sign"></span> Cancel
-					</button>
-				</div>
-			</div>
+
 		</div>
 	</form>
 
