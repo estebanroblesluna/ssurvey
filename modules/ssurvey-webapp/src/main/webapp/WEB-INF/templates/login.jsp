@@ -29,7 +29,7 @@
 					<h3 class="panel-title">Sign In</h3>
 				</div>
 				<form id="linkedin-signin" class="form-horizontal" role="form"
-					action="<c:url value="/signin/linkedin"/>" method="POST">
+					action="<c:url value="/signin/linkedin?url=${url}"/>" method="POST">
 					<div class="form-group"></div>
 					<div class="form-group">
 						<div class="col-sm-6 col-sm-offset-3">

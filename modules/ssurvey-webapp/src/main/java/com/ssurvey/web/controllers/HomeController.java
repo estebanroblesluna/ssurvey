@@ -5,6 +5,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ssurvey.service.SurveyService;
@@ -17,12 +18,13 @@ public class HomeController extends SSurveyGenericController {
   private SurveyService surveyService;
 
   @RequestMapping(value = "/", method = RequestMethod.GET)
-  public ModelAndView showLogin() {
+  public ModelAndView showLogin(@RequestParam (value = "url", required = false) String url) {
     if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() != "anonymousUser") {
       ModelAndView mv = new ModelAndView("redirect:/surveys/");
       return mv;
     } else {
       ModelAndView mv = new ModelAndView("login");
+      mv.addObject("url", url);
       return mv;
     }
   }

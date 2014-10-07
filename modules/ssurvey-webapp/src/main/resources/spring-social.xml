@@ -15,7 +15,7 @@
 
   <context:property-placeholder location="classpath:app.properties" ignore-unresolvable="true" />
   
-  <bean class="org.springframework.social.connect.web.ProviderSignInController">
+  <bean class="com.ssurvey.service.signin.SSurveyProviderSignInController">
 	<constructor-arg ref="connectionFactoryLocator"></constructor-arg>
 	<constructor-arg ref="usersConnectionRepository"></constructor-arg>
 	<constructor-arg ref="ssurveySignInAdapter"></constructor-arg>

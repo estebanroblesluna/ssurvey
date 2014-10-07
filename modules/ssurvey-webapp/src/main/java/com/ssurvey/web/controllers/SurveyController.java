@@ -2,7 +2,10 @@ package com.ssurvey.web.controllers;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.MultiValueMap;
@@ -33,10 +36,10 @@ public class SurveyController extends SSurveyGenericController {
   private AnswerService answerService;
 
   @RequestMapping(value = "/{permalink}", method = RequestMethod.GET)
-  public ModelAndView renderSurvey(@PathVariable(value = "permalink") Long permalink) {
+  public ModelAndView renderSurvey(@PathVariable(value = "permalink") Long permalink, HttpServletRequest request) {
     Survey survey = this.surveyService.getSurveyByPermalink(permalink);
     if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() == "anonymousUser") {
-      ModelAndView mv = new ModelAndView("redirect:/");
+      ModelAndView mv = new ModelAndView("redirect:/?url="+request.getRequestURI());
       return mv;
     } else {
       Account account = this.getLoggedUser();

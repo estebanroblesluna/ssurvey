@@ -1,5 +1,7 @@
 package com.ssurvey.service.signin;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -26,8 +28,8 @@ public class SSurveySignInAdapter implements SignInAdapter {
     Account account = this.accountService.getAccountById(Long.parseLong(userId));
     User user = new SSurveyUser(account, userId);
     SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(user, null));
-
-    return "/surveys/";
+    String redirectUrl = (String) request.getNativeRequest(HttpServletRequest.class).getSession().getAttribute("redirect_url");
+    return (!redirectUrl.isEmpty()) ? redirectUrl : "/surveys/";
   }
 
 }
