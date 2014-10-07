@@ -28,7 +28,7 @@
 		})
 
 	})
-	
+
 	$(document).ready(function() {
 		var size = 0;
 		var ok = true;
@@ -52,7 +52,7 @@
 				$(".progress-bar").width(size + "%");
 				$(".progress-bar").text(size + "%");
 				ok = false;
-				
+
 			}
 		});
 		$(".question_104").click(function() {
@@ -62,7 +62,7 @@
 				$(".progress-bar").width(size + "%");
 				$(".progress-bar").text(size + "%");
 				ok2 = false;
-				
+
 			}
 		});
 		$(".question_106").click(function() {
@@ -72,7 +72,7 @@
 				$(".progress-bar").width(size + "%");
 				$(".progress-bar").text(size + "%");
 				ok3 = false;
-				
+
 			}
 		});
 		$(".question_108").click(function() {
@@ -82,7 +82,7 @@
 				$(".progress-bar").width(size + "%");
 				$(".progress-bar").text(size + "%");
 				ok4 = false;
-				
+
 			}
 		});
 		$(".question_109").click(function() {
@@ -92,7 +92,7 @@
 				$(".progress-bar").width(size + "%");
 				$(".progress-bar").text(size + "%");
 				ok5 = false;
-				
+
 			}
 		});
 		/*$(".body").keypress(function(){
@@ -106,7 +106,7 @@
 			}
 		}
 		});*/
-		
+
 	});
 </script>
 </head>
@@ -132,7 +132,8 @@
 											<li class="list-group-item">
 												<div class="radio">
 													<label> <input type="radio" required="required"
-														name="question_${question.id}" class="question_${question.id}" value="${option}">
+														name="question_${question.id}"
+														class="question_${question.id}" value="${option}">
 														${option}
 													</label>
 												</div>
