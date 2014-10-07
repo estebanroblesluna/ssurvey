@@ -36,7 +36,7 @@ public class SurveyController extends SSurveyGenericController {
   private AnswerService answerService;
 
   @RequestMapping(value = "/{permalink}", method = RequestMethod.GET)
-  public ModelAndView renderSurvey(@PathVariable(value = "permalink") Long permalink, HttpServletRequest request) {
+  public ModelAndView renderSurvey(@PathVariable(value = "permalink") String permalink, HttpServletRequest request) {
     Survey survey = this.surveyService.getSurveyByPermalink(permalink);
     if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() == "anonymousUser") {
       ModelAndView mv = new ModelAndView("redirect:/?url="+request.getRequestURI());
@@ -69,7 +69,7 @@ public class SurveyController extends SSurveyGenericController {
   }
 
   @RequestMapping(value = "/{permalink}", method = RequestMethod.POST)
-  public String submitAnsweredSurvey(@PathVariable(value = "permalink") Long permalink, @RequestParam MultiValueMap<String, String> params) {
+  public String submitAnsweredSurvey(@PathVariable(value = "permalink") String permalink, @RequestParam MultiValueMap<String, String> params) {
     if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() == "anonymousUser") {
       return "redirect:/";
     } else {

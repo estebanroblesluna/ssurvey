@@ -107,6 +107,10 @@
 		}
 		});*/
 
+		$("#cancel").click(function() {
+			window.location.replace("../");
+		});
+
 	});
 </script>
 </head>
@@ -251,7 +255,7 @@
 					</button>
 				</div>
 				<div class="col-sm-4">
-					<button type="button" class="btn btn-danger">
+					<button type="button" id="cancel" class="btn btn-danger">
 						<span class="glyphicon glyphicon-remove-sign"></span> Cancel
 					</button>
 				</div>

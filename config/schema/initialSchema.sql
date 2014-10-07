@@ -485,7 +485,7 @@ DROP TABLE IF EXISTS `survey`;
 CREATE TABLE `survey` (
   `survey_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
-  `permalink` bigint(20) NOT NULL,
+  `permalink` varchar(50) NOT NULL,
   PRIMARY KEY (`survey_id`),
   UNIQUE KEY `UK_mkmf2dsl1wxemqk5lks3al752` (`permalink`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

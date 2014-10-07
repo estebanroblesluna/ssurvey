@@ -34,9 +34,9 @@ public class SurveyService {
   public Survey getSurveyById(long id) {
     return this.surveyRepository.getSurveyById(id);
   }
-  
+
   @Transactional
-  public Survey getSurveyByPermalink(long permalink) {
+  public Survey getSurveyByPermalink(String permalink) {
     return this.surveyRepository.getSurveyByPermalink(permalink);
   }
 
