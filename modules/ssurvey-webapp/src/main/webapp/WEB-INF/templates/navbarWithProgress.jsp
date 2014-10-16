@@ -26,11 +26,11 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-1" style="padding-top: 8px;">
-				<!-- <h4 class="counter" id="time">0:00</h4> -->
-			</div>
+			<!-- <div class="col-sm-1" style="padding-top: 8px;">
+				 <h4 class="counter" id="time">0:00</h4>
+			</div> -->
 			<ul class="nav navbar-nav navbar-right">
-				<li><a>Logged as ${user.firstName} ${user.lastName}</a></li>
+				<li><a style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 150px;">Logged as ${user.firstName} ${user.lastName}</a></li>
 				<li><a class="navbar-brand navbar-button"
 					href="/j_spring_security_logout"><small>Log out</a></li>
 			</ul>
