@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <html>
 <head>
 <script src="/static/js/jquery-1.11.1.js"></script>
@@ -31,85 +32,45 @@
 
 	$(document).ready(function() {
 		var size = 0;
-		var ok = true;
-		var ok2 = true;
-		var ok3 = true;
-		var ok4 = true;
-		var ok5 = true;
-		/*$(".radio").click(function() {
-			if (size < 100 && ok) {
-				size += 33;
-				console.log(size);
-				$(".progress-bar").width(size + "%");
-				$(".progress-bar").text(size + "%");
-				ok = false;
-			}
-		});*/
-		$(".question_103").click(function() {
-			if (size < 100 && ok) {
-				size += 20;
-				console.log(size);
-				$(".progress-bar").width(size + "%");
-				$(".progress-bar").text(size + "%");
-				ok = false;
+		var arrayLength = ${fn:length(survey.questions)};
+		var pos = 0;
+		var aBoolean = new Array(arrayLength);
+		
+		for (i = 0; i < aBoolean.length; ++i) {aBoolean[i] = false;} 
+		
+		$(".submit-answer-button").click(function(){
+			var container = $(this).closest(".question-container");
+			container.hide(500, function(){
+				
+				if (size < 100 && aBoolean[pos] == false) {
+					size += 100 / arrayLength;
+					aBoolean[pos] = true;
+					console.log(size);
+					$(".progress-bar").width(size + "%");
+					$(".progress-bar").text(size.toFixed(2) + "%");
+				}
 
+				if(container.next().length == 0){
+					$("#surveyForm").submit();
+					
+				} else {
+					container.next().show(500);
+				}
+			})
+			pos += 1;
+		})
+		
+		$(".previous-question-button").click(function(){
+			var container = $(this).closest(".question-container");
+			if(container.prev().length == 0){
+				return;
+			} else {
+				container.hide(500, function(){
+					container.prev().show(500);
+				});
 			}
-		});
-		$(".question_104").click(function() {
-			if (size < 100 && ok2) {
-				size += 20;
-				console.log(size);
-				$(".progress-bar").width(size + "%");
-				$(".progress-bar").text(size + "%");
-				ok2 = false;
-
-			}
-		});
-		$(".question_106").click(function() {
-			if (size < 100 && ok3) {
-				size += 20;
-				console.log(size);
-				$(".progress-bar").width(size + "%");
-				$(".progress-bar").text(size + "%");
-				ok3 = false;
-
-			}
-		});
-		$(".question_108").click(function() {
-			if (size < 100 && ok4) {
-				size += 20;
-				console.log(size);
-				$(".progress-bar").width(size + "%");
-				$(".progress-bar").text(size + "%");
-				ok4 = false;
-
-			}
-		});
-		$(".question_109").click(function() {
-			if (size < 100 && ok5) {
-				size += 20;
-				console.log(size);
-				$(".progress-bar").width(size + "%");
-				$(".progress-bar").text(size + "%");
-				ok5 = false;
-
-			}
-		});
-		/*$(".body").keypress(function(){
-		if ($("#open").val() == ""){
-			if (size < 100 && ok3) {
-				size += 34;
-				console.log(size);
-				$(".progress-bar").width(size + "%");
-				$(".progress-bar").text(size + "%");
-				ok3 = false;
-			}
-		}
-		});*/
-
-		$("#cancel").click(function() {
-			window.location.replace("../");
-		});
+			pos -= 1;
+		})
 
 	});
 </script>
@@ -118,18 +79,28 @@
 	<jsp:include page="/WEB-INF/templates/navbarWithProgress.jsp" />
 
 	<form method="POST" id="surveyForm">
-		<div class="container question-container">
+		<div class="container">
 
-			<c:forEach var="question" items="${survey.questions}">
+			<c:forEach varStatus="status" var="question"
+				items="${survey.questions}">
 				<c:choose>
-					<c:when test="${question.type == 'SINGLE_CHOICE_QUESTION' }">
-						<div class="col-md-12">
-							<div class="panel panel-primary">
-								<div class="panel-heading">
-									<h3 class="panel-title">
-										<span class="glyphicon glyphicon-hand-right"></span>${question.name}
-									</h3>
-								</div>
+					<c:when test="${status.index == 0}">
+						<div class="question-container">
+					</c:when>
+					<c:otherwise>
+						<div class="question-container" hidden="hidden">
+					</c:otherwise>
+				</c:choose>
+				<div class="col-md-12">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								<span class="glyphicon glyphicon-hand-right"></span>
+								${question.name}
+							</h3>
+						</div>
+						<c:choose>
+							<c:when test="${question.type == 'SINGLE_CHOICE_QUESTION' }">
 								<div class="panel-body">
 									<ul class="list-group">
 										<c:forEach var="option" items="${question.options}">
@@ -145,18 +116,8 @@
 										</c:forEach>
 									</ul>
 								</div>
-							</div>
-						</div>
-					</c:when>
-					<c:when test="${question.type == 'MULTIPLE_CHOICE_QUESTION' }">
-						<div class="col-md-12">
-							<div class="panel panel-primary">
-								<div class="panel-heading">
-									<h3 class="panel-title">
-										<span class="glyphicon glyphicon-hand-right"></span>
-										${question.name}
-									</h3>
-								</div>
+							</c:when>
+							<c:when test="${question.type == 'MULTIPLE_CHOICE_QUESTION' }">
 								<div class="panel-body">
 									<ul class="list-group">
 										<c:forEach var="option" items="${question.options}">
@@ -170,36 +131,16 @@
 										</c:forEach>
 									</ul>
 								</div>
-							</div>
-						</div>
-					</c:when>
-					<c:when test="${question.type == 'OPEN_ANSWER_QUESTION' }">
-						<div class="col-md-12 ss-question-open">
-							<div class="panel panel-primary">
-								<div class="panel-heading">
-									<h3 class="panel-title">
-										<span class="glyphicon glyphicon-hand-right"></span>
-										${question.name}
-									</h3>
-								</div>
-								<div class="panel-body body">
+							</c:when>
+							<c:when test="${question.type == 'OPEN_ANSWER_QUESTION' }">
+								<div class="panel-body body ss-question-open">
 									<textarea id="open" required="required"
 										name="question_${question.id}" class="form-control"
 										placeholder="1024 chars max"></textarea>
 								</div>
-							</div>
-						</div>
-					</c:when>
-					<c:when test="${question.type == 'NUMERIC_ANSWER_QUESTION' }">
-						<div class="col-md-12 ss-question-multiple">
-							<div class="panel panel-primary">
-								<div class="panel-heading">
-									<h3 class="panel-title">
-										<span class="glyphicon glyphicon-hand-right"></span>
-										${question.name}
-									</h3>
-								</div>
-								<div class="panel-body">
+							</c:when>
+							<c:when test="${question.type == 'NUMERIC_ANSWER_QUESTION' }">
+								<div class="panel-body ss-question-multiple">
 									<div class="col-md-12 list-group-item">
 										<select class="form-control">
 											<c:forEach var="i" begin="${question.lowerBound}"
@@ -211,20 +152,9 @@
 										</select>
 									</div>
 								</div>
+							</c:when>
 
-							</div>
-						</div>
-					</c:when>
-					<c:when test="${question.type == 'RANK_ANSWER_QUESTION' }">
-						<div class="col-md-12">
-							<div class="panel panel-primary">
-								<div class="panel-heading">
-									<h3 class="panel-title">
-										<span class="glyphicon glyphicon-hand-right"></span>
-										${question.name}
-									</h3>
-								</div>
-
+							<c:when test="${question.type == 'RANK_ANSWER_QUESTION' }">
 								<div class="panel-body">
 									<div class="panel-body rank-question">
 
@@ -242,24 +172,27 @@
 											name="question_${question.id}">
 									</div>
 								</div>
-							</div>
-						</div>
-					</c:when>
-				</c:choose>
-			</c:forEach>
+							</c:when>
 
-			<div class="row bottom-survey-buttons">
-				<div class="col-sm-2 col-sm-offset-4">
-					<button type="submit" class="btn btn-success">
-						<span class="glyphicon glyphicon-ok-sign"></span> Accept
-					</button>
+						</c:choose>
+						<div class="panel-footer text-right">
+
+							<button type="button"
+								class="btn btn-primary previous-question-button"
+								<c:if test="${status.index==0}">disabled="disabled" </c:if>>
+								<span class="glyphicon glyphicon-arrow-left"></span> Previous
+							</button>
+							<button type="button"
+								class="btn btn-success submit-answer-button">
+								<span class="glyphicon glyphicon-ok-sign"></span> Next
+							</button>
+						</div>
+					</div>
 				</div>
-				<div class="col-sm-4">
-					<button type="button" id="cancel" class="btn btn-danger">
-						<span class="glyphicon glyphicon-remove-sign"></span> Cancel
-					</button>
-				</div>
-			</div>
+		</div>
+		</c:forEach>
+
+
 		</div>
 	</form>
 
