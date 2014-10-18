@@ -12,7 +12,7 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/templates/navbar.jsp" />
-	<div class="container">
+	<div class="container" style="margin-top:90px">
 		<div class="col-md-6 col-md-offset-3">
 			<div class="panel panel-primary">
 				<div class="panel-heading">

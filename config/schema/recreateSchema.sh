@@ -32,7 +32,7 @@ then
 fi
 
 function apply {
-	echo "mysql $HOST $USER $PASS $PORT < $BASEDIR/$1";
+	echo -e "${yellow}mysql $HOST $USER $PASS $PORT < $BASEDIR/$1${reset}";
 	echo -e "${yellow}Executing $1${reset}";
 	mysql $HOST $USER $PASS $PORT < $BASEDIR/$1
 }

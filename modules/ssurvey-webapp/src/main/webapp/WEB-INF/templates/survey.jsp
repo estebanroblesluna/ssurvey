@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <html>
 <head>
 <script src="/static/js/jquery-1.11.1.js"></script>
@@ -176,7 +176,6 @@
 
 						</c:choose>
 						<div class="panel-footer text-right">
-
 							<button type="button"
 								class="btn btn-primary previous-question-button"
 								<c:if test="${status.index==0}">disabled="disabled" </c:if>>

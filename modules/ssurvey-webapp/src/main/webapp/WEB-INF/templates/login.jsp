@@ -22,33 +22,30 @@
 </script>
 </head>
 <body>
-	<div class="text-center">
-		<div class="container">
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-					<h3 class="panel-title">Sign In</h3>
-				</div>
+	<div class="container container-login">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title ssurvey-title">
+					<i class="fa fa-files-o"></i> SSurvey
+				</h3>
+			</div>
+			<div class="panel-body">
+				<h4>Please sign in using LinkedIn to answer the survey.</h4>
 				<form id="linkedin-signin" class="form-horizontal" role="form"
 					action="<c:url value="/signin/linkedin?url=${url}"/>" method="POST">
-					<div class="form-group"></div>
-					<div class="form-group">
-						<div class="col-sm-6 col-sm-offset-3">
-							<i class="fa fa-files-o fa-5x"></i>
-							<h4 class="ssurvey-title">SSurvey</h4>
-						</div>
-					</div>
+					<div class="form-group" style="margin-top: 10px"></div>
 					<div class="form-group">
 						<div class="col-sm-8 col-sm-offset-2">
 							<a id="linkedin-login"
-								class="btn btn-block btn-social btn-linkedin btn-linkedin-link">
-								<i class="fa fa-linkedin"></i> Sign in with Linkedin
+								class="btn btn-block btn-social btn-linkedin btn-linkedin-link"
+								style="text-align: center"> <i class="fa fa-linkedin"></i>
+								Sign in with Linkedin
 							</a>
 						</div>
 					</div>
 				</form>
 			</div>
 		</div>
-	</div>
 	</div>
 </body>
 </html>

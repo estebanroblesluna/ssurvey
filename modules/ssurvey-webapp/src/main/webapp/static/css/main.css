@@ -1,100 +1,108 @@
 body {
-	background-color: #f8f8f8;
+	background-color: #E8EDEF;
 }
 
 .jumbotron {
-	background-color: #f8f8f8;
+	background-color: #E8EDEF;
 }
 
-.navbar-blue {
-	background-color: #428bca;
-	border-color: #387ab2;
-	border-radius: 0;
+.navbar-default {
+	background-color: #0087cc;
+	border-color: #006599;
 }
 
-.navbar-blue .navbar-brand {
+.navbar-default .navbar-brand {
 	color: #ffffff;
 }
 
-.navbar-blue .navbar-brand:hover,.navbar-blue .navbar-brand:focus {
-	color: #ffffff;
-}
-
-.navbar-blue .navbar-text {
-	color: #ffffff;
-}
-
-.navbar-blue .navbar-nav>li>a {
-	color: #ffffff;
-}
-
-.navbar-blue .navbar-nav>li>a:hover,.navbar-blue .navbar-nav>li>a:focus
+.navbar-default .navbar-brand:hover,.navbar-default .navbar-brand:focus
 	{
-	background-color: #428bca;
+	color: #fafafa;
+}
+
+.navbar-default .navbar-text {
 	color: #ffffff;
 }
 
-.navbar-blue .navbar-nav>.active>a,.navbar-blue .navbar-nav>.active>a:hover,.navbar-blue .navbar-nav>.active>a:focus
+.navbar-default .navbar-nav>li>a {
+	color: #ffffff;
+}
+
+.navbar-default .navbar-nav>li>a:hover,.navbar-default .navbar-nav>li>a:focus
 	{
-	color: #ffffff;
-	background-color: #4080c0;
+	color: #fafafa;
 }
 
-.navbar-blue .navbar-nav>.open>a,.navbar-blue .navbar-nav>.open>a:hover,.navbar-blue .navbar-nav>.open>a:focus
+.navbar-default .navbar-nav>.active>a,.navbar-default .navbar-nav>.active>a:hover,.navbar-default .navbar-nav>.active>a:focus
 	{
-	color: #ffffff;
-	background-color: #387ab2;
+	color: #fafafa;
+	background-color: #006599;
 }
 
-.navbar-blue .navbar-toggle {
-	border-color: #387ab2;
+.navbar-default .navbar-nav>.open>a,.navbar-default .navbar-nav>.open>a:hover,.navbar-default .navbar-nav>.open>a:focus
+	{
+	color: #fafafa;
+	background-color: #006599;
 }
 
-.navbar-blue .navbar-toggle:hover,.navbar-blue .navbar-toggle:focus {
-	background-color: #387ab2;
+.navbar-default .navbar-toggle {
+	border-color: #006599;
 }
 
-.navbar-blue .navbar-toggle .icon-bar {
+.navbar-default .navbar-toggle:hover,.navbar-default .navbar-toggle:focus
+	{
+	background-color: #006599;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
 	background-color: #ffffff;
 }
 
-.navbar-blue .navbar-collapse,.navbar-blue .navbar-form {
+.navbar-default .navbar-collapse,.navbar-default .navbar-form {
 	border-color: #ffffff;
 }
 
-.navbar-blue .navbar-link {
+.navbar-default .navbar-link {
 	color: #ffffff;
 }
 
-.navbar-blue .navbar-link:hover {
-	color: #ffffff;
+.navbar-default .navbar-link:hover {
+	color: #fafafa;
 }
 
 @media ( max-width : 767px) {
-	.navbar-blue .navbar-nav .open .dropdown-menu>li>a {
+	.navbar-default .navbar-nav .open .dropdown-menu>li>a {
 		color: #ffffff;
 	}
-	.navbar-blue .navbar-nav .open .dropdown-menu>li>a:hover,.navbar-blue .navbar-nav .open .dropdown-menu>li>a:focus
+	.navbar-default .navbar-nav .open .dropdown-menu>li>a:hover,.navbar-default .navbar-nav .open .dropdown-menu>li>a:focus
 		{
-		color: #ffffff;
+		color: #fafafa;
 	}
-	.navbar-blue .navbar-nav .open .dropdown-menu>.active>a,.navbar-blue .navbar-nav .open .dropdown-menu>.active>a:hover,.navbar-blue .navbar-nav .open .dropdown-menu>.active>a:focus
+	.navbar-default .navbar-nav .open .dropdown-menu>.active>a,.navbar-default .navbar-nav .open .dropdown-menu>.active>a:hover,.navbar-default .navbar-nav .open .dropdown-menu>.active>a:focus
 		{
-		color: #ffffff;
-		background-color: #387ab2;
+		color: #fafafa;
+		background-color: #006599;
 	}
 }
 
-.navbar-blue .navbar-button {
-	background-color: #428bca;
+.navbar-default .navbar-button:hover,.navbar-default .navbar-button:focus
+	{
+	background-color: #006599;
 }
 
-.navbar-blue .navbar-button:hover, .navbar-blue .navbar-button:focus {
-	background-color: #387ab2;
+.progress {
+	background-color: #fff;
+	margin-top:15px;
+	margin-bottom:0px;
 }
 
-.navbar-blue .progress-bar-success {
-	background-color: #42ca81;
+.progress-bar-success {
+	background-color: #3FBF00;
+}
+
+.progress-title {
+	color: #fff;
+	margin-top:18px;
 }
 
 .question-container {
@@ -115,13 +123,18 @@ label.rank-item {
 
 .panel-primary {
 	border-radius: 0;
+	border-width: 0;
+	box-shadow: 2px 2px 4px #888888;
 }
 
 .panel-primary .panel-heading {
 	border-radius: 0;
+	border-width: 0;
+	background-color: #00B5B5;
 }
 
 .panel-primary .list-group-item {
 	border-radius: 0;
-	border-color: #ccf;
+	border-width: 1px;
+	border-color: #eee;
 }

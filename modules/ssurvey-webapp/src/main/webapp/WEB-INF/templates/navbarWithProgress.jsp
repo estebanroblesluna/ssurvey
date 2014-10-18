@@ -1,4 +1,4 @@
-<nav class="navbar navbar-blue navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 	<div class="container-fluid">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed"
@@ -17,7 +17,8 @@
 				<li class="active"><a
 					style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 300px;">${survey.name}</a></li>
 			</ul>
-			<div class="col-sm-4">
+			<div class="col-sm-6">
+				<h5 class="col-sm-2 progress-title"> Progress: </h5>
 				<div class="progress" style="margin-top: 15px; margin-bottom: 0px;">
 					<div class="progress-bar progress-bar-success" role="progressbar"
 						aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
@@ -37,4 +38,3 @@
 		</div>
 	</div>
 </nav>
-
