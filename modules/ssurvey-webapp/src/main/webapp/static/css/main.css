@@ -133,6 +133,14 @@ label.rank-item {
 	background-color: #00B5B5;
 }
 
+.panel-primary .message {
+	border-radius: 0;
+	border-width: 0;
+	background-color: #FFFFFF;
+	text-align: center;
+	font-weight: bold;
+}
+
 .panel-primary .list-group-item {
 	border-radius: 0;
 	border-width: 1px;
@@ -143,6 +151,6 @@ label.rank-item {
 	background: #5cb85c;
 }
 
-.slider .ui-slider-handle:hover, .slider .ui-slider-handle:focus {
+.slider .ui-slider-handle:hover,.slider .ui-slider-handle:focus {
 	background: #CCFFCC;
 }

@@ -230,7 +230,6 @@
 							<c:when test="${question.type == 'RANK_ANSWER_QUESTION' }">
 								<div class="panel-body">
 									<div class="panel-body rank-question">
-
 										<ol class="list-group sortable">
 											<c:forEach var="option" items="${question.options}">
 												<li class="list-group-item">
