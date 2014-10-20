@@ -34,30 +34,94 @@
 		var size = 0;
 		var arrayLength = ${fn:length(survey.questions)};
 		var pos = 0;
-		var aBoolean = new Array(arrayLength);
+		var aBoolean = new Array(arrayLength+1);
+		
 		
 		for (i = 0; i < aBoolean.length; ++i) {aBoolean[i] = false;} 
 		
+		function validateOpenAnswer(container){
+			var button = $(".submit-answer-button",container)
+			button.popover({
+				"content": "You can't leave this unanswered.",
+				"placement": "left",
+				"container": "body",
+				"trigger": "manual"
+			})
+		}
+		
+		function validateMultipleChoiceAnswer(container){
+			var button = $(".submit-answer-button",container)
+			button.popover({
+				"content": "You must choice at least one option.",
+				"placement": "left",
+				"container": "body",
+				"trigger": "manual"
+			})
+		}
+		
+		function validateSingleChoiceAnswer(container){
+			var button = $(".submit-answer-button",container)
+			button.popover({
+				"content": "You must choice one option.",
+				"placement": "left",
+				"container": "body",
+				"trigger": "manual"
+			})
+		}
+		
+		$(".question-container").each(function(){
+			var container = $(this);
+			switch(container.attr("data-questionType")){
+				case "MULTIPLE_CHOICE_QUESTION":
+					validateMultipleChoiceAnswer(container);
+				case "SINGLE_CHOICE_QUESTION":
+					validateSingleChoiceAnswer(container);
+				case "OPEN_ANSWER_QUESTION":
+					validateOpenAnswer(container);
+			}		
+		})
+		
+		function validateAnswer(container){
+			switch(container.attr("data-questionType")){
+				case "MULTIPLE_CHOICE_QUESTION":
+					return $("input[type='checkbox']:checked",container).length != 0;
+				case "SINGLE_CHOICE_QUESTION":
+					return $("input[type='radio']:checked",container).length != 0;
+				case "OPEN_ANSWER_QUESTION":
+					return $(".answerArea",container).val() != "";
+			}
+			return true;
+		}
+		
 		$(".submit-answer-button").click(function(){
 			var container = $(this).closest(".question-container");
-			container.hide(500, function(){
-				
-				if (size < 100 && aBoolean[pos] == false) {
-					size += 100 / arrayLength;
-					aBoolean[pos] = true;
-					console.log(size);
-					$(".progress-bar").width(size + "%");
-					$(".progress-bar").text(size.toFixed(2) + "%");
-				}
-
-				if(container.next().length == 0){
-					$("#surveyForm").submit();
+			if(validateAnswer(container)){
+				container.hide(500, function(){
 					
-				} else {
-					container.next().show(500);
-				}
-			})
-			pos += 1;
+					if (size < 100 && aBoolean[pos] == false) {
+						size += 100 / arrayLength;
+						aBoolean[pos] = true;
+						console.log(size);
+						$(".progress-bar").width(size + "%");
+						$(".progress-bar").text(size.toFixed(2) + "%");
+					}
+	
+					if(container.next().length == 0){
+						$("#surveyForm").submit();
+						
+					} else {
+						container.next().show(500);
+					}
+				})
+				pos += 1;
+			} else {
+				$(this).popover("show");
+				var button = $(this);
+				setTimeout(function() {
+				      $(button).popover('hide');
+				    }, 3000)
+			}
+			
 		})
 		
 		$(".previous-question-button").click(function(){
@@ -85,10 +149,10 @@
 				items="${survey.questions}">
 				<c:choose>
 					<c:when test="${status.index == 0}">
-						<div class="question-container">
+						<div class="question-container" data-questionType="${question.type}">
 					</c:when>
 					<c:otherwise>
-						<div class="question-container" hidden="hidden">
+						<div class="question-container" hidden="hidden" data-questionType="${question.type}">
 					</c:otherwise>
 				</c:choose>
 				<div class="col-md-12">
@@ -134,8 +198,8 @@
 							</c:when>
 							<c:when test="${question.type == 'OPEN_ANSWER_QUESTION' }">
 								<div class="panel-body body ss-question-open">
-									<textarea id="open" required="required"
-										name="question_${question.id}" class="form-control"
+									<textarea required="required"
+										name="question_${question.id}" class="answerArea form-control"
 										placeholder="1024 chars max"></textarea>
 								</div>
 							</c:when>
@@ -190,8 +254,23 @@
 				</div>
 		</div>
 		</c:forEach>
-
-
+		<div class="question-container" hidden="hidden">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<span class="glyphicon glyphicon-hand-right"></span>
+						Confirm
+					</h3>
+				</div>
+				<div class="panel-footer text-right">
+					<button type="button" class="btn btn-primary previous-question-button">
+						<span class="glyphicon glyphicon-arrow-left"></span> Previous
+					</button>
+					<button type="button" class="btn btn-success submit-answer-button">
+						<span class="glyphicon glyphicon-ok-sign"></span> Submit
+					</button>
+				</div>
+			</div>
 		</div>
 	</form>
 
