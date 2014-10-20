@@ -1,11 +1,10 @@
-.container {
-	margin-top: 200px;
-	width: 350px;
+.container-login {
+	margin-top: 10%;
+	width: 400px;
 }
 
 body {
-	background-image:
-		url(/static/img/background.jpg);
+	background-color: #E8EDEF;
 }
 
 .ssurvey-title {

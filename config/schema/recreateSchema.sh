@@ -6,13 +6,35 @@ red='\033[0;31m';
 reset='\033[0m';
 
 BASEDIR=$(dirname $0)
-USER="-u root"
-HOST="-h localhost"
-PASS=
+USER="-u $OPENSHIFT_MYSQL_DB_USERNAME"
+HOST="-h $OPENSHIFT_MYSQL_DB_HOST"
+PASS="--password=$OPENSHIFT_MYSQL_DB_PASSWORD"
+PORT="-P $OPENSHIFT_MYSQL_DB_PORT"
+
+if [ -z $OPENSHIFT_MYSQL_DB_USERNAME ]
+then
+	USER="-u root"
+fi
+
+if [ -z $OPENSHIFT_MYSQL_DB_PASSWORD ]
+then
+	PASS=
+fi
+
+if [ -z $OPENSHIFT_MYSQL_DB_HOST ]
+then
+	HOST="-h localhost"
+fi
+
+if [ -z $OPENSHIFT_MYSQL_DB_PORT ]
+then
+	PORT="-P 3306"
+fi
 
 function apply {
+	echo -e "${yellow}mysql $HOST $USER $PASS $PORT < $BASEDIR/$1${reset}";
 	echo -e "${yellow}Executing $1${reset}";
-	mysql $HOST $USER $PASS < $BASEDIR/$1
+	mysql $HOST $USER $PASS $PORT < $BASEDIR/$1
 }
 
 apply initialSchema.sql
