@@ -38,7 +38,11 @@ public class SurveyController extends SSurveyGenericController {
   @RequestMapping(value = "/{permalink}", method = RequestMethod.GET)
   public ModelAndView renderSurvey(@PathVariable(value = "permalink") String permalink, HttpServletRequest request) {
     Survey survey = this.surveyService.getSurveyByPermalink(permalink);
-    if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() == "anonymousUser") {
+    if (survey == null) {
+      ModelAndView mv = new ModelAndView("error");
+      mv.addObject("errorMessage", "The page you're looking for doesn't exist.");
+      return mv;
+    } else if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() == "anonymousUser") {
       ModelAndView mv = new ModelAndView("redirect:/?url="+request.getRequestURI());
       return mv;
     } else {

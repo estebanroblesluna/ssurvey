@@ -146,3 +146,7 @@ label.rank-item {
 	border-width: 1px;
 	border-color: #eee;
 }
+
+.error-title {
+	font-size: 25px;
+}
