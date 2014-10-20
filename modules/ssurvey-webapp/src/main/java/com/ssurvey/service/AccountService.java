@@ -33,6 +33,7 @@ public class AccountService {
 		return this.accountRepository.createAccount(account);
 	}
 	
+	@Transactional
 	public List<Account> getAccountsForConfidenceUpdate(int count){
 	  return this.accountRepository.getAccountsForConfidenceUpdate(count);
 	}

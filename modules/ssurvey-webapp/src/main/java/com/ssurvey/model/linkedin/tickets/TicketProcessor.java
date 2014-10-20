@@ -51,6 +51,7 @@ public class TicketProcessor implements TicketVisitor{
   public void updateConfidence(){
     for(Account account : this.accountService.getAccountsForConfidenceUpdate(CONFIDENCE_UPDATES_PER_BLOCK)){
       this.ticketService.saveTicket(new UpdateConfidenceTicket(account.getId()));
+      account.setLastConfidenceUpdateTimestamp((new Date().getTime()));
     }
   }
   
@@ -117,7 +118,6 @@ public class TicketProcessor implements TicketVisitor{
     
     //TODO: APA, you have to implement this.
     
-    account.setLastConfidenceUpdateTimestamp((new Date().getTime()));
     this.ticketService.markAsProcessed(ticket);
   }
 
