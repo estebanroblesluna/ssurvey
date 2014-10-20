@@ -1,5 +1,6 @@
 package com.ssurvey.model.linkedin.tickets;
 
+import java.util.Date;
 import java.util.List;
 
 import org.jsoup.helper.Validate;
@@ -13,6 +14,7 @@ import com.ssurvey.model.GetRespondentInformationTicket;
 import com.ssurvey.model.LinkedInUserProfile;
 import com.ssurvey.model.Ticket;
 import com.ssurvey.model.UpdateAllTicket;
+import com.ssurvey.model.UpdateConfidenceTicket;
 import com.ssurvey.model.UpdateProfileTicket;
 import com.ssurvey.service.AccountService;
 import com.ssurvey.service.AnswerService;
@@ -23,6 +25,7 @@ import com.ssurvey.service.TicketService;
 public class TicketProcessor implements TicketVisitor{
   
   
+  private static final int CONFIDENCE_UPDATES_PER_BLOCK = 50;
   private static final int TICKETS_TO_PROCESS = 100;
   private TicketService ticketService;
   private AnswerService answerService;
@@ -44,6 +47,14 @@ public class TicketProcessor implements TicketVisitor{
       toProcess = this.ticketService.getNonProcessedTickets(this.TICKETS_TO_PROCESS - processed);
     }
   }
+  
+  public void updateConfidence(){
+    for(Account account : this.accountService.getAccountsForConfidenceUpdate(CONFIDENCE_UPDATES_PER_BLOCK)){
+      this.ticketService.saveTicket(new UpdateConfidenceTicket(account.getId()));
+    }
+  }
+  
+  
 
   public TicketProcessor(TicketService ticketService, AnswerService answerService, LinkedInInformationService linkedInInformationService, AccountService accountService){
     Validate.notNull(ticketService);
@@ -97,6 +108,16 @@ public class TicketProcessor implements TicketVisitor{
     for(Account account : this.accountService.getAccounts()){
       this.ticketService.saveTicket(new UpdateProfileTicket(account.getId()));
     }
+    this.ticketService.markAsProcessed(ticket);
+  }
+  
+  public void visit(UpdateConfidenceTicket ticket){
+    LinkedInUserProfile profile = this.linkedinInformationService.getLinkedInProfileForAccount(ticket.getTicketOwnerId());
+    Account account = this.accountService.getAccountById(ticket.getTicketOwnerId());
+    
+    //TODO: APA, you have to implement this.
+    
+    account.setLastConfidenceUpdateTimestamp((new Date().getTime()));
     this.ticketService.markAsProcessed(ticket);
   }
 

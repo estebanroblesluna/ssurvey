@@ -156,6 +156,12 @@ public class LinkedInInformationService {
   }
   
   @Transactional
+  public LinkedInUserProfile getLinkedInProfileForAccount(Long accountId){
+    LinkedIn api = this.usersConnectionRepository.createConnectionRepository(accountId.toString()).getPrimaryConnection(LinkedIn.class).getApi();
+    return this.getLinkedInUserProfile(api.profileOperations().getProfileId());
+  }
+  
+  @Transactional
   public void updateAllData()
   {
     this.repository.save(new UpdateAllTicket());

@@ -1,12 +1,21 @@
 package com.ssurvey.model;
 
+import java.util.Date;
+
 // import org.springframework.social.security.SocialUser;
 
 public class Account {
 
-  Long id;
-  String firstName;
-  String lastName;
+  private static final float INITIAL_CONFIDENCE = 0.5f;
+  
+  private Long id;
+  private String firstName;
+  private String middleName;
+  private String lastName;
+  private Long lastConfidenceUpdateTimestamp;
+  
+  public Account(){
+  }
 
   public Long getId() {
     return id;
@@ -30,5 +39,25 @@ public class Account {
 
   public void setLastName(String lastName) {
     this.lastName = lastName;
+  }
+
+  public String getMiddleName() {
+    return middleName;
+  }
+
+  public void setMiddleName(String middleName) {
+    this.middleName = middleName;
+  }
+  
+  public String getFullName(){
+    return this.firstName + " " + this.middleName +" " + this.lastName;
+  }
+
+  public Long getLastConfidenceUpdateTimestamp() {
+    return lastConfidenceUpdateTimestamp;
+  }
+
+  public void setLastConfidenceUpdateTimestamp(Long lastConfidenceUpdateTimestamp) {
+    this.lastConfidenceUpdateTimestamp = lastConfidenceUpdateTimestamp;
   }
 }

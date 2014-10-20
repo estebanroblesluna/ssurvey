@@ -32,4 +32,8 @@ public class AccountService {
 	public Account createAccount(Account account){
 		return this.accountRepository.createAccount(account);
 	}
+	
+	public List<Account> getAccountsForConfidenceUpdate(int count){
+	  return this.accountRepository.getAccountsForConfidenceUpdate(count);
+	}
 }
