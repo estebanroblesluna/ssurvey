@@ -92,8 +92,8 @@ body {
 
 .progress {
 	background-color: #fff;
-	margin-top:15px;
-	margin-bottom:0px;
+	margin-top: 15px;
+	margin-bottom: 0px;
 }
 
 .progress-bar-success {
@@ -102,7 +102,7 @@ body {
 
 .progress-title {
 	color: #fff;
-	margin-top:18px;
+	margin-top: 18px;
 }
 
 .question-container {
@@ -133,8 +133,28 @@ label.rank-item {
 	background-color: #00B5B5;
 }
 
+.panel-primary .message {
+	border-radius: 0;
+	border-width: 0;
+	background-color: #FFFFFF;
+	text-align: center;
+	font-weight: bold;
+}
+
 .panel-primary .list-group-item {
 	border-radius: 0;
 	border-width: 1px;
 	border-color: #eee;
+}
+
+.error-title {
+	font-size: 25px;
+}
+
+.slider .ui-slider-range {
+	background: #5cb85c;
+}
+
+.slider .ui-slider-handle:hover,.slider .ui-slider-handle:focus {
+	background: #CCFFCC;
 }
