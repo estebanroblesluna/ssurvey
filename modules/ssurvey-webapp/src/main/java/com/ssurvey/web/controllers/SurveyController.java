@@ -44,8 +44,8 @@ public class SurveyController extends SSurveyGenericController {
     } else {
       Account account = this.getLoggedUser();
       if (this.answerService.userHasAnsweredSurvey(account.getId(), survey.getId())) {
-        ModelAndView mv = this.createModelAndView("error");
-        mv.addObject("errorMessage", "You can only answer the survey once.");
+        ModelAndView mv = this.createModelAndView("answeredSurvey");
+        mv.addObject("survey", survey);
         return mv;
       } else {
         ModelAndView mv = this.createModelAndView("survey");

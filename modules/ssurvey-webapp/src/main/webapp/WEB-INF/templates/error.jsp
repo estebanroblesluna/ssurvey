@@ -20,7 +20,6 @@
 		<form action="/surveys/" method="GET">
 			<button class="btn btn-primary">Go back to surveys</button>
 		</form>
-
 	</div>
 </body>
 </html>
