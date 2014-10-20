@@ -186,6 +186,13 @@
 			<property name="connectionOfProfileId" column="connectionOf" />
 			<property name="depth" column="depth" />
 		</joined-subclass>
+		
+		<joined-subclass name="UpdateAllTicket" table="update_ticket">
+			<key column="ticket_id" />
+		</joined-subclass>
+		<joined-subclass name="UpdateProfileTicket" table="update_profile_ticket">
+			<key column="ticket_id" />
+		</joined-subclass>
 	</class>
 
 

@@ -11,6 +11,7 @@ http://www.springframework.org/schema/task/spring-task-3.0.xsd">
 	<constructor-arg ref="ticketService" />
 	<constructor-arg ref="answerService" />
 	<constructor-arg ref="linkedInInformationService"/>
+	<constructor-arg ref="accountService" />
 </bean>
 
 
