@@ -92,8 +92,8 @@ body {
 
 .progress {
 	background-color: #fff;
-	margin-top:15px;
-	margin-bottom:0px;
+	margin-top: 15px;
+	margin-bottom: 0px;
 }
 
 .progress-bar-success {
@@ -102,7 +102,7 @@ body {
 
 .progress-title {
 	color: #fff;
-	margin-top:18px;
+	margin-top: 18px;
 }
 
 .question-container {
@@ -137,4 +137,12 @@ label.rank-item {
 	border-radius: 0;
 	border-width: 1px;
 	border-color: #eee;
+}
+
+.slider .ui-slider-range {
+	background: #5cb85c;
+}
+
+.slider .ui-slider-handle:hover, .slider .ui-slider-handle:focus {
+	background: #CCFFCC;
 }
