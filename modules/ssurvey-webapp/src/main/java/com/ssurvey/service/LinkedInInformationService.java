@@ -156,6 +156,13 @@ public class LinkedInInformationService {
   }
   
   @Transactional
+  public void updateProfileConfidence(LinkedInUserProfile profile){
+    LinkedInUserProfile persistedProfile = this.getLinkedInUserProfile(profile.getId());
+    persistedProfile.setConfidence(profile.getConfidence());
+    this.repository.save(persistedProfile);
+  }
+  
+  @Transactional
   public LinkedInUserProfile getLinkedInProfileForAccount(Long accountId){
     LinkedIn api = this.usersConnectionRepository.createConnectionRepository(accountId.toString()).getPrimaryConnection(LinkedIn.class).getApi();
     return this.getLinkedInUserProfile(api.profileOperations().getProfileId());
