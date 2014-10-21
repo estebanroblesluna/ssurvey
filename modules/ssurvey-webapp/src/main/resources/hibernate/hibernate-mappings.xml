@@ -102,6 +102,7 @@
 			<key column="linkedin_profile_id" />
 			<one-to-many class="LinkedInPosition" />
 		</bag>
+		<property name="confidence" type="double" />
 	</class>
 
 	<class name="AnsweredSurvey" table="answered_survey">
