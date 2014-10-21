@@ -26,6 +26,7 @@ import com.ssurvey.util.LinkedInAPIHelper;
 
 @Service
 public class LinkedInInformationService {
+
   private GenericRepository repository;
   private UsersConnectionRepository usersConnectionRepository;
   private TicketService ticketService;
@@ -82,13 +83,12 @@ public class LinkedInInformationService {
 
   @Transactional
   public LinkedInUserProfile updateProfile(Long connectionOwnerId, String linkedInProfileId, int depth) {
-    LinkedIn linkedIn = this.usersConnectionRepository.createConnectionRepository(connectionOwnerId.toString())
-            .getPrimaryConnection(LinkedIn.class).getApi();
-    
-    if(linkedInProfileId == null){
+    LinkedIn linkedIn = this.usersConnectionRepository.createConnectionRepository(connectionOwnerId.toString()).getPrimaryConnection(LinkedIn.class).getApi();
+
+    if (linkedInProfileId == null) {
       linkedInProfileId = linkedIn.profileOperations().getProfileId();
     }
-    
+
     LinkedInProfileFull profile;
     try {
       profile = linkedIn.profileOperations().getProfileFullById(linkedInProfileId);
@@ -115,23 +115,23 @@ public class LinkedInInformationService {
     // Recomenders
     if (depth == 1 && profile.getRecommendationsReceived() != null) {
       for (Recommendation recommendation : profile.getRecommendationsReceived()) {
-        this.ticketService.saveTicket(new GetRecommenderTicket(connectionOwnerId,recommendation.getRecommender().getId(),linkedInProfileId));
+        this.ticketService.saveTicket(new GetRecommenderTicket(connectionOwnerId, recommendation.getRecommender().getId(), linkedInProfileId));
       }
     }
 
     // Connections
     if (depth > 0 && linkedIn.connectionOperations().getConnections() != null) {
       for (LinkedInProfile connection : linkedIn.connectionOperations().getConnections()) {
-        this.ticketService.saveTicket(new GetConnectionTicket(connectionOwnerId,connection.getId(),linkedInProfileId,depth-1));
+        this.ticketService.saveTicket(new GetConnectionTicket(connectionOwnerId, connection.getId(), linkedInProfileId, depth - 1));
       }
     }
     this.repository.save(ret);
     return ret;
   }
-  
+
   @Transactional
-  public void addConnection(LinkedInUserProfile p1, LinkedInUserProfile p2){
-    if(p1 == null || p2 == null){
+  public void addConnection(LinkedInUserProfile p1, LinkedInUserProfile p2) {
+    if (p1 == null || p2 == null) {
       return;
     }
     p1 = this.getLinkedInUserProfile(p1.getId());
@@ -141,10 +141,10 @@ public class LinkedInInformationService {
     this.repository.save(p1);
     this.repository.save(p2);
   }
-  
+
   @Transactional
-  public void addRecommendation(LinkedInUserProfile recommender, LinkedInUserProfile recommendee){
-    if(recommendee == null || recommender == null){
+  public void addRecommendation(LinkedInUserProfile recommender, LinkedInUserProfile recommendee) {
+    if (recommendee == null || recommender == null) {
       return;
     }
     recommendee = this.getLinkedInUserProfile(recommendee.getId());
@@ -154,27 +154,27 @@ public class LinkedInInformationService {
     this.repository.save(recommendee);
     this.repository.save(recommender);
   }
-  
+
   @Transactional
-  public void updateProfileConfidence(LinkedInUserProfile profile){
+  public void updateProfileConfidence(LinkedInUserProfile profile) {
     LinkedInUserProfile persistedProfile = this.getLinkedInUserProfile(profile.getId());
     persistedProfile.setConfidence(profile.getConfidence());
     this.repository.save(persistedProfile);
   }
-  
+
   @Transactional
-  public LinkedInUserProfile getLinkedInProfileForAccount(Long accountId){
+  public LinkedInUserProfile getLinkedInProfileForAccount(Long accountId) {
     LinkedIn api = this.usersConnectionRepository.createConnectionRepository(accountId.toString()).getPrimaryConnection(LinkedIn.class).getApi();
     return this.getLinkedInUserProfile(api.profileOperations().getProfileId());
   }
-  
+
   @Transactional
-  public void updateAllData()
-  {
+  public void updateAllData() {
     this.repository.save(new UpdateAllTicket());
   }
+
   @Transactional
-  public void saveLinkedInUserProfile(LinkedInUserProfile profile){
+  public void saveLinkedInUserProfile(LinkedInUserProfile profile) {
     this.repository.save(profile);
   }
 }
