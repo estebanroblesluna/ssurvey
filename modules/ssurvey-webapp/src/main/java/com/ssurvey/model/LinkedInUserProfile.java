@@ -10,19 +10,18 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 public class LinkedInUserProfile {
 
+  private static final float INITIAL_CONFIDENCE = 0.5f;
   private String id;
   private List<LinkedInPosition> positions;
   private Set<LinkedInUserProfile> recommenders;
   private Set<LinkedInUserProfile> connections;
-  private double confidence;
+  private float confidence;
   
   public LinkedInUserProfile(){
     this.positions = new ArrayList<LinkedInPosition>();
     this.recommenders = new HashSet<LinkedInUserProfile>();
     this.connections = new HashSet<LinkedInUserProfile>();
-    
-    //By default, the confidence index is going to be 0.5.
-    this.setConfidence(0.5); 
+    this.confidence = INITIAL_CONFIDENCE;
   }
 
   public List<LinkedInPosition> getPositions() {
@@ -97,12 +96,12 @@ public class LinkedInUserProfile {
     return new HashCodeBuilder().append(this.id).build();
   }
 
-  public double getConfidence() {
-	return confidence;
+
+  public float getConfidence() {
+    return confidence;
   }
-	
-  public void setConfidence(double confidence) {
-	this.confidence = confidence;
+
+  public void setConfidence(float confidence) {
+    this.confidence = confidence;
   }
-  
 }

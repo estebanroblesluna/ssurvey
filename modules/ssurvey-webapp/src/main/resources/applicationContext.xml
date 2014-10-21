@@ -45,7 +45,7 @@
 	</bean>
 
 	<bean id="accountService" class="com.ssurvey.service.AccountService">
-		<property name="accountRepository" ref="accountRepository"></property>
+		<constructor-arg ref="accountRepository" />
 	</bean>
 
 	<bean id="questionService" class="com.ssurvey.service.QuestionService">

@@ -147,6 +147,10 @@ label.rank-item {
 	border-color: #eee;
 }
 
+.error-title {
+	font-size: 25px;
+}
+
 .slider .ui-slider-range {
 	background: #5cb85c;
 }

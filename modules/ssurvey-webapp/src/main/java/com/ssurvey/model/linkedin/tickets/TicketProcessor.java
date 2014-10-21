@@ -1,16 +1,22 @@
 package com.ssurvey.model.linkedin.tickets;
 
+import java.util.Date;
 import java.util.List;
 
 import org.jsoup.helper.Validate;
 import org.springframework.social.connect.UsersConnectionRepository;
 
+import com.ssurvey.model.Account;
 import com.ssurvey.model.AnsweredSurvey;
 import com.ssurvey.model.GetConnectionTicket;
 import com.ssurvey.model.GetRecommenderTicket;
 import com.ssurvey.model.GetRespondentInformationTicket;
 import com.ssurvey.model.LinkedInUserProfile;
 import com.ssurvey.model.Ticket;
+import com.ssurvey.model.UpdateAllTicket;
+import com.ssurvey.model.UpdateConfidenceTicket;
+import com.ssurvey.model.UpdateProfileTicket;
+import com.ssurvey.service.AccountService;
 import com.ssurvey.service.AnswerService;
 import com.ssurvey.service.LinkedInInformationService;
 import com.ssurvey.service.TicketService;
@@ -19,9 +25,11 @@ import com.ssurvey.service.TicketService;
 public class TicketProcessor implements TicketVisitor{
   
   
+  private static final int CONFIDENCE_UPDATES_PER_BLOCK = 50;
   private static final int TICKETS_TO_PROCESS = 100;
   private TicketService ticketService;
   private AnswerService answerService;
+  private AccountService accountService;
   private LinkedInInformationService linkedinInformationService;
   
   
@@ -39,15 +47,26 @@ public class TicketProcessor implements TicketVisitor{
       toProcess = this.ticketService.getNonProcessedTickets(this.TICKETS_TO_PROCESS - processed);
     }
   }
+  
+  public void updateConfidence(){
+    for(Account account : this.accountService.getAccountsForConfidenceUpdate(CONFIDENCE_UPDATES_PER_BLOCK)){
+      this.ticketService.saveTicket(new UpdateConfidenceTicket(account.getId()));
+      account.setLastConfidenceUpdateTimestamp((new Date().getTime()));
+    }
+  }
+  
+  
 
-  public TicketProcessor(TicketService ticketService, AnswerService answerService, LinkedInInformationService linkedInInformationService){
+  public TicketProcessor(TicketService ticketService, AnswerService answerService, LinkedInInformationService linkedInInformationService, AccountService accountService){
     Validate.notNull(ticketService);
     Validate.notNull(answerService);
     Validate.notNull(linkedInInformationService);
+    Validate.notNull(accountService);
     
     this.ticketService = ticketService;
     this.answerService = answerService;
     this.linkedinInformationService = linkedInInformationService;
+    this.accountService = accountService;
   }
   
   
@@ -76,6 +95,29 @@ public class TicketProcessor implements TicketVisitor{
     LinkedInUserProfile connection = this.linkedinInformationService.updateProfile(ticket.getTicketOwnerId(),ticket.getConnectionProfileId(), ticket.getDepth());
     LinkedInUserProfile connectionOf = this.linkedinInformationService.getLinkedInUserProfile(ticket.getConnectionOfProfileId());
     this.linkedinInformationService.addConnection(connection, connectionOf);
+    this.ticketService.markAsProcessed(ticket);
+  }
+  
+  @Override
+  public void visit(UpdateProfileTicket ticket){
+    this.linkedinInformationService.updateProfile(ticket.getTicketOwnerId(), null, 1);
+    this.ticketService.markAsProcessed(ticket);
+  }
+  
+  @Override
+  public void visit(UpdateAllTicket ticket){
+    for(Account account : this.accountService.getAccounts()){
+      this.ticketService.saveTicket(new UpdateProfileTicket(account.getId()));
+    }
+    this.ticketService.markAsProcessed(ticket);
+  }
+  
+  public void visit(UpdateConfidenceTicket ticket){
+    LinkedInUserProfile profile = this.linkedinInformationService.getLinkedInProfileForAccount(ticket.getTicketOwnerId());
+    Account account = this.accountService.getAccountById(ticket.getTicketOwnerId());
+    
+    //TODO: APA, you have to implement this.
+    
     this.ticketService.markAsProcessed(ticket);
   }
 

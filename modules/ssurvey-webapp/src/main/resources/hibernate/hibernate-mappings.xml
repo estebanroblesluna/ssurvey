@@ -70,7 +70,9 @@
 			<generator class="native"></generator>
 		</id>
 		<property name="firstName" column="first_name" />
+		<property name="middleName" column="middle_name" />
 		<property name="lastName" column="last_name" />
+		<property name="lastConfidenceUpdateTimestamp" column="last_confidence_update" />
 	</class>
 
 	<class name="LinkedInCompany" table="linkedin_company">
@@ -102,7 +104,7 @@
 			<key column="linkedin_profile_id" />
 			<one-to-many class="LinkedInPosition" />
 		</bag>
-		<property name="confidence" type="double" />
+		<property name="confidence" column="confidence" />
 	</class>
 
 	<class name="AnsweredSurvey" table="answered_survey">
@@ -186,6 +188,18 @@
 			<property name="connectionProfileId" column="connection" />
 			<property name="connectionOfProfileId" column="connectionOf" />
 			<property name="depth" column="depth" />
+		</joined-subclass>
+		
+		<joined-subclass name="UpdateAllTicket" table="update_ticket">
+			<key column="ticket_id" />
+		</joined-subclass>
+		
+		<joined-subclass name="UpdateProfileTicket" table="update_profile_ticket">
+			<key column="ticket_id" />
+		</joined-subclass>
+		
+		<joined-subclass name="UpdateConfidenceTicket" table="update_confidence_ticket">
+			<key column="ticket_id" />
 		</joined-subclass>
 	</class>
 

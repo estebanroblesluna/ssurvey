@@ -19,6 +19,8 @@ import com.ssurvey.model.GetRespondentInformationTicket;
 import com.ssurvey.model.LinkedInCompany;
 import com.ssurvey.model.LinkedInPosition;
 import com.ssurvey.model.LinkedInUserProfile;
+import com.ssurvey.model.UpdateAllTicket;
+import com.ssurvey.model.UpdateProfileTicket;
 import com.ssurvey.repositories.GenericRepository;
 import com.ssurvey.util.LinkedInAPIHelper;
 
@@ -153,6 +155,17 @@ public class LinkedInInformationService {
     this.repository.save(recommender);
   }
   
+  @Transactional
+  public LinkedInUserProfile getLinkedInProfileForAccount(Long accountId){
+    LinkedIn api = this.usersConnectionRepository.createConnectionRepository(accountId.toString()).getPrimaryConnection(LinkedIn.class).getApi();
+    return this.getLinkedInUserProfile(api.profileOperations().getProfileId());
+  }
+  
+  @Transactional
+  public void updateAllData()
+  {
+    this.repository.save(new UpdateAllTicket());
+  }
   @Transactional
   public void saveLinkedInUserProfile(LinkedInUserProfile profile){
     this.repository.save(profile);

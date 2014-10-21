@@ -22,7 +22,7 @@
 </script>
 </head>
 <body>
-	<div class="container container-login">
+	<div class="container container-main">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title ssurvey-title">

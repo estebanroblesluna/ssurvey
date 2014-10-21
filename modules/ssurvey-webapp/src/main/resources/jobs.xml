@@ -11,6 +11,7 @@ http://www.springframework.org/schema/task/spring-task-3.0.xsd">
 	<constructor-arg ref="ticketService" />
 	<constructor-arg ref="answerService" />
 	<constructor-arg ref="linkedInInformationService"/>
+	<constructor-arg ref="accountService" />
 </bean>
 
 
@@ -21,6 +22,7 @@ http://www.springframework.org/schema/task/spring-task-3.0.xsd">
 
 <task:scheduled-tasks>
 	<task:scheduled ref="ticketProcessor" method="processTickets" fixed-delay="30000"/>
+	<task:scheduled ref="ticketProcessor" method="updateConfidence" fixed-delay="300000"/>
 </task:scheduled-tasks>
 
 </beans>
