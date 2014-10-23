@@ -30,6 +30,7 @@
 			})
 		})
 		$(".numeric").each(function (index){
+			debugger;
 			$($(this).children()[0]).slider({
 				range: "min",
 				value: 0,
@@ -43,13 +44,11 @@
 	})
 
 	$(document).ready(function() {
-		var size = 0;
-		var arrayLength = ${fn:length(survey.questions)};
-		var pos = 0;
-		var aBoolean = new Array(arrayLength+1);
-		
-		
-		for (i = 0; i < aBoolean.length; ++i) {aBoolean[i] = false;} 
+		var actualSize = 0;
+		var numberOfQuestions = ${fn:length(survey.questions)};
+		var actualPosition = 0;
+		var flags = new Array(numberOfQuestions+1);
+		for (var i = 0; i < flags.length; i++) flags[i] = false; 
 		
 		function validateOpenAnswer(container){
 			var button = $(".submit-answer-button",container)
@@ -110,27 +109,26 @@
 			if(validateAnswer(container)){
 				container.hide(500, function(){
 					
-					if (size < 100 && aBoolean[pos] == false) {
-						size += 100 / arrayLength;
-						aBoolean[pos] = true;
-						$(".progress-bar").width(size + "%");
-						$(".progress-bar").text(size.toFixed(2) + "%");
+					if (actualSize < 100 && flags[actualPosition] == false) {
+						flags[actualPosition] = true;
+						actualSize += 100 / numberOfQuestions;
+						$(".progress-bar").width(actualSize + "%");
+						$(".progress-bar").text(actualSize.toFixed(2) + "%");
 					}
 	
 					if(container.next().length == 0){
-						$("#surveyForm").submit();
-						
+						$("#surveyForm").submit();						
 					} else {
 						container.next().show(500);
 					}
 				})
-				pos += 1;
+				actualPosition++;
 			} else {
 				$(this).popover("show");
 				var button = $(this);
 				setTimeout(function() {
-				      $(button).popover('hide');
-				    }, 3000)
+				    $(button).popover('hide');
+				}, 3000)
 			}
 			
 		})
@@ -144,7 +142,7 @@
 					container.prev().show(500);
 				});
 			}
-			pos -= 1;
+			actualPosition--;
 		})
 		
 	});
