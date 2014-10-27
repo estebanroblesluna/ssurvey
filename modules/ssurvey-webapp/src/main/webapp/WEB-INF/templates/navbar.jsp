@@ -5,7 +5,7 @@
 	<div>
 		<sec:authorize access="isAuthenticated()">
 			<a class="navbar-brand pull-right navbar-button"
-				href="/j_spring_security_logout"><small>Log out</a>
+				href="/j_spring_security_logout"><small>Log out</small></a>
 			<a class="navbar-brand pull-right"><small>Logged as
 					${user.firstName} ${user.lastName}</small></a>
 		</sec:authorize>

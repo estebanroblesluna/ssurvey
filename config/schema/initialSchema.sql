@@ -95,6 +95,7 @@ CREATE TABLE `answered_survey` (
   `survey` bigint(20) DEFAULT NULL,
   `linkedInUserProfile` varchar(255) DEFAULT NULL,
   `accountId` bigint(20) DEFAULT NULL,
+  `confidence` double precision DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_97bohjbmhqbb0u80wi7jr3c3m` (`survey`),
   KEY `FK_7id6gx2u77scvfidgfaofir8` (`linkedInUserProfile`),

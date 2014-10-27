@@ -96,6 +96,7 @@ public class LinkedInUserProfile {
     return new HashCodeBuilder().append(this.id).build();
   }
 
+
   public float getConfidence() {
     return confidence;
   }
@@ -103,5 +104,4 @@ public class LinkedInUserProfile {
   public void setConfidence(float confidence) {
     this.confidence = confidence;
   }
-  
 }

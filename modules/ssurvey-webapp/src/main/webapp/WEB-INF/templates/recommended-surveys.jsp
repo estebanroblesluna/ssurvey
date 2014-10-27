@@ -12,19 +12,17 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/templates/navbar.jsp" />
-	<div class="container" style="margin-top:90px">
+	<div class="container" style="margin-top: 90px">
 		<div class="col-md-6 col-md-offset-3">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					<h3 class="panel-title">Surveys
-					</h3>
+					<h3 class="panel-title">Surveys</h3>
 				</div>
 				<div class="message">
-					<p><br>
-						This is a beta version.<br>
-						If you want to complete a survey, you have to do it by its link.<br>
-						Thank you.<br>
-						<br>
+					<p>
+						<br> This is a beta version. <br> If you want to
+						complete a survey, you have to do it by its link. <br> Thank
+						you. <br> <br>
 					</p>
 				</div>
 			</div>
