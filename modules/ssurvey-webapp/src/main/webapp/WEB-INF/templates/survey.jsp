@@ -30,7 +30,6 @@
 			})
 		})
 		$(".numeric").each(function (index){
-			debugger;
 			$($(this).children()[0]).slider({
 				range: "min",
 				value: 0,
@@ -54,7 +53,7 @@
 			var button = $(".submit-answer-button",container)
 			button.popover({
 				"content": "You can't leave this unanswered.",
-				"placement": "left",
+				"placement": "bottom",
 				"container": "body",
 				"trigger": "manual"
 			})
@@ -64,7 +63,7 @@
 			var button = $(".submit-answer-button",container)
 			button.popover({
 				"content": "You must choice at least one option.",
-				"placement": "left",
+				"placement": "bottom",
 				"container": "body",
 				"trigger": "manual"
 			})
@@ -74,7 +73,7 @@
 			var button = $(".submit-answer-button",container)
 			button.popover({
 				"content": "You must choice one option.",
-				"placement": "left",
+				"placement": "bottom",
 				"container": "body",
 				"trigger": "manual"
 			})

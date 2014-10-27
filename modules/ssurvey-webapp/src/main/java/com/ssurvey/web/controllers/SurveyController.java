@@ -76,8 +76,11 @@ public class SurveyController extends SSurveyGenericController {
     if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() == "anonymousUser") {
       return "redirect:/";
     } else {
-      this.answerService.answer(this.getLoggedUser().getId(), permalink, params);
-      return "redirect:/surveys/";
+      if (this.answerService.answer(this.getLoggedUser().getId(), permalink, params)) {
+        return "redirect:/surveys/";
+      } else {
+        return "redirect:/errorPage/";
+      }
     }
   }
 }
