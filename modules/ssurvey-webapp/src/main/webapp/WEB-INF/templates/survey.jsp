@@ -6,6 +6,8 @@
 <script type="text/javascript" src="/static/js/jqueryUI/jquery-ui.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="/static/css/jqueryUI/jquery-ui.css">
+<link rel="stylesheet" type="text/css"
+	href="/static/css/font-awesome.min.css" />
 <link rel="stylesheet" type="text/css" href="/static/css/questions.css">
 <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="/static/css/main.css">
@@ -16,7 +18,16 @@
 <script type="text/javascript">
 	$(function() {
 
-		$(".sortable").sortable();
+		$(".sortable").sortable({
+			stop: function(event, ui){
+				ui.item.closest(".sortable").data("answered","true");
+				ui.item.closest(".question-container").find(".list-group-item").each(function(){
+					var badge = $(".rank-order",$(this));
+					badge.attr("class","rank-order badge");
+					badge.html($(this).index()+1);
+				})
+			}
+		});
 		$(".sortable").disableSelection();
 
 		$("#surveyForm").submit(function() {
@@ -80,6 +91,16 @@
 			})
 		}
 		
+		function validateRankAnswer(container){
+			var button = $(".submit-answer-button",container)
+			button.popover({
+				"content": "Please, sort the items.",
+				"placement": "left",
+				"container": "body",
+				"trigger": "manual"
+			})
+		}
+		
 		$(".question-container").each(function(){
 			var container = $(this);
 			switch(container.attr("data-questionType")){
@@ -89,6 +110,8 @@
 					validateSingleChoiceAnswer(container);
 				case "OPEN_ANSWER_QUESTION":
 					validateOpenAnswer(container);
+				case "RANK_ANSWER_QUESTION":
+					validateRankAnswer(container);
 			}		
 		})
 		
@@ -100,6 +123,8 @@
 					return $("input[type='radio']:checked",container).length != 0;
 				case "OPEN_ANSWER_QUESTION":
 					return $(".answerArea",container).val() != "";
+				case "RANK_ANSWER_QUESTION":
+					return $(".sortable",container).data("answered") == "true";
 			}
 			return true;
 		}
@@ -228,11 +253,11 @@
 							<c:when test="${question.type == 'RANK_ANSWER_QUESTION' }">
 								<div class="panel-body">
 									<div class="panel-body rank-question">
-										<ol class="list-group sortable">
+										<ol class="list-group sortable" data-answerd="false">
 											<c:forEach var="option" items="${question.options}">
 												<li class="list-group-item">
 													<div>
-														<span class="glyphicon glyphicon-move"></span><label
+														<span class="rank-order fa fa-reorder fa-lg"></span><label
 															class="rank-item">${option}</label>
 													</div>
 												</li>

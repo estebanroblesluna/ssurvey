@@ -111,7 +111,6 @@ public class TicketProcessor implements TicketVisitor {
   public void visit(UpdateConfidenceTicket ticket) {
     LinkedInUserProfile profile = this.linkedinInformationService.getLinkedInProfileForAccount(ticket.getTicketOwnerId());
     Account account = this.accountService.getAccountById(ticket.getTicketOwnerId());
-    // TODO: change this placeholder
     if(profile != null){
       profile.setConfidence((float) Math.random());
       this.linkedinInformationService.updateProfileConfidence(profile);
