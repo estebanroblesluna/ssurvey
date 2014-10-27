@@ -1,6 +1,5 @@
 package com.ssurvey.service;
 
-import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.linkedin.api.Company;
 import org.springframework.social.linkedin.api.LinkedIn;
@@ -11,21 +10,25 @@ import org.springframework.social.linkedin.api.Recommendation;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ssurvey.model.Account;
-import com.ssurvey.model.AnsweredSurvey;
 import com.ssurvey.model.GetConnectionTicket;
 import com.ssurvey.model.GetRecommenderTicket;
-import com.ssurvey.model.GetRespondentInformationTicket;
 import com.ssurvey.model.LinkedInCompany;
 import com.ssurvey.model.LinkedInPosition;
 import com.ssurvey.model.LinkedInUserProfile;
 import com.ssurvey.model.UpdateAllTicket;
-import com.ssurvey.model.UpdateProfileTicket;
 import com.ssurvey.repositories.GenericRepository;
 import com.ssurvey.util.LinkedInAPIHelper;
 
 @Service
 public class LinkedInInformationService {
+
+  // Constants for confidence index
+  private static final float MIN_CONNECTIONS = 15f;
+  private static final float MAX_CONNECTIONS = 100f;
+  private static final float FIX_CONNECTIONS = 20f;
+  private static final float MAX_RECOMMENDERS = 100f;
+  private static final float FIX_RECOMMENDERS = 50f;
+  private static final float DEFAULT_CONFIDENCE = 0.5f;
 
   private GenericRepository repository;
   private UsersConnectionRepository usersConnectionRepository;
@@ -157,11 +160,27 @@ public class LinkedInInformationService {
 
   @Transactional
   public void updateProfileConfidence(LinkedInUserProfile profile) {
-    LinkedInUserProfile persistedProfile = this.getLinkedInUserProfile(profile.getId());
-    persistedProfile.setConfidence(profile.getConfidence());
-    this.repository.save(persistedProfile);
-  }
+    profile = this.getLinkedInUserProfile(profile.getId());
+    float confidence = DEFAULT_CONFIDENCE, aux;
+    int connections = profile.getConnections().size();
+    if (connections >= MIN_CONNECTIONS) {
+      aux = Math.max(connections, MAX_CONNECTIONS) * (FIX_CONNECTIONS / MAX_CONNECTIONS);
+      confidence += (aux == 0) ? 0 : (1 / aux);
+    } else {
+      aux = (MIN_CONNECTIONS - connections) * (FIX_CONNECTIONS / MIN_CONNECTIONS);
+      confidence -= (aux == 0) ? 0 : (1 / aux);
+    }
 
+    // System.out.println("[DEBUG] confidence after connections: " +
+    // confidence);
+    aux = Math.max(profile.getRecommenders().size(), MAX_RECOMMENDERS) * (FIX_RECOMMENDERS / MAX_RECOMMENDERS);
+    confidence += (aux == 0) ? 0 : (1 / aux);
+
+    // System.out.println("[DEBUG] confidence after recommendations: " +
+    // confidence);
+    profile.setConfidence(confidence);
+    this.repository.save(profile);
+  }
   @Transactional
   public LinkedInUserProfile getLinkedInProfileForAccount(Long accountId) {
     LinkedIn api = this.usersConnectionRepository.createConnectionRepository(accountId.toString()).getPrimaryConnection(LinkedIn.class).getApi();
