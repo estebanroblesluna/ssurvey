@@ -41,10 +41,9 @@
 			})
 		})
 		$(".numeric").each(function (index){
-			debugger;
 			$($(this).children()[0]).slider({
 				range: "min",
-				value: 0,
+				value: 1,
 				min: $($(this).children()[0]).data("min"),
 				max: $($(this).children()[0]).data("max"),
 				slide: function(event, ui) {
@@ -65,7 +64,7 @@
 			var button = $(".submit-answer-button",container)
 			button.popover({
 				"content": "You can't leave this unanswered.",
-				"placement": "left",
+				"placement": "bottom",
 				"container": "body",
 				"trigger": "manual"
 			})
@@ -75,7 +74,7 @@
 			var button = $(".submit-answer-button",container)
 			button.popover({
 				"content": "You must choice at least one option.",
-				"placement": "left",
+				"placement": "bottom",
 				"container": "body",
 				"trigger": "manual"
 			})
@@ -85,7 +84,7 @@
 			var button = $(".submit-answer-button",container)
 			button.popover({
 				"content": "You must choice one option.",
-				"placement": "left",
+				"placement": "bottom",
 				"container": "body",
 				"trigger": "manual"
 			})
@@ -133,14 +132,13 @@
 			var container = $(this).closest(".question-container");
 			if(validateAnswer(container)){
 				container.hide(500, function(){
-					
 					if (actualSize < 100 && flags[actualPosition] == false) {
 						flags[actualPosition] = true;
 						actualSize += 100 / numberOfQuestions;
 						$(".progress-bar").width(actualSize + "%");
 						$(".progress-bar").text(actualSize.toFixed(2) + "%");
 					}
-	
+			
 					if(container.next().length == 0){
 						$("#surveyForm").submit();						
 					} else {
@@ -160,6 +158,12 @@
 		
 		$(".previous-question-button").click(function(){
 			var container = $(this).closest(".question-container");
+			if (actualSize > 0 && flags[actualPosition] == true) {
+				flags[actualPosition] = false;
+				actualSize -= 100 / numberOfQuestions;
+				$(".progress-bar").width(actualSize + "%");
+				$(".progress-bar").text(actualSize.toFixed(2) + "%");
+			}
 			if(container.prev().length == 0){
 				return;
 			} else {
@@ -245,7 +249,7 @@
 										<div class="slider" data-min="${question.lowerBound}"
 											data-max="${question.upperBound}"></div>
 										<br> Your answer: <input name="question_${question.id}"
-											type="number" class="amount" placeholder="0" readonly>
+											type="number" class="amount" value="1" readonly>
 									</div>
 								</div>
 							</c:when>
