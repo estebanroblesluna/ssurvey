@@ -112,8 +112,10 @@ public class TicketProcessor implements TicketVisitor {
     LinkedInUserProfile profile = this.linkedinInformationService.getLinkedInProfileForAccount(ticket.getTicketOwnerId());
     Account account = this.accountService.getAccountById(ticket.getTicketOwnerId());
     // TODO: change this placeholder
-    profile.setConfidence((float) Math.random());
-    this.linkedinInformationService.updateProfileConfidence(profile);
+    if(profile != null){
+      profile.setConfidence((float) Math.random());
+      this.linkedinInformationService.updateProfileConfidence(profile);
+    }
     this.ticketService.markAsProcessed(ticket);
   }
 

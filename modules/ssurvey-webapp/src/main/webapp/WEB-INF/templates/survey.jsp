@@ -30,7 +30,6 @@
 			})
 		})
 		$(".numeric").each(function (index){
-			
 			$($(this).children()[0]).slider({
 				range: "min",
 				value: 1,
