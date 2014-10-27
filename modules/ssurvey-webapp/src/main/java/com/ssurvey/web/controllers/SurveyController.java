@@ -78,7 +78,7 @@ public class SurveyController extends SSurveyGenericController {
       return "redirect:/";
     } else {
       this.answerService.answer(this.getLoggedUser().getId(), permalink, params);
-      return "redirect:/surveys/";
+      return "redirect:/surveys/"+permalink;
     }
   }
 }
