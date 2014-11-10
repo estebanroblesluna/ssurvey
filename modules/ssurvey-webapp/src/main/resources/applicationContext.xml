@@ -69,5 +69,12 @@
 	<bean id="ticketService" class="com.ssurvey.service.TicketService">
 		<constructor-arg ref="ticketRepository" />
 	</bean>
+	
+	<bean id="confidenceCalculator" class="com.ssurvey.logic.IndexCalculator">
+		<constructor-arg>
+			<list value-type="com.ssurvey.logic.ProfileEvaluationRule">
+			</list>
+		</constructor-arg>
+	</bean>
 
 </beans>

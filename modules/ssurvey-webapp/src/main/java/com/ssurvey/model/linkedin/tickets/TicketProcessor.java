@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.jsoup.helper.Validate;
 
+import com.ssurvey.logic.IndexCalculator;
 import com.ssurvey.model.Account;
 import com.ssurvey.model.AnsweredSurvey;
 import com.ssurvey.model.GetConnectionTicket;
@@ -27,6 +28,7 @@ public class TicketProcessor implements TicketVisitor {
   private TicketService ticketService;
   private AnswerService answerService;
   private AccountService accountService;
+  private IndexCalculator confidenceCalculator;
   private LinkedInInformationService linkedinInformationService;
 
   public void processTickets() {
@@ -52,7 +54,7 @@ public class TicketProcessor implements TicketVisitor {
   }
 
   public TicketProcessor(TicketService ticketService, AnswerService answerService, LinkedInInformationService linkedInInformationService,
-          AccountService accountService) {
+          AccountService accountService, IndexCalculator confidenceCalculator) {
     Validate.notNull(ticketService);
     Validate.notNull(answerService);
     Validate.notNull(linkedInInformationService);
@@ -62,6 +64,7 @@ public class TicketProcessor implements TicketVisitor {
     this.answerService = answerService;
     this.linkedinInformationService = linkedInInformationService;
     this.accountService = accountService;
+    this.confidenceCalculator = confidenceCalculator;
   }
 
   public void process(Ticket ticket) {
@@ -112,7 +115,7 @@ public class TicketProcessor implements TicketVisitor {
     LinkedInUserProfile profile = this.linkedinInformationService.getLinkedInProfileForAccount(ticket.getTicketOwnerId());
     Account account = this.accountService.getAccountById(ticket.getTicketOwnerId());
     if(profile != null){
-      profile.setConfidence((float) Math.random());
+      profile.setConfidence(this.confidenceCalculator.calculateIndex(profile));
       this.linkedinInformationService.updateProfileConfidence(profile);
     }
     this.ticketService.markAsProcessed(ticket);
