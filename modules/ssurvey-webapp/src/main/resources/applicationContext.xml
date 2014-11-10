@@ -57,6 +57,11 @@
 		<constructor-arg ref="usersConnectionRepository" />
 		<constructor-arg ref="genericRepository" />
 	</bean>
+	
+	<bean id="localLinkedInInformationService" class="com.ssurvey.service.LocalLinkedInInformationService">
+		<constructor-arg ref="genericRepository" />
+		<constructor-arg ref="usersConnectionRepository" />
+	</bean>
 
 	<bean id="answerService" class="com.ssurvey.service.AnswerService">
 		<constructor-arg ref="answerRepository" />
