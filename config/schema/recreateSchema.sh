@@ -32,10 +32,11 @@ then
 fi
 
 function apply {
-	echo -e "${yellow}mysql $HOST $USER $PASS $PORT < $BASEDIR/$1${reset}";
 	echo -e "${yellow}Executing $1${reset}";
 	mysql $HOST $USER $PASS $PORT < $BASEDIR/$1
 }
 
 apply initialSchema.sql
-
+apply migration/0.4/add-update-tickets.sql
+apply migration/0.4/update-account.sql
+apply migration/0.4/update-linkedin-profile.sql

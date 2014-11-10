@@ -6,6 +6,8 @@
 <script type="text/javascript" src="/static/js/jqueryUI/jquery-ui.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="/static/css/jqueryUI/jquery-ui.css">
+<link rel="stylesheet" type="text/css"
+	href="/static/css/font-awesome.min.css" />
 <link rel="stylesheet" type="text/css" href="/static/css/questions.css">
 <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="/static/css/main.css">
@@ -16,7 +18,19 @@
 <script type="text/javascript">
 	$(function() {
 
-		$(".sortable").sortable();
+		$(".sortable").sortable({
+			connectWith: "ol",
+			stop: function(event, ui){
+				$(".rank-order",ui.item).empty();
+				$(".rank-order",ui.item).attr("class","rank-order fa fa-reorder fa-lg");
+				ui.item.closest(".question-container").find(".ordered-answers").find(".list-group-item").each(function(){
+					var badge = $(".rank-order",$(this));
+					badge.attr("class","rank-order badge");
+					badge.html($(this).index()+1);
+				})
+				ui.item.closest(".rank-question").data("answered",ui.item.closest(".question-container").find(".undered-answers").find(".list-group-item").length == 0)
+			}
+		});
 		$(".sortable").disableSelection();
 
 		$("#surveyForm").submit(function() {
@@ -32,7 +46,7 @@
 		$(".numeric").each(function (index){
 			$($(this).children()[0]).slider({
 				range: "min",
-				value: 0,
+				value: 1,
 				min: $($(this).children()[0]).data("min"),
 				max: $($(this).children()[0]).data("max"),
 				slide: function(event, ui) {
@@ -43,19 +57,17 @@
 	})
 
 	$(document).ready(function() {
-		var size = 0;
-		var arrayLength = ${fn:length(survey.questions)};
-		var pos = 0;
-		var aBoolean = new Array(arrayLength+1);
-		
-		
-		for (i = 0; i < aBoolean.length; ++i) {aBoolean[i] = false;} 
+		var actualSize = 0;
+		var numberOfQuestions = ${fn:length(survey.questions)};
+		var actualPosition = 0;
+		var flags = new Array(numberOfQuestions+1);
+		for (var i = 0; i < flags.length; i++) flags[i] = false; 
 		
 		function validateOpenAnswer(container){
 			var button = $(".submit-answer-button",container)
 			button.popover({
 				"content": "You can't leave this unanswered.",
-				"placement": "left",
+				"placement": "bottom",
 				"container": "body",
 				"trigger": "manual"
 			})
@@ -65,7 +77,7 @@
 			var button = $(".submit-answer-button",container)
 			button.popover({
 				"content": "You must choice at least one option.",
-				"placement": "left",
+				"placement": "bottom",
 				"container": "body",
 				"trigger": "manual"
 			})
@@ -75,6 +87,16 @@
 			var button = $(".submit-answer-button",container)
 			button.popover({
 				"content": "You must choice one option.",
+				"placement": "bottom",
+				"container": "body",
+				"trigger": "manual"
+			})
+		}
+		
+		function validateRankAnswer(container){
+			var button = $(".submit-answer-button",container)
+			button.popover({
+				"content": "Please, sort the items.",
 				"placement": "left",
 				"container": "body",
 				"trigger": "manual"
@@ -90,6 +112,8 @@
 					validateSingleChoiceAnswer(container);
 				case "OPEN_ANSWER_QUESTION":
 					validateOpenAnswer(container);
+				case "RANK_ANSWER_QUESTION":
+					validateRankAnswer(container);
 			}		
 		})
 		
@@ -101,6 +125,8 @@
 					return $("input[type='radio']:checked",container).length != 0;
 				case "OPEN_ANSWER_QUESTION":
 					return $(".answerArea",container).val() != "";
+				case "RANK_ANSWER_QUESTION":
+					return $(".rank-question",container).data("answered") == true;
 			}
 			return true;
 		}
@@ -109,34 +135,38 @@
 			var container = $(this).closest(".question-container");
 			if(validateAnswer(container)){
 				container.hide(500, function(){
-					
-					if (size < 100 && aBoolean[pos] == false) {
-						size += 100 / arrayLength;
-						aBoolean[pos] = true;
-						$(".progress-bar").width(size + "%");
-						$(".progress-bar").text(size.toFixed(2) + "%");
+					if (actualSize < 100 && flags[actualPosition] == false) {
+						flags[actualPosition] = true;
+						actualSize += 100 / numberOfQuestions;
+						$(".progress-bar").width(actualSize + "%");
+						$(".progress-bar").text(actualSize.toFixed(2) + "%");
 					}
-	
+			
 					if(container.next().length == 0){
-						$("#surveyForm").submit();
-						
+						$("#surveyForm").submit();						
 					} else {
 						container.next().show(500);
 					}
 				})
-				pos += 1;
+				actualPosition++;
 			} else {
 				$(this).popover("show");
 				var button = $(this);
 				setTimeout(function() {
-				      $(button).popover('hide');
-				    }, 3000)
+				    $(button).popover('hide');
+				}, 3000)
 			}
 			
 		})
 		
 		$(".previous-question-button").click(function(){
 			var container = $(this).closest(".question-container");
+			if (actualSize > 0 && flags[actualPosition] == true) {
+				flags[actualPosition] = false;
+				actualSize -= 100 / numberOfQuestions;
+				$(".progress-bar").width(actualSize + "%");
+				$(".progress-bar").text(actualSize.toFixed(2) + "%");
+			}
 			if(container.prev().length == 0){
 				return;
 			} else {
@@ -144,7 +174,7 @@
 					container.prev().show(500);
 				});
 			}
-			pos -= 1;
+			actualPosition--;
 		})
 		
 	});
@@ -222,23 +252,27 @@
 										<div class="slider" data-min="${question.lowerBound}"
 											data-max="${question.upperBound}"></div>
 										<br> Your answer: <input name="question_${question.id}"
-											type="number" class="amount" placeholder="0" readonly>
+											type="number" class="amount" value="1" readonly>
 									</div>
 								</div>
 							</c:when>
 
 							<c:when test="${question.type == 'RANK_ANSWER_QUESTION' }">
 								<div class="panel-body">
-									<div class="panel-body rank-question">
-										<ol class="list-group sortable">
+									<div class="panel-body rank-question" data-answerd="false">
+										<ol class="list-group sortable unordered-answers" >
 											<c:forEach var="option" items="${question.options}">
 												<li class="list-group-item">
 													<div>
-														<span class="glyphicon glyphicon-move"></span><label
+														<span class="rank-order fa fa-reorder fa-lg"></span><label
 															class="rank-item">${option}</label>
 													</div>
 												</li>
 											</c:forEach>
+										</ol>
+										<h6>Drag the answers into the dashed box:</h6>
+										<ol class="list-group sortable ordered-answers">
+											
 										</ol>
 										<input type="hidden" class="rank-question-answer"
 											name="question_${question.id}">

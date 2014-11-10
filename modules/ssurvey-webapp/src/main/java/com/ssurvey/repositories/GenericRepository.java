@@ -35,12 +35,12 @@ public class GenericRepository {
   }
 
   @SuppressWarnings("unchecked")
-  public <T> List<T> list(Class< ? > theClass, String orderBy) {
+  public <T> List<T> list(Class< T > theClass, String orderBy) {
     return this.getSessionFactory().getCurrentSession().createCriteria(theClass).addOrder(Order.asc(orderBy)).list();
   }
 
   @SuppressWarnings("unchecked")
-  public <T> List<T> list(Class< ? > theClass) {
+  public <T> List<T> list(Class< T > theClass) {
     return this.getSessionFactory().getCurrentSession().createCriteria(theClass).list();
   }
 

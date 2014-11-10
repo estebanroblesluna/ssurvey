@@ -45,7 +45,7 @@
 	</bean>
 
 	<bean id="accountService" class="com.ssurvey.service.AccountService">
-		<property name="accountRepository" ref="accountRepository"></property>
+		<constructor-arg ref="accountRepository" />
 	</bean>
 
 	<bean id="questionService" class="com.ssurvey.service.QuestionService">
@@ -68,6 +68,13 @@
 	
 	<bean id="ticketService" class="com.ssurvey.service.TicketService">
 		<constructor-arg ref="ticketRepository" />
+	</bean>
+	
+	<bean id="confidenceCalculator" class="com.ssurvey.logic.IndexCalculator">
+		<constructor-arg>
+			<list value-type="com.ssurvey.logic.ProfileEvaluationRule">
+			</list>
+		</constructor-arg>
 	</bean>
 
 </beans>

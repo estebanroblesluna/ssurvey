@@ -5,8 +5,10 @@
 <title>Error Page</title>
 <link rel=icon href=/static/img/favicon.ico type="image/png">
 <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css" />
-<link rel="stylesheet" type="text/css" href="/static/css/font-awesome.min.css" />
-<link rel="stylesheet" type="text/css" href="/static/css/bootstrap-social.css" />
+<link rel="stylesheet" type="text/css"
+	href="/static/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css"
+	href="/static/css/bootstrap-social.css" />
 <link rel="stylesheet" type="text/css" href="/static/css/login.css" />
 <link rel="stylesheet" type="text/css" href="/static/css/main.css" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />

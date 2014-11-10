@@ -41,9 +41,9 @@ public class AnswerService {
   public void saveAnsweredSurvey(AnsweredSurvey answeredSurvey) {
     this.answerRepository.saveAnsweredSurvey(answeredSurvey);
   }
-  
+
   @Transactional
-  public void setAnswerLinkedInProfile(AnsweredSurvey answeredSurvey, LinkedInUserProfile profile){
+  public void setAnswerLinkedInProfile(AnsweredSurvey answeredSurvey, LinkedInUserProfile profile) {
     profile = this.linkedInInformationService.getLinkedInUserProfile(profile.getId());
     answeredSurvey = this.answerRepository.getAnsweredSurveyById(answeredSurvey.getId());
     answeredSurvey.setLinkedInUserProfile(profile);
@@ -55,9 +55,21 @@ public class AnswerService {
     return this.answerRepository.getAnsweredSurveysBySurveyId(surveyId);
   }
 
+  /**
+   * @return Returns a boolean: whether the changes are accepted or not
+   */
   @Transactional
-  public void answer(long userId, String permalink, MultiValueMap<String, String> params) {
+  public boolean answer(long userId, String permalink, MultiValueMap<String, String> params) {
     Survey survey = this.surveyService.getSurveyByPermalink(permalink);
+
+    /*
+     * If the number of input questions is different than the number of
+     * questions, the input is invalid and should not be stored in DB
+     */
+    if (params.keySet().size() != survey.getQuestions().size()) {
+      return false;
+    }
+
     AnsweredSurvey answeredSurvey = new AnsweredSurvey();
     answeredSurvey.setSurvey(survey);
 
@@ -70,6 +82,7 @@ public class AnswerService {
     answeredSurvey.setAccountId(userId);
     this.saveAnsweredSurvey(answeredSurvey);
     this.ticketService.saveTicket(new GetRespondentInformationTicket(answeredSurvey, userId));
+    return true;
   }
 
   @Transactional
