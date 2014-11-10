@@ -40,3 +40,5 @@ apply initialSchema.sql
 apply migration/0.4/add-update-tickets.sql
 apply migration/0.4/update-account.sql
 apply migration/0.4/update-linkedin-profile.sql
+apply migration/0.5/add-validity.sql
+

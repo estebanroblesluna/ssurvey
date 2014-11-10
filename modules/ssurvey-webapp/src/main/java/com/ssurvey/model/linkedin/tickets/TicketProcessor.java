@@ -46,7 +46,7 @@ public class TicketProcessor implements TicketVisitor {
     }
   }
 
-  public void updateConfidence() {
+  public void updateIndexes() {
     for (Account account : this.accountService.getAccountsForConfidenceUpdate(CONFIDENCE_UPDATES_PER_BLOCK)) {
       this.ticketService.saveTicket(new UpdateConfidenceTicket(account.getId()));
       account.setLastConfidenceUpdateTimestamp((new Date().getTime()));
