@@ -19,13 +19,16 @@
 	$(function() {
 
 		$(".sortable").sortable({
+			connectWith: "ol",
 			stop: function(event, ui){
-				ui.item.closest(".sortable").data("answered","true");
-				ui.item.closest(".question-container").find(".list-group-item").each(function(){
+				$(".rank-order",ui.item).empty();
+				$(".rank-order",ui.item).attr("class","rank-order fa fa-reorder fa-lg");
+				ui.item.closest(".question-container").find(".ordered-answers").find(".list-group-item").each(function(){
 					var badge = $(".rank-order",$(this));
 					badge.attr("class","rank-order badge");
 					badge.html($(this).index()+1);
 				})
+				ui.item.closest(".rank-question").data("answered",ui.item.closest(".question-container").find(".undered-answers").find(".list-group-item").length == 0)
 			}
 		});
 		$(".sortable").disableSelection();
@@ -123,7 +126,7 @@
 				case "OPEN_ANSWER_QUESTION":
 					return $(".answerArea",container).val() != "";
 				case "RANK_ANSWER_QUESTION":
-					return $(".sortable",container).data("answered") == "true";
+					return $(".rank-question",container).data("answered") == true;
 			}
 			return true;
 		}
@@ -256,8 +259,8 @@
 
 							<c:when test="${question.type == 'RANK_ANSWER_QUESTION' }">
 								<div class="panel-body">
-									<div class="panel-body rank-question">
-										<ol class="list-group sortable" data-answerd="false">
+									<div class="panel-body rank-question" data-answerd="false">
+										<ol class="list-group sortable unordered-answers" >
 											<c:forEach var="option" items="${question.options}">
 												<li class="list-group-item">
 													<div>
@@ -266,6 +269,10 @@
 													</div>
 												</li>
 											</c:forEach>
+										</ol>
+										<h6>Drag the answers into the dashed box:</h6>
+										<ol class="list-group sortable ordered-answers">
+											
 										</ol>
 										<input type="hidden" class="rank-question-answer"
 											name="question_${question.id}">

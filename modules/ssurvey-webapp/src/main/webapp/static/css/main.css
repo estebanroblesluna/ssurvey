@@ -158,3 +158,12 @@ label.rank-item {
 .slider .ui-slider-handle:hover,.slider .ui-slider-handle:focus {
 	background: #CCFFCC;
 }
+
+.ordered-answers{
+	min-height: 25px;
+	border: 1px dashed #AAA;
+}
+
+.rank-question h6{
+	margin-left: 5px;
+}
