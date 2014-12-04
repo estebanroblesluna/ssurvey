@@ -28,7 +28,7 @@
 					badge.attr("class","rank-order badge");
 					badge.html($(this).index()+1);
 				})
-				ui.item.closest(".rank-question").data("answered",ui.item.closest(".question-container").find(".undered-answers").find(".list-group-item").length == 0)
+				ui.item.closest(".rank-question").data("answered",ui.item.closest(".question-container").find(".unordered-answers").find(".list-group-item").length == 0)
 			}
 		});
 		$(".sortable").disableSelection();
@@ -43,17 +43,7 @@
 				$(".rank-question-answer", this).val(itemValues.join("|"));
 			})
 		})
-		$(".numeric").each(function (index){
-			$($(this).children()[0]).slider({
-				range: "min",
-				value: 1,
-				min: $($(this).children()[0]).data("min"),
-				max: $($(this).children()[0]).data("max"),
-				slide: function(event, ui) {
-					$($(this).next().next()).attr("value", ui.value);
-		      	}
-			});
-		});
+		
 	})
 
 	$(document).ready(function() {
@@ -102,6 +92,15 @@
 				"trigger": "manual"
 			})
 		}
+		function validateNumericAnswer(container){
+			var button = $(".submit-answer-button",container)
+			button.popover({
+				"content": "You must choice one option.",
+				"placement": "left",
+				"container": "body",
+				"trigger": "manual"
+			})
+		}
 		
 		$(".question-container").each(function(){
 			var container = $(this);
@@ -114,6 +113,8 @@
 					validateOpenAnswer(container);
 				case "RANK_ANSWER_QUESTION":
 					validateRankAnswer(container);
+				case "NUMERIC_ANSWER_QUESTION":
+					validateNumericAnswer(container);
 			}		
 		})
 		
@@ -122,6 +123,8 @@
 				case "MULTIPLE_CHOICE_QUESTION":
 					return $("input[type='checkbox']:checked",container).length != 0;
 				case "SINGLE_CHOICE_QUESTION":
+					return $("input[type='radio']:checked",container).length != 0;
+				case "NUMERIC_ANSWER_QUESTION":
 					return $("input[type='radio']:checked",container).length != 0;
 				case "OPEN_ANSWER_QUESTION":
 					return $(".answerArea",container).val() != "";
@@ -248,11 +251,22 @@
 							</c:when>
 							<c:when test="${question.type == 'NUMERIC_ANSWER_QUESTION' }">
 								<div class="panel-body ss-question-multiple">
-									<div class="col-md-12 list-group-item numeric">
-										<div class="slider" data-min="${question.lowerBound}"
-											data-max="${question.upperBound}"></div>
-										<br> Your answer: <input name="question_${question.id}"
-											type="number" class="amount" value="1" readonly>
+									<div class="col-md-12 list-group-item">
+										<ul class="list-group">
+											<c:forEach var="i" begin="${question.lowerBound}"
+												end="${question.upperBound}">
+												<span class="radio-inline"> <label><input
+														required="required" type="radio"
+														name="question_${question.id}"
+														class="question_${question.id}" value="${i}">${i}
+												</label>
+												</span>
+											</c:forEach>
+										</ul>
+										<br>
+										<div class="alert alert-success"
+											style="margin-bottom: 0px; margin-right: 500px" role="alert">Disagree:
+											1 - Agree: 10</div>
 									</div>
 								</div>
 							</c:when>
@@ -260,7 +274,7 @@
 							<c:when test="${question.type == 'RANK_ANSWER_QUESTION' }">
 								<div class="panel-body">
 									<div class="panel-body rank-question" data-answerd="false">
-										<ol class="list-group sortable unordered-answers" >
+										<ol class="list-group sortable unordered-answers">
 											<c:forEach var="option" items="${question.options}">
 												<li class="list-group-item">
 													<div>
@@ -272,7 +286,7 @@
 										</ol>
 										<h6>Drag the answers into the dashed box:</h6>
 										<ol class="list-group sortable ordered-answers">
-											
+
 										</ol>
 										<input type="hidden" class="rank-question-answer"
 											name="question_${question.id}">
