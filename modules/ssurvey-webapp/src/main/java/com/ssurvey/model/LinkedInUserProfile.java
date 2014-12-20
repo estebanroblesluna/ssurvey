@@ -11,8 +11,8 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 public class LinkedInUserProfile {
 
   
-  private static final float INITIAL_CONFIDENCE = 0.5f;
-  private static final float INITIAL_VALIDITY= 0.5f;
+  private static final float INITIAL_CONFIDENCE = -1.0f;
+  private static final float INITIAL_VALIDITY= -1.0f;
   
   private String id;
   private List<LinkedInPosition> positions;

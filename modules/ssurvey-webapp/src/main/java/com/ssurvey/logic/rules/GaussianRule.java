@@ -10,6 +10,8 @@ public abstract class GaussianRule extends ProfileEvaluationRule {
 
   public GaussianRule(float weight, float expectation, float variance) {
     super(weight);
+    this.expectation = expectation;
+    this.variance = variance;
   }
   protected float getExpectation() {
     return expectation;
@@ -29,7 +31,7 @@ public abstract class GaussianRule extends ProfileEvaluationRule {
 
   public float score(LinkedInUserProfile profile) {
     float upperBound = gaussianProbability(this.expectation);
-    return (gaussianProbability(this.evaluatedParam(profile)) / upperBound) * 2 - 1;
+    return (gaussianProbability(this.evaluatedParam(profile)) / upperBound);
   }
 
 }

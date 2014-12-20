@@ -17,14 +17,14 @@ public class IndexCalculator {
     this.rules = rules;
   }
 
-  public float calculateIndex(LinkedInUserProfile profile) {
-    float totalWeight = 0;
-    float totalScore = 0;
+  public float confidenceCalculator(LinkedInUserProfile profile) {
+    float totalWeight = 0.0f;
+    float totalScore = 0.0f;
     for (ProfileEvaluationRule rule : this.rules) {
       totalScore += rule.evaluate(profile);
       totalWeight += rule.getWeigth();
     }
-    return totalScore / totalWeight;
+    return totalScore/totalWeight;
   }
 
 }

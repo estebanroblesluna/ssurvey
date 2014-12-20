@@ -27,7 +27,7 @@ public class GenericRepository {
   }
 
   public void save(Object object) {
-    this.getSessionFactory().getCurrentSession().save(object);
+    this.getSessionFactory().getCurrentSession().saveOrUpdate(object);
   }
   
   public <T> T merge(T object) {

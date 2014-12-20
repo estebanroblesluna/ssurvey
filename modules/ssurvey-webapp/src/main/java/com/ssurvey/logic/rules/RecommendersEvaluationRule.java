@@ -4,19 +4,11 @@ import com.ssurvey.model.LinkedInUserProfile;
 
 public class RecommendersEvaluationRule extends ProfileEvaluationRule {
 
-  private float maxRecommenders = 100f;
-  private float fixRecommenders = 50f;
+  private float maxRecommenders;
 
-  public RecommendersEvaluationRule(float weight) {
+  public RecommendersEvaluationRule(float weight, float maxRecommenders) {
     super(weight);
-  }
-
-  public float getFixRecommenders() {
-    return fixRecommenders;
-  }
-
-  public void setFixRecommenders(float fixRecommenders) {
-    this.fixRecommenders = fixRecommenders;
+    this.maxRecommenders = maxRecommenders;
   }
 
   public float getMaxRecommenders() {
@@ -29,6 +21,6 @@ public class RecommendersEvaluationRule extends ProfileEvaluationRule {
   
   @Override
   protected float score(LinkedInUserProfile profile) {
-    return Math.max(profile.getRecommenders().size(), maxRecommenders) * (fixRecommenders / maxRecommenders);
+    return Math.min(profile.getRecommenders().size(), maxRecommenders) / maxRecommenders;
   }
 }

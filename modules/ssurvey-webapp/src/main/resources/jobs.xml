@@ -15,7 +15,6 @@ http://www.springframework.org/schema/task/spring-task-3.0.xsd">
 	<constructor-arg ref="confidenceCalculator" />
 </bean>
 
-
 <task:executor id="executor" pool-size="10" queue-capacity="100"/>
 <task:scheduler id="scheduler" pool-size="10"/>
 
@@ -23,7 +22,7 @@ http://www.springframework.org/schema/task/spring-task-3.0.xsd">
 
 <task:scheduled-tasks>
 	<task:scheduled ref="ticketProcessor" method="processTickets" fixed-delay="30000"/>
-	<task:scheduled ref="ticketProcessor" method="updateConfidence" fixed-delay="300000"/>
+	<task:scheduled ref="ticketProcessor" method="updateIndexes" fixed-delay="300000"/>
 </task:scheduled-tasks>
 
 </beans>

@@ -16,7 +16,7 @@ public abstract class ProfileEvaluationRule {
    * @param profile
    *          is a LinkedIn profile to evaluate using the rule.
    * 
-   * @return A value between <b>-1</b> and <b>1</b> multiplied to rule's weight,
+   * @return A value between <b>0</b> and <b>1</b> multiplied to rule's weight,
    *         representing this profile's score according to this rule.
    * 
    * */
@@ -36,7 +36,7 @@ public abstract class ProfileEvaluationRule {
    * @param profile
    *          Is a LinkedIn profile to evaluate using the rule.
    * 
-   * @return A value between <b>-1</b> and <b>1</b>, indicating the score of the
+   * @return A value between <b>0</b> and <b>1</b>, indicating the score of the
    *         evaluation of the profile.
    * */
   protected abstract float score(LinkedInUserProfile profile);

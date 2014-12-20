@@ -56,13 +56,14 @@
 		<constructor-arg ref="ticketService" />
 		<constructor-arg ref="usersConnectionRepository" />
 		<constructor-arg ref="genericRepository" />
+		<constructor-arg ref="accountService" />
 	</bean>
 	
 	<bean id="localLinkedInInformationService" class="com.ssurvey.service.LocalLinkedInInformationService">
 		<constructor-arg ref="genericRepository" />
 		<constructor-arg ref="usersConnectionRepository" />
 	</bean>
-
+	
 	<bean id="answerService" class="com.ssurvey.service.AnswerService">
 		<constructor-arg ref="answerRepository" />
 		<constructor-arg ref="linkedInInformationService" />
@@ -77,9 +78,24 @@
 	
 	<bean id="confidenceCalculator" class="com.ssurvey.logic.IndexCalculator">
 		<constructor-arg>
-			<list value-type="com.ssurvey.logic.ProfileEvaluationRule">
+			<list value-type="com.ssurvey.logic.rules.ProfileEvaluationRule">
+				
+				<bean class="com.ssurvey.logic.rules.NamesStructureEvaluationRule">
+					<constructor-arg value="1.0" />
+					<constructor-arg ref="linkedInInformationService" />
+				</bean>
+				<bean class="com.ssurvey.logic.rules.RecommendersEvaluationRule">
+					<constructor-arg value="2.0" />
+					<constructor-arg value="5.0" />
+				</bean>
+				<bean class="com.ssurvey.logic.rules.PhotoEvaluationRule">
+					<constructor-arg value="0.5" />
+					<constructor-arg ref="usersConnectionRepository" />
+					<constructor-arg ref="linkedInInformationService" />
+				</bean>
+
 			</list>
 		</constructor-arg>
 	</bean>
-
+	
 </beans>

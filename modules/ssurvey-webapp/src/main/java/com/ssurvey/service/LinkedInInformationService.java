@@ -1,5 +1,8 @@
 package com.ssurvey.service;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.linkedin.api.Company;
 import org.springframework.social.linkedin.api.LinkedIn;
@@ -10,6 +13,7 @@ import org.springframework.social.linkedin.api.Recommendation;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ssurvey.model.Account;
 import com.ssurvey.model.GetConnectionTicket;
 import com.ssurvey.model.GetRecommenderTicket;
 import com.ssurvey.model.LinkedInCompany;
@@ -33,11 +37,13 @@ public class LinkedInInformationService {
   private GenericRepository repository;
   private UsersConnectionRepository usersConnectionRepository;
   private TicketService ticketService;
+  private AccountService accountService;
 
-  public LinkedInInformationService(GenericRepository repository, TicketService ticketService, UsersConnectionRepository usersConnectionRepository) {
+  public LinkedInInformationService(GenericRepository repository, TicketService ticketService, UsersConnectionRepository usersConnectionRepository, AccountService accountService) {
     this.ticketService = ticketService;
     this.usersConnectionRepository = usersConnectionRepository;
     this.repository = repository;
+    this.accountService = accountService;
   }
 
   public LinkedInInformationService() {
@@ -91,7 +97,7 @@ public class LinkedInInformationService {
     if (linkedInProfileId == null) {
       linkedInProfileId = linkedIn.profileOperations().getProfileId();
     }
-
+    //linkedIn.profileOperations().getUserProfile().getProfilePictureUrl()
     LinkedInProfileFull profile;
     try {
       profile = linkedIn.profileOperations().getProfileFullById(linkedInProfileId);
@@ -181,10 +187,19 @@ public class LinkedInInformationService {
     profile.setConfidence(confidence);
     this.repository.save(profile);
   }
+  
   @Transactional
   public LinkedInUserProfile getLinkedInProfileForAccount(Long accountId) {
     LinkedIn api = this.usersConnectionRepository.createConnectionRepository(accountId.toString()).getPrimaryConnection(LinkedIn.class).getApi();
     return this.getLinkedInUserProfile(api.profileOperations().getProfileId());
+  }
+  
+  @Transactional
+  public Account getAccountForLinkedInProfile(String profileId) {
+    Set<String> profileSet = new HashSet<String>();
+    profileSet.add(profileId);
+    Set<String> accountIdSet = this.usersConnectionRepository.findUserIdsConnectedTo("linkedin", profileSet);
+    return this.accountService.getAccountById(Long.parseLong(accountIdSet.iterator().next()));
   }
 
   @Transactional
