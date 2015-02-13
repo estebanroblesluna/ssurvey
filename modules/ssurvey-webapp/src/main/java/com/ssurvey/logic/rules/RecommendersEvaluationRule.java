@@ -12,7 +12,7 @@ public class RecommendersEvaluationRule extends ProfileEvaluationRule {
   }
 
   public float getMaxRecommenders() {
-    return maxRecommenders;
+    return this.maxRecommenders;
   }
 
   public void setMaxRecommenders(float maxRecommenders) {
@@ -21,6 +21,6 @@ public class RecommendersEvaluationRule extends ProfileEvaluationRule {
   
   @Override
   protected float score(LinkedInUserProfile profile) {
-    return Math.min(profile.getRecommenders().size(), maxRecommenders) / maxRecommenders;
+    return Math.min(profile.getRecommenders().size(), this.maxRecommenders) / this.maxRecommenders;
   }
 }

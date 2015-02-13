@@ -16,5 +16,5 @@ public class LinkedInUserProfileRepository extends GenericRepository {
   public LinkedInUserProfile getLinkedinUserProfile(String linkedInId) {
     return (LinkedInUserProfile) this.getSessionFactory().getCurrentSession().get(LinkedInUserProfile.class, linkedInId);
   }
-
+  
 }

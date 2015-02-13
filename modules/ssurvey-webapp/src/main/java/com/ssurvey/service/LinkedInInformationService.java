@@ -26,14 +26,14 @@ import com.ssurvey.util.LinkedInAPIHelper;
 @Service
 public class LinkedInInformationService {
 
-  // Constants for confidence index
-  private static final float MIN_CONNECTIONS = 15f;
-  private static final float MAX_CONNECTIONS = 100f;
-  private static final float FIX_CONNECTIONS = 20f;
-  private static final float MAX_RECOMMENDERS = 100f;
-  private static final float FIX_RECOMMENDERS = 50f;
-  private static final float DEFAULT_CONFIDENCE = 0.5f;
-
+//  Constants for confidence index
+//  private static final float MIN_CONNECTIONS = 15f;
+//  private static final float MAX_CONNECTIONS = 100f;
+//  private static final float FIX_CONNECTIONS = 20f;
+//  private static final float MAX_RECOMMENDERS = 100f;
+//  private static final float FIX_RECOMMENDERS = 50f;
+//  private static final float DEFAULT_CONFIDENCE = 0.5f;
+  
   private GenericRepository repository;
   private UsersConnectionRepository usersConnectionRepository;
   private TicketService ticketService;
@@ -163,7 +163,7 @@ public class LinkedInInformationService {
     this.repository.save(recommendee);
     this.repository.save(recommender);
   }
-
+  /*
   @Transactional
   public void updateProfileConfidence(LinkedInUserProfile profile) {
     profile = this.getLinkedInUserProfile(profile.getId());
@@ -187,7 +187,7 @@ public class LinkedInInformationService {
     profile.setConfidence(confidence);
     this.repository.save(profile);
   }
-  
+  */
   @Transactional
   public LinkedInUserProfile getLinkedInProfileForAccount(Long accountId) {
     LinkedIn api = this.usersConnectionRepository.createConnectionRepository(accountId.toString()).getPrimaryConnection(LinkedIn.class).getApi();
@@ -210,5 +210,10 @@ public class LinkedInInformationService {
   @Transactional
   public void saveLinkedInUserProfile(LinkedInUserProfile profile) {
     this.repository.save(profile);
+  }
+  
+  @Transactional
+  public int getLinkedInUserConnectionsSize (String linkedInId) {
+    return ((LinkedInUserProfile) this.repository.get(LinkedInUserProfile.class, linkedInId)).getConnections().size();
   }
 }

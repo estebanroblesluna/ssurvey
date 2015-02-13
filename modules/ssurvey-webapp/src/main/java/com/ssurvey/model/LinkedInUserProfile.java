@@ -65,7 +65,7 @@ public class LinkedInUserProfile {
   }
 
   public Set<LinkedInUserProfile> getConnections() {
-    return connections;
+    return this.connections;
   }
 
   public void setConnections(Set<LinkedInUserProfile> connections) {
@@ -77,9 +77,6 @@ public class LinkedInUserProfile {
       this.connections.remove(connection);
     }
     this.connections.add(connection);
-    if(connection.getConnections().contains(this)){
-      connection.getConnections().remove(this);
-    }
     connection.getConnections().add(this);
   }
   

@@ -202,6 +202,10 @@
 		<joined-subclass name="UpdateConfidenceTicket" table="update_confidence_ticket">
 			<key column="ticket_id" />
 		</joined-subclass>
+		
+		<joined-subclass name="UpdateValidityTicket" table="update_validity_ticket">
+			<key column="ticket_id" />
+		</joined-subclass>
 	</class>
 
 

@@ -13,6 +13,7 @@ http://www.springframework.org/schema/task/spring-task-3.0.xsd">
 	<constructor-arg ref="linkedInInformationService"/>
 	<constructor-arg ref="accountService" />
 	<constructor-arg ref="confidenceCalculator" />
+	<constructor-arg ref="validityCalculator" />
 </bean>
 
 <task:executor id="executor" pool-size="10" queue-capacity="100"/>
