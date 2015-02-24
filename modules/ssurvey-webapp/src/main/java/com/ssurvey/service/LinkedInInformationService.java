@@ -8,6 +8,9 @@ import org.springframework.social.linkedin.api.Company;
 import org.springframework.social.linkedin.api.LinkedIn;
 import org.springframework.social.linkedin.api.LinkedInProfile;
 import org.springframework.social.linkedin.api.LinkedInProfileFull;
+import org.springframework.social.linkedin.api.NewShare;
+import org.springframework.social.linkedin.api.NewShare.NewShareContent;
+import org.springframework.social.linkedin.api.NewShare.NewShareVisibility;
 import org.springframework.social.linkedin.api.Position;
 import org.springframework.social.linkedin.api.Recommendation;
 import org.springframework.stereotype.Service;
@@ -216,4 +219,17 @@ public class LinkedInInformationService {
   public int getLinkedInUserConnectionsSize (String linkedInId) {
     return ((LinkedInUserProfile) this.repository.get(LinkedInUserProfile.class, linkedInId)).getConnections().size();
   }
+  
+  public void shareSurvey (String URL, Account account) {
+	NewShare newShare = new NewShare();
+	newShare.setComment("I've just complete this survey!");
+	newShare.setContent(new NewShareContent("SSurvey", URL));
+	newShare.setVisibility(new NewShareVisibility(NewShare.NewShareVisibilityCode.valueOf("ANYONE")));
+	LinkedIn linkedIn = this.usersConnectionRepository
+		 .createConnectionRepository(account.getId().toString())
+		 .getPrimaryConnection(LinkedIn.class)
+		 .getApi();
+	linkedIn.networkUpdateOperations().share(newShare);
+  }
+  
 }

@@ -23,9 +23,6 @@
 						Your answers have been sent, and they're being processed.<br>
 						Thank you.<br>
 						<br>
-						<script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: en_US</script>
-						<script type="IN/Share" data-counter="right"></script>
-						<br>
 					</p>
 				</div>
 			</div>
