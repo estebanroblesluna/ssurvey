@@ -2,8 +2,6 @@ package com.ssurvey.model;
 
 public class Account {
 
-  private static final float INITIAL_CONFIDENCE = 0.5f;
-
   private Long id;
   private String firstName;
   private String middleName;

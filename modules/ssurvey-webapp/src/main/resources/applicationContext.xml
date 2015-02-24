@@ -102,30 +102,4 @@
 		</constructor-arg>
 	</bean>
 	
-	<bean id="validityCalculator" class="com.ssurvey.logic.ValidityCalculator">
-		<constructor-arg>
-			<list value-type="com.ssurvey.logic.rules.ProfileEvaluationRule">
-				<bean class="com.ssurvey.logic.rules.NamesStructureEvaluationRule">
-					<constructor-arg value="1.0" />
-					<constructor-arg ref="linkedInInformationService" />
-				</bean>
-				<bean class="com.ssurvey.logic.rules.RecommendersEvaluationRule">
-					<constructor-arg value="2.0" />
-					<constructor-arg value="5.0" />
-				</bean>
-				<bean class="com.ssurvey.logic.rules.ConnectionsEvaluationRule">
-					<constructor-arg value="2.0" />
-					<constructor-arg value="20.0" /> 
-					<constructor-arg ref="linkedInInformationService" />
-				</bean>
-				<bean class="com.ssurvey.logic.rules.PhotoEvaluationRule">
-					<constructor-arg value="0.5" />
-					<constructor-arg ref="usersConnectionRepository" />
-					<constructor-arg ref="linkedInInformationService" />
-				</bean>
-
-			</list>
-		</constructor-arg>
-	</bean>
-	
 </beans>

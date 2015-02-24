@@ -105,7 +105,6 @@
 			<one-to-many class="LinkedInPosition" />
 		</bag>
 		<property name="confidence" column="confidence" />
-		<property name="validity" column="validity" />
 	</class>
 
 	<class name="AnsweredSurvey" table="answered_survey">
@@ -203,9 +202,6 @@
 			<key column="ticket_id" />
 		</joined-subclass>
 		
-		<joined-subclass name="UpdateValidityTicket" table="update_validity_ticket">
-			<key column="ticket_id" />
-		</joined-subclass>
 	</class>
 
 

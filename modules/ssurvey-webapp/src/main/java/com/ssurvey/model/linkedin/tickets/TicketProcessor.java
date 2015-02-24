@@ -6,7 +6,6 @@ import java.util.List;
 import org.jsoup.helper.Validate;
 
 import com.ssurvey.logic.IndexCalculator;
-import com.ssurvey.logic.ValidityCalculator;
 import com.ssurvey.model.Account;
 import com.ssurvey.model.AnsweredSurvey;
 import com.ssurvey.model.GetConnectionTicket;
@@ -17,7 +16,6 @@ import com.ssurvey.model.Ticket;
 import com.ssurvey.model.UpdateAllTicket;
 import com.ssurvey.model.UpdateConfidenceTicket;
 import com.ssurvey.model.UpdateProfileTicket;
-import com.ssurvey.model.UpdateValidityTicket;
 import com.ssurvey.service.AccountService;
 import com.ssurvey.service.AnswerService;
 import com.ssurvey.service.LinkedInInformationService;
@@ -31,7 +29,6 @@ public class TicketProcessor implements TicketVisitor {
   private AnswerService answerService;
   private AccountService accountService;
   private IndexCalculator confidenceCalculator;
-  private ValidityCalculator validityCalculator;
   private LinkedInInformationService linkedinInformationService;
 
   public void processTickets() {
@@ -52,13 +49,12 @@ public class TicketProcessor implements TicketVisitor {
   public void updateIndexes() {
     for (Account account : this.accountService.getAccountsForConfidenceUpdate(CONFIDENCE_UPDATES_PER_BLOCK)) {
       this.ticketService.saveTicket(new UpdateConfidenceTicket(account.getId()));
-      this.ticketService.saveTicket(new UpdateValidityTicket(account.getId()));
       account.setLastConfidenceUpdateTimestamp((new Date().getTime()));
     }
   }
 
   public TicketProcessor(TicketService ticketService, AnswerService answerService, LinkedInInformationService linkedInInformationService,
-          AccountService accountService, IndexCalculator confidenceCalculator, ValidityCalculator validityCalculator) {
+          AccountService accountService, IndexCalculator confidenceCalculator) {
     Validate.notNull(ticketService);
     Validate.notNull(answerService);
     Validate.notNull(linkedInInformationService);
@@ -69,7 +65,6 @@ public class TicketProcessor implements TicketVisitor {
     this.linkedinInformationService = linkedInInformationService;
     this.accountService = accountService;
     this.confidenceCalculator = confidenceCalculator;
-    this.validityCalculator = validityCalculator;
   }
 
   public void process(Ticket ticket) {
@@ -120,16 +115,6 @@ public class TicketProcessor implements TicketVisitor {
     LinkedInUserProfile profile = this.linkedinInformationService.getLinkedInProfileForAccount(ticket.getTicketOwnerId());
     if (profile != null) {
       profile.setConfidence(this.confidenceCalculator.confidenceCalculator(profile));
-      this.linkedinInformationService.saveLinkedInUserProfile(profile);
-    }
-    this.ticketService.markAsProcessed(ticket);
-  }
-  
-  @Override
-  public void visit(UpdateValidityTicket ticket) {
-    LinkedInUserProfile profile = this.linkedinInformationService.getLinkedInProfileForAccount(ticket.getTicketOwnerId());
-    if (profile != null) {
-      profile.setValidity(this.validityCalculator.validityCalculator(profile));
       this.linkedinInformationService.saveLinkedInUserProfile(profile);
     }
     this.ticketService.markAsProcessed(ticket);

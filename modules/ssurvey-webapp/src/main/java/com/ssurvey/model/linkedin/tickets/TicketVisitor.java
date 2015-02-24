@@ -6,7 +6,6 @@ import com.ssurvey.model.GetRespondentInformationTicket;
 import com.ssurvey.model.UpdateAllTicket;
 import com.ssurvey.model.UpdateConfidenceTicket;
 import com.ssurvey.model.UpdateProfileTicket;
-import com.ssurvey.model.UpdateValidityTicket;
 
 
 public interface TicketVisitor {
@@ -23,5 +22,4 @@ public interface TicketVisitor {
   
   public void visit(UpdateConfidenceTicket ticket);
   
-  public void visit(UpdateValidityTicket ticket);
 }
