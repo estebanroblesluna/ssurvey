@@ -27,12 +27,20 @@
 					var badge = $(".rank-order",$(this));
 					badge.attr("class","rank-order badge");
 					badge.html($(this).index()+1);
+					$("#ordered").find('li').each(function(){
+						if($(this).has(".alert-danger")) { 
+							$(this).find(".alert-danger").remove();
+							//$('#rankedList .alert-danger').remove();
+						}
+					})
+					//$( "alert-danger" ).filter( document.getElementById( "ordered" ) ).remove();
+					//badge.remove( ".alert" );
+					//$('.alert alert-danger').empty();
 				})
 				ui.item.closest(".rank-question").data("answered",ui.item.closest(".question-container").find(".unordered-answers").find(".list-group-item").length == 0)
 			}
 		});
 		$(".sortable").disableSelection();
-
 		$("#surveyForm").submit(function() {
 			$(".rank-question").each(function() {
 				var items = $(".rank-item", this);
@@ -153,11 +161,27 @@
 				})
 				actualPosition++;
 			} else {
-				$(this).popover("show");
-				var button = $(this);
-				setTimeout(function() {
-				    $(button).popover('hide');
-				}, 3000)
+				if (container.attr("data-questionType") == 'RANK_ANSWER_QUESTION' ){
+					$("#unordered").find('li').each(function(){
+						if(!($(this).has(".alert-danger").length)) { 
+							$(this).append($('<div class="alert alert-danger" role="alert" style="padding: 5px;margin-top: 10px;margin-bottom: 0px;width: 310px;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span><span class="sr-only">Error:</span>You must drop this answer into the dash box below</div>'));	
+						}
+					})
+					//$(this).popover("show");
+					//var button = $(this);
+					//setTimeout(function() {
+				    //	$(button).popover('hide');
+					//}, 3000)
+						
+					
+							
+				} else {
+					$(this).popover("show");
+					var button = $(this);
+					setTimeout(function() {
+				    	$(button).popover('hide');
+					}, 3000)
+				}
 			}
 			
 		})
@@ -203,14 +227,15 @@
 				</c:choose>
 				<div class="col-md-12">
 					<div class="panel panel-primary">
-						<div class="panel-heading">
-							<h3 class="panel-title">
-								<span class="glyphicon glyphicon-hand-right"></span>
-								${question.name}
-							</h3>
-						</div>
+
 						<c:choose>
 							<c:when test="${question.type == 'SINGLE_CHOICE_QUESTION' }">
+								<div class="panel-heading">
+									<h3 class="panel-title">
+										<span class="glyphicon glyphicon-hand-right"></span>
+										${question.name}
+									</h3>
+								</div>
 								<div class="panel-body">
 									<ul class="list-group">
 										<c:forEach var="option" items="${question.options}">
@@ -228,6 +253,12 @@
 								</div>
 							</c:when>
 							<c:when test="${question.type == 'MULTIPLE_CHOICE_QUESTION' }">
+								<div class="panel-heading">
+									<h3 class="panel-title">
+										<span class="glyphicon glyphicon-hand-right"></span>
+										${question.name}
+									</h3>
+								</div>
 								<div class="panel-body">
 									<ul class="list-group">
 										<c:forEach var="option" items="${question.options}">
@@ -243,6 +274,12 @@
 								</div>
 							</c:when>
 							<c:when test="${question.type == 'OPEN_ANSWER_QUESTION' }">
+								<div class="panel-heading">
+									<h3 class="panel-title">
+										<span class="glyphicon glyphicon-hand-right"></span>
+										${question.name}
+									</h3>
+								</div>
 								<div class="panel-body body ss-question-open">
 									<textarea required="required" name="question_${question.id}"
 										class="answerArea form-control"
@@ -250,33 +287,77 @@
 								</div>
 							</c:when>
 							<c:when test="${question.type == 'NUMERIC_ANSWER_QUESTION' }">
+								<div class="panel-heading">
+									<h3 class="panel-title">
+										<span class="glyphicon glyphicon-hand-right"></span>
+										${question.name}
+									</h3>
+								</div>
 								<div class="panel-body ss-question-multiple">
 									<div class="col-md-12 list-group-item">
 										<ul class="list-group">
 											<c:forEach var="i" begin="${question.lowerBound}"
 												end="${question.upperBound}">
-												<span class="radio-inline"> <label><input
-														required="required" type="radio"
-														name="question_${question.id}"
-														class="question_${question.id}" value="${i}">${i}
+												<span class="radio" style="margin-bottom: 3;"> <label>
+														<c:choose>
+															<c:when test="${i == 0}">
+																<input required="required" type="radio"
+																	name="question_${question.id}"
+																	class="question_${question.id}" value="${i}">${i} (Strong Disagree)
+															</c:when>
+															<c:when test="${i == 3}">
+																<input required="required" type="radio"
+																	name="question_${question.id}"
+																	class="question_${question.id}" value="${i}">${i} (Disagree)
+															</c:when>
+															<c:when test="${i == 5}">
+																<input required="required" type="radio"
+																	name="question_${question.id}"
+																	class="question_${question.id}" value="${i}">${i} (Neutral)
+															</c:when>
+															<c:when test="${i == 7}">
+																<input required="required" type="radio"
+																	name="question_${question.id}"
+																	class="question_${question.id}" value="${i}">${i} (Agree)
+															</c:when>
+															<c:when test="${i == 10}">
+																<input required="required" type="radio"
+																	name="question_${question.id}"
+							$("#ordered").find('li').each(function(){
+						if($(this).has(".alert-danger")) { 
+							$(this).find(".alert-danger").remove();
+							//$('#rankedList .alert-danger').remove();
+						}
+					})										class="question_${question.id}" value="${i}">${i} (Strong Agree)
+															</c:when>
+															<c:otherwise>
+																<input required="required" type="radio"
+																	name="question_${question.id}"
+																	class="question_${question.id}" value="${i}">${i}
+															</c:otherwise>
+														</c:choose>
 												</label>
 												</span>
 											</c:forEach>
 										</ul>
 										<br>
-										<div class="alert alert-success"
-											style="margin-bottom: 0px; margin-right: 500px" role="alert">Disagree:
-											1 - Agree: 10</div>
 									</div>
 								</div>
 							</c:when>
 
 							<c:when test="${question.type == 'RANK_ANSWER_QUESTION' }">
+								<div class="panel-heading">
+									<h3 class="panel-title">
+										<span class="glyphicon glyphicon-hand-right"></span>
+										${question.name}
+									</h3>
+								</div>
 								<div class="panel-body">
 									<div class="panel-body rank-question" data-answerd="false">
-										<ol class="list-group sortable unordered-answers">
+										<ol id="unordered" class="list-group sortable unordered-answers"
+											style="border: 2px solid; margin-bottom: 5px; margin-left: 5px; margin-top: 5px; margin-right: 5px;">
 											<c:forEach var="option" items="${question.options}">
-												<li class="list-group-item">
+												<li class="list-group-item" >
 													<div>
 														<span class="rank-order fa fa-reorder fa-lg"></span><label
 															class="rank-item">${option}</label>
@@ -284,10 +365,16 @@
 												</li>
 											</c:forEach>
 										</ol>
-										<h6>Drag the answers into the dashed box:</h6>
-										<ol class="list-group sortable ordered-answers">
+										<h6>
+											<img src="/static/img/up2.png" alt="Up2" style="width: 15;">
+											<i></i> Drag the answers into the dashed box: <img
+												src="/static/img/down2.png" alt="Down2" style="width: 15;">
+										</h6>
 
+										<ol id="ordered" class="list-group sortable ordered-answers" 
+											style="border: 2px dashed; margin-bottom: 5px; margin-left: 5px; margin-top: 5px; margin-right: 5px;">
 										</ol>
+
 										<input type="hidden" class="rank-question-answer"
 											name="question_${question.id}">
 									</div>
@@ -298,7 +385,9 @@
 						<div class="panel-footer text-right">
 							<button type="button"
 								class="btn btn-primary previous-question-button"
-								<c:if test="${status.index==0}">disabled="disabled" </c:if>>
+								<c:if test="${status.index==0}">disabled="disabled" 
+											
+											</c:if>>
 								<span class="glyphicon glyphicon-arrow-left"></span> Previous
 							</button>
 							<button type="button"
