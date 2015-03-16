@@ -168,10 +168,10 @@
 						}
 					})
 					//$(this).popover("show");
-					//var button = $(this);
-					//setTimeout(function() {
-				    //	$(button).popover('hide');
-					//}, 3000)
+					var button = $(this);
+					setTimeout(function() {
+				    $(button).popover('hide');
+					}, 3000)
 						
 					
 							
