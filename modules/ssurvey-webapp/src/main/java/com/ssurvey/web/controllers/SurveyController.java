@@ -77,7 +77,7 @@ public class SurveyController extends SSurveyGenericController {
       return "redirect:/";
     } else {
       if (this.answerService.answer(this.getLoggedUser().getId(), permalink, params)) {
-    	this.linkedInInformationService.shareSurvey("http://www.google.com", this.getLoggedUser());
+    	//this.linkedInInformationService.shareSurvey("http://www.google.com", this.getLoggedUser());
     	return "redirect:/surveys/" + permalink;
       } else {
         return "redirect:/errorPage/";

@@ -60,10 +60,7 @@
 			<key column="question_id" />
 			<property name="upperBound" type="long" column="upper_bound" />
 		</joined-subclass>
-
-
 	</class>
-
 
 	<class name="Account" table="account">
 		<id type="long" name="id" column="id" access="field">
@@ -105,6 +102,8 @@
 			<one-to-many class="LinkedInPosition" />
 		</bag>
 		<property name="confidence" column="confidence" />
+		<property name="validity" column="validity" />
+		<property name="profilePictureUrl" column="profile_picture_url" />
 	</class>
 
 	<class name="AnsweredSurvey" table="answered_survey">
@@ -199,6 +198,10 @@
 		</joined-subclass>
 		
 		<joined-subclass name="UpdateConfidenceTicket" table="update_confidence_ticket">
+			<key column="ticket_id" />
+		</joined-subclass>
+		
+		<joined-subclass name="UpdateValidityTicket" table="update_validity_ticket">
 			<key column="ticket_id" />
 		</joined-subclass>
 		

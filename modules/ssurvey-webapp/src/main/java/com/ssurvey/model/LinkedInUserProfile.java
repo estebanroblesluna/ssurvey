@@ -12,18 +12,22 @@ public class LinkedInUserProfile {
 
   
   private static final float INITIAL_CONFIDENCE = -1.0f;
+  private static final float INITIAL_VALIDITY = -1.0f;
   
   private String id;
   private List<LinkedInPosition> positions;
   private Set<LinkedInUserProfile> recommenders;
   private Set<LinkedInUserProfile> connections;
+  private String profilePictureUrl;
   private float confidence;
-  
+  private float validity;
+ 
   public LinkedInUserProfile(){
     this.positions = new ArrayList<LinkedInPosition>();
     this.recommenders = new HashSet<LinkedInUserProfile>();
     this.connections = new HashSet<LinkedInUserProfile>();
     this.confidence = INITIAL_CONFIDENCE;
+    this.validity = INITIAL_VALIDITY;
   }
 
   public List<LinkedInPosition> getPositions() {
@@ -95,7 +99,6 @@ public class LinkedInUserProfile {
     return new HashCodeBuilder().append(this.id).build();
   }
 
-
   public float getConfidence() {
     return confidence;
   }
@@ -103,5 +106,22 @@ public class LinkedInUserProfile {
   public void setConfidence(float confidence) {
     this.confidence = confidence;
   }
+
+  public String getProfilePictureUrl() {
+	return profilePictureUrl;
+  }
+  
+  public void setProfilePictureUrl(String profilePictureUrl) {
+	this.profilePictureUrl = profilePictureUrl;
+  }
+  
+  public float getValidity() {
+	return validity;
+  }
+
+  public void setValidity(float validity) {
+	this.validity = validity;
+  }
+
   
 }

@@ -1,8 +1,10 @@
 package com.ssurvey.service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import org.hibernate.Hibernate;
 import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.linkedin.api.Company;
 import org.springframework.social.linkedin.api.LinkedIn;
@@ -29,14 +31,6 @@ import com.ssurvey.util.LinkedInAPIHelper;
 @Service
 public class LinkedInInformationService {
 
-//  Constants for confidence index
-//  private static final float MIN_CONNECTIONS = 15f;
-//  private static final float MAX_CONNECTIONS = 100f;
-//  private static final float FIX_CONNECTIONS = 20f;
-//  private static final float MAX_RECOMMENDERS = 100f;
-//  private static final float FIX_RECOMMENDERS = 50f;
-//  private static final float DEFAULT_CONFIDENCE = 0.5f;
-  
   private GenericRepository repository;
   private UsersConnectionRepository usersConnectionRepository;
   private TicketService ticketService;
@@ -100,7 +94,7 @@ public class LinkedInInformationService {
     if (linkedInProfileId == null) {
       linkedInProfileId = linkedIn.profileOperations().getProfileId();
     }
-    //linkedIn.profileOperations().getUserProfile().getProfilePictureUrl()
+    
     LinkedInProfileFull profile;
     try {
       profile = linkedIn.profileOperations().getProfileFullById(linkedInProfileId);
@@ -117,6 +111,9 @@ public class LinkedInInformationService {
       ret.setId(profile.getId());
     }
 
+    //ProfilePictureUrl
+    ret.setProfilePictureUrl(profile.getProfilePictureUrl());
+    
     // Positions
     if (profile.getPositions() != null) {
       for (Position position : profile.getPositions()) {
@@ -166,31 +163,7 @@ public class LinkedInInformationService {
     this.repository.save(recommendee);
     this.repository.save(recommender);
   }
-  /*
-  @Transactional
-  public void updateProfileConfidence(LinkedInUserProfile profile) {
-    profile = this.getLinkedInUserProfile(profile.getId());
-    float confidence = DEFAULT_CONFIDENCE, aux;
-    int connections = profile.getConnections().size();
-    if (connections >= MIN_CONNECTIONS) {
-      aux = Math.max(connections, MAX_CONNECTIONS) * (FIX_CONNECTIONS / MAX_CONNECTIONS);
-      confidence += (aux == 0) ? 0 : (1 / aux);
-    } else {
-      aux = (MIN_CONNECTIONS - connections) * (FIX_CONNECTIONS / MIN_CONNECTIONS);
-      confidence -= (aux == 0) ? 0 : (1 / aux);
-    }
-
-    // System.out.println("[DEBUG] confidence after connections: " +
-    // confidence);
-    aux = Math.max(profile.getRecommenders().size(), MAX_RECOMMENDERS) * (FIX_RECOMMENDERS / MAX_RECOMMENDERS);
-    confidence += (aux == 0) ? 0 : (1 / aux);
-
-    // System.out.println("[DEBUG] confidence after recommendations: " +
-    // confidence);
-    profile.setConfidence(confidence);
-    this.repository.save(profile);
-  }
-  */
+  
   @Transactional
   public LinkedInUserProfile getLinkedInProfileForAccount(Long accountId) {
     LinkedIn api = this.usersConnectionRepository.createConnectionRepository(accountId.toString()).getPrimaryConnection(LinkedIn.class).getApi();
@@ -214,12 +187,21 @@ public class LinkedInInformationService {
   public void saveLinkedInUserProfile(LinkedInUserProfile profile) {
     this.repository.save(profile);
   }
-  
+
   @Transactional
   public int getLinkedInUserConnectionsSize (String linkedInId) {
     return ((LinkedInUserProfile) this.repository.get(LinkedInUserProfile.class, linkedInId)).getConnections().size();
   }
   
+  @Transactional
+  public List<LinkedInPosition> getPositions (String linkedInId) {
+	  List<LinkedInPosition> positions = ((LinkedInUserProfile) this.repository.get(LinkedInUserProfile.class, linkedInId)).getPositions();
+	  for (LinkedInPosition position: positions) {
+		  Hibernate.initialize(position.getCompany());
+	  }
+	  return positions;
+  }
+
   public void shareSurvey (String URL, Account account) {
 	NewShare newShare = new NewShare();
 	newShare.setComment("I've just complete this survey!");
@@ -231,5 +213,5 @@ public class LinkedInInformationService {
 		 .getApi();
 	linkedIn.networkUpdateOperations().share(newShare);
   }
-  
+
 }
