@@ -1,7 +1,11 @@
 package com.ssurvey.service;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 
 import org.hibernate.Hibernate;
@@ -90,7 +94,7 @@ public class LinkedInInformationService {
   @Transactional
   public LinkedInUserProfile updateProfile(Long connectionOwnerId, String linkedInProfileId, int depth) {
     LinkedIn linkedIn = this.usersConnectionRepository.createConnectionRepository(connectionOwnerId.toString()).getPrimaryConnection(LinkedIn.class).getApi();
-
+    
     if (linkedInProfileId == null) {
       linkedInProfileId = linkedIn.profileOperations().getProfileId();
     }
@@ -134,6 +138,7 @@ public class LinkedInInformationService {
         this.ticketService.saveTicket(new GetConnectionTicket(connectionOwnerId, connection.getId(), linkedInProfileId, depth - 1));
       }
     }
+    
     this.repository.save(ret);
     return ret;
   }
@@ -203,8 +208,26 @@ public class LinkedInInformationService {
   }
 
   public void shareSurvey (String URL, Account account) {
+    String comment = "I've just completed this survey!";
+	Properties prop = new Properties();
+	InputStream input = null;
+	try {
+	  input = new FileInputStream("src/main/resources/share.properties");
+  	  prop.load(input);
+  	  comment = prop.getProperty("comment");
+  	} catch (IOException ex) {
+  	  ex.printStackTrace();
+  	} finally {
+  	  if (input != null) {
+  	    try {
+  	      input.close();
+  	    } catch (IOException e) {
+  	      e.printStackTrace();
+  	    }
+  	  }
+  	}
 	NewShare newShare = new NewShare();
-	newShare.setComment("I've just complete this survey!");
+	newShare.setComment(comment);
 	newShare.setContent(new NewShareContent("SSurvey", URL));
 	newShare.setVisibility(new NewShareVisibility(NewShare.NewShareVisibilityCode.valueOf("ANYONE")));
 	LinkedIn linkedIn = this.usersConnectionRepository
