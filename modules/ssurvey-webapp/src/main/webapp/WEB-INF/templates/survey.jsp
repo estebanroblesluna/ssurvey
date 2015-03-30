@@ -293,8 +293,8 @@
 										${question.name}
 									</h3>
 								</div>
-								<div class="panel-body ss-question-multiple">
-									<div class="col-md-12 list-group-item">
+								<div class="row-same-height row-full-height panel-body ss-question-multiple">
+									<div class="col-md-height col-full-height col-md-1 list-group-item">
 										<ul class="list-group">
 											<c:forEach var="i" begin="${question.lowerBound}"
 												end="${question.upperBound}">
@@ -303,22 +303,22 @@
 															<c:when test="${i == 0}">
 																<input required="required" type="radio"
 																	name="question_${question.id}"
-																	class="question_${question.id}" value="${i}">${i} (Strong Disagree)
+																	class="question_${question.id}" value="${i}">${i}
 															</c:when>
 															<c:when test="${i == 3}">
 																<input required="required" type="radio"
 																	name="question_${question.id}"
-																	class="question_${question.id}" value="${i}">${i} (Disagree)
+																	class="question_${question.id}" value="${i}">${i}
 															</c:when>
 															<c:when test="${i == 5}">
 																<input required="required" type="radio"
 																	name="question_${question.id}"
-																	class="question_${question.id}" value="${i}">${i} (Neutral)
+																	class="question_${question.id}" value="${i}">${i}
 															</c:when>
 															<c:when test="${i == 7}">
 																<input required="required" type="radio"
 																	name="question_${question.id}"
-																	class="question_${question.id}" value="${i}">${i} (Agree)
+																	class="question_${question.id}" value="${i}">${i}
 															</c:when>
 															<c:when test="${i == 10}">
 																<input required="required" type="radio"
@@ -328,7 +328,7 @@
 							$(this).find(".alert-danger").remove();
 							//$('#rankedList .alert-danger').remove();
 						}
-					})										class="question_${question.id}" value="${i}">${i} (Strong Agree)
+					})										class="question_${question.id}" value="${i}">${i}
 															</c:when>
 															<c:otherwise>
 																<input required="required" type="radio"
@@ -341,6 +341,13 @@
 											</c:forEach>
 										</ul>
 										<br>
+									</div>
+									<div class="col-md-height col-full-height col-md-11">
+										<p style="height:33px; margin-top:15px;">Not imporant</p>
+										<p style="height:33px;">Little imporant</p>
+										<p style="height:33px;">Imporant</p>
+										<p style="height:33px;">Very imporant</p>
+										<p style="height:33px;">Extremely imporant</p>
 									</div>
 								</div>
 							</c:when>
@@ -365,10 +372,10 @@
 												</li>
 											</c:forEach>
 										</ol>
-										<h6>
-											<img src="/static/img/up2.png" alt="Up2" style="width: 15;">
-											<i></i> Drag the answers into the dashed box: <img
-												src="/static/img/down2.png" alt="Down2" style="width: 15;">
+										<h5>
+											<img src="/static/img/up2.png" alt="Up2" style="width: 15; margin-top: -15;">
+											Drag the answers into the dashed box: 
+											<img src="/static/img/down2.png" alt="Down2" style="width: 15; margin-top: 10;">
 										</h6>
 
 										<ol id="ordered" class="list-group sortable ordered-answers" 
