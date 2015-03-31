@@ -343,11 +343,11 @@
 										<br>
 									</div>
 									<div class="col-md-height col-full-height col-md-11">
-										<p style="height:33px; margin-top:15px;">Not imporant</p>
-										<p style="height:33px;">Little imporant</p>
-										<p style="height:33px;">Imporant</p>
-										<p style="height:33px;">Very imporant</p>
-										<p style="height:33px;">Extremely imporant</p>
+										<p style="height:33px; margin-top:15px;">Not important</p>
+										<p style="height:33px;">Little important</p>
+										<p style="height:33px;">Important</p>
+										<p style="height:33px;">Very important</p>
+										<p style="height:33px;">Extremely important</p>
 									</div>
 								</div>
 							</c:when>
@@ -372,7 +372,7 @@
 												</li>
 											</c:forEach>
 										</ol>
-										<h5>
+										<h5 style="text-align: center;">
 											<img src="/static/img/up2.png" alt="Up2" style="width: 15; margin-top: -15;">
 											Drag the answers into the dashed box: 
 											<img src="/static/img/down2.png" alt="Down2" style="width: 15; margin-top: 10;">
