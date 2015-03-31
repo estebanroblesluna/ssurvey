@@ -55,6 +55,45 @@
 	})
 
 	$(document).ready(function() {
+		
+		var $submitTimer = null;
+		
+		function startTimer() {
+			
+		    var $form = $('#survey-submit');
+	        var $submitButton = $form.find(".submit-answer-button");
+		    var $currentTime;
+		    
+		    $(function() {
+		    	$currentTime = 10000;
+		        $submitTimer = setInterval(function () {updateTimer()}, 1000);
+		    });
+		
+		    function updateTimer() {
+		        var $timeString = ($currentTime/1000) + " seconds";
+		        $submitButton.html("Submit (" + $timeString + ")");
+		        if ($currentTime == 0) {
+		        	clearInterval($submitTimer);
+		        	$("#surveyForm").submit();
+		            return;
+		        }
+		        $currentTime -= 1000;
+		        if ($currentTime < 0) $currentTime = 0;
+		    }
+		    
+		}
+		
+		function stopTimer() {
+			
+			var $form = $('#survey-submit');
+	        var $submitButton = $form.find(".submit-answer-button");
+	        
+	        $(function() {
+	        	clearInterval($submitTimer);
+	        	$submitButton.html("Submit");
+		    });
+		}
+		
 		var actualSize = 0;
 		var numberOfQuestions = ${fn:length(survey.questions)};
 		var actualPosition = 0;
@@ -152,10 +191,11 @@
 						$(".progress-bar").width(actualSize + "%");
 						$(".progress-bar").text(actualSize.toFixed(2) + "%");
 					}
-			
+					
 					if(container.next().length == 0){
 						$("#surveyForm").submit();						
 					} else {
+						if (actualPosition == numberOfQuestions) startTimer();
 						container.next().show(500);
 					}
 				})
@@ -201,6 +241,7 @@
 					container.prev().show(500);
 				});
 			}
+			if (actualPosition == numberOfQuestions) stopTimer();
 			actualPosition--;
 		})
 		
@@ -294,7 +335,7 @@
 									</h3>
 								</div>
 								<div class="row-same-height row-full-height panel-body ss-question-multiple">
-									<div class="col-md-height col-full-height col-md-1 list-group-item">
+									<div class="col-xs-height col-sm-height col-md-height col-lg-height col-full-height col-xs-2 col-sm-1 col-md-1 col-lg-1 list-group-item">
 										<ul class="list-group">
 											<c:forEach var="i" begin="${question.lowerBound}"
 												end="${question.upperBound}">
@@ -342,7 +383,7 @@
 										</ul>
 										<br>
 									</div>
-									<div class="col-md-height col-full-height col-md-11">
+									<div class="col-xs-height col-sm-height col-md-height col-lg-height col-full-height col-xs-10 col-sm-11 col-md-11 col-lg-11">
 										<p style="height:33px; margin-top:15px;">Not important</p>
 										<p style="height:33px;">Little important</p>
 										<p style="height:33px;">Important</p>
@@ -413,9 +454,8 @@
 						<span class="glyphicon glyphicon-hand-right"></span> Confirm
 					</h3>
 				</div>
-				<div class="panel-footer text-right">
-					<button type="button"
-						class="btn btn-primary previous-question-button">
+				<div id="survey-submit" class="panel-footer text-right">
+					<button type="button" class="btn btn-primary previous-question-button">
 						<span class="glyphicon glyphicon-arrow-left"></span> Previous
 					</button>
 					<button type="button" class="btn btn-success submit-answer-button">
