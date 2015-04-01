@@ -65,13 +65,13 @@
 		    var $currentTime;
 		    
 		    $(function() {
-		    	$currentTime = 10000;
+		    	$currentTime = 3000;
 		        $submitTimer = setInterval(function () {updateTimer()}, 1000);
 		    });
 		
 		    function updateTimer() {
 		        var $timeString = ($currentTime/1000) + " seconds";
-		        $submitButton.html("Submit (" + $timeString + ")");
+		        $submitButton.html("<span class=\"glyphicon glyphicon-ok-sign\"></span> Submit (" + $timeString + ")");
 		        if ($currentTime == 0) {
 		        	clearInterval($submitTimer);
 		        	$("#surveyForm").submit();
@@ -90,7 +90,7 @@
 	        
 	        $(function() {
 	        	clearInterval($submitTimer);
-	        	$submitButton.html("Submit");
+	        	$submitButton.html("<span class=\"glyphicon glyphicon-ok-sign\"></span> Submit (3 seconds)");
 		    });
 		}
 		
@@ -451,18 +451,18 @@
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<h3 class="panel-title">
-						<span class="glyphicon glyphicon-hand-right"></span> Confirm
+						<span class="glyphicon glyphicon-hand-right"></span>
 					</h3>
 				</div>
 				<div class="panel-body">
-  					<p style="font-size:16px; margin:10px;"> Thank you for answered the survey. Please, confirm to send the data. </p>
+  					<p style="font-size:16px; margin:10px; text-align:center;"> Thank you for answered the survey. Please, confirm to send the data. </p>
   				</div>
 				<div id="survey-submit" class="panel-footer text-right">
 					<button type="button" class="btn btn-primary previous-question-button">
 						<span class="glyphicon glyphicon-arrow-left"></span> Previous
 					</button>
 					<button type="button" class="btn btn-success submit-answer-button">
-						<span class="glyphicon glyphicon-ok-sign"></span> Submit
+						<span class="glyphicon glyphicon-ok-sign"></span> Submit (3 seconds)
 					</button>
 				</div>
 			</div>
