@@ -454,6 +454,9 @@
 						<span class="glyphicon glyphicon-hand-right"></span> Confirm
 					</h3>
 				</div>
+				<div class="panel-body">
+  					<p style="font-size:16px; margin:10px;"> Thank you for answered the survey. Please, confirm to send the data. </p>
+  				</div>
 				<div id="survey-submit" class="panel-footer text-right">
 					<button type="button" class="btn btn-primary previous-question-button">
 						<span class="glyphicon glyphicon-arrow-left"></span> Previous
