@@ -17,6 +17,7 @@ textarea { resize: none; }
 /* Cursor pointer */
 .sortable li:hover {
     cursor: pointer;
+    background: #EEEEEE;
 }
 .sortable label {
 	cursor: pointer;
