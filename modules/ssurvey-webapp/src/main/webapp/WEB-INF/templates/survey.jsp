@@ -334,42 +334,37 @@
 										${question.name}
 									</h3>
 								</div>
-								<div class="row-same-height row-full-height panel-body ss-question-multiple">
-									<div class="col-xs-height col-sm-height col-md-height col-lg-height col-full-height col-xs-2 col-sm-1 col-md-1 col-lg-1 list-group-item">
+								<div class="panel-body">
+									<div class="list-group-item" style="margin-bottom:0px;">
 										<ul class="list-group">
 											<c:forEach var="i" begin="${question.lowerBound}"
 												end="${question.upperBound}">
-												<span class="radio" style="margin-bottom: 3;"> <label>
+												<span class="radio" style="margin-top:7px; line-height:30px;"> <label>
 														<c:choose>
-															<c:when test="${i == 0}">
+															<c:when test="${i == 1}">
 																<input required="required" type="radio"
 																	name="question_${question.id}"
-																	class="question_${question.id}" value="${i}">${i}
+																	class="question_${question.id}" value="${i}" style="margin-top:9px">${i} &nbsp;&nbsp; Not important
+															</c:when>
+															<c:when test="${i == 2}">
+																<input required="required" type="radio"
+																	name="question_${question.id}"
+																	class="question_${question.id}" value="${i}" style="margin-top:9px">${i} &nbsp;&nbsp; Little important
 															</c:when>
 															<c:when test="${i == 3}">
 																<input required="required" type="radio"
 																	name="question_${question.id}"
-																	class="question_${question.id}" value="${i}">${i}
+																	class="question_${question.id}" value="${i}" style="margin-top:9px">${i} &nbsp;&nbsp; Important
+															</c:when>
+															<c:when test="${i == 4}">
+																<input required="required" type="radio"
+																	name="question_${question.id}"
+																	class="question_${question.id}" value="${i}" style="margin-top:9px">${i} &nbsp;&nbsp; Very important
 															</c:when>
 															<c:when test="${i == 5}">
 																<input required="required" type="radio"
 																	name="question_${question.id}"
-																	class="question_${question.id}" value="${i}">${i}
-															</c:when>
-															<c:when test="${i == 7}">
-																<input required="required" type="radio"
-																	name="question_${question.id}"
-																	class="question_${question.id}" value="${i}">${i}
-															</c:when>
-															<c:when test="${i == 10}">
-																<input required="required" type="radio"
-																	name="question_${question.id}"
-							$("#ordered").find('li').each(function(){
-						if($(this).has(".alert-danger")) { 
-							$(this).find(".alert-danger").remove();
-							//$('#rankedList .alert-danger').remove();
-						}
-					})										class="question_${question.id}" value="${i}">${i}
+																	class="question_${question.id}" value="${i}" style="margin-top:9px">${i} &nbsp;&nbsp; Extremely important
 															</c:when>
 															<c:otherwise>
 																<input required="required" type="radio"
@@ -382,13 +377,6 @@
 											</c:forEach>
 										</ul>
 										<br>
-									</div>
-									<div class="col-xs-height col-sm-height col-md-height col-lg-height col-full-height col-xs-10 col-sm-11 col-md-11 col-lg-11">
-										<p style="height:33px; margin-top:15px;">Not important</p>
-										<p style="height:33px;">Little important</p>
-										<p style="height:33px;">Important</p>
-										<p style="height:33px;">Very important</p>
-										<p style="height:33px;">Extremely important</p>
 									</div>
 								</div>
 							</c:when>
