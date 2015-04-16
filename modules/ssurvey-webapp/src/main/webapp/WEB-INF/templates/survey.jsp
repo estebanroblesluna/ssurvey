@@ -65,7 +65,7 @@
 		    var $currentTime;
 		    
 		    $(function() {
-		    	$currentTime = 3000;
+		    	$currentTime = 300000;
 		        $submitTimer = setInterval(function () {updateTimer()}, 1000);
 		    });
 		
@@ -418,7 +418,7 @@
 							</c:when>
 
 						</c:choose>
-						<div class="panel-footer text-right">
+						<div class="panel-footer text-left">
 							<button type="button"
 								class="btn btn-primary previous-question-button"
 								<c:if test="${status.index==0}">disabled="disabled" 
@@ -445,7 +445,7 @@
 				<div class="panel-body">
   					<p style="font-size:16px; margin:10px; text-align:center;"> Thank you for answered the survey. Please, confirm to send the data. </p>
   				</div>
-				<div id="survey-submit" class="panel-footer text-right">
+				<div id="survey-submit" class="panel-footer text-left">
 					<button type="button" class="btn btn-primary previous-question-button">
 						<span class="glyphicon glyphicon-arrow-left"></span> Previous
 					</button>
