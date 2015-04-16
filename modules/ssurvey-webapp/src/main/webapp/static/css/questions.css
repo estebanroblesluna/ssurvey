@@ -13,3 +13,11 @@ textarea { resize: none; }
 .ss-question-multiple .form-control { max-width: 80px; }
 
 .counter {color: white !important; }
+
+/* Cursor pointer */
+.sortable li:hover {
+    cursor: pointer;
+}
+.sortable label {
+	cursor: pointer;
+}

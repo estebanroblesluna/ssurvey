@@ -20,6 +20,7 @@
 
 		$(".sortable").sortable({
 			connectWith: "ol",
+		    cursor: 'move',
 			stop: function(event, ui){
 				$(".rank-order",ui.item).empty();
 				$(".rank-order",ui.item).attr("class","rank-order fa fa-reorder fa-lg");
