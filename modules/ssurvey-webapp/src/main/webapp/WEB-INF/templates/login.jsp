@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 <head>
@@ -30,7 +31,7 @@
 				</h3>
 			</div>
 			<div class="panel-body">
-				<h4>Please sign in using LinkedIn to answer the survey.</h4>
+				<h4 style="text-align: justify;"><spring:message code="login.presentation" text="default text" /></h4>
 				<form id="linkedin-signin" class="form-horizontal" role="form"
 					action="<c:url value="/signin/linkedin?url=${url}"/>" method="POST">
 					<div class="form-group" style="margin-top: 10px"></div>
