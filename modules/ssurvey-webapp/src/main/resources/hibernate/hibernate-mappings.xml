@@ -16,6 +16,7 @@
 		<property name="name" column="name"></property>
 		<property name="permalink" column="permalink" unique="true"
 			type="text" not-null="true"></property>
+        <property name="presentation" column="presentation"></property>
 	</class>
 
 	<class name="Question" table="question">

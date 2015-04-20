@@ -10,6 +10,7 @@ public class Survey {
   private String name;
   private List<Question> questions;
   private String permalink;
+  private String presentation;
 
   public Survey() {
     this.permalink = UUID.randomUUID().toString();
@@ -46,5 +47,13 @@ public class Survey {
 
   public void setPermalink(String permalink) {
     this.permalink = permalink;
+  }
+  
+  public String getPresentation() {
+    return presentation;
+  }
+
+  public void setPresentation(String presentation) {
+    this.presentation = presentation;
   }
 }

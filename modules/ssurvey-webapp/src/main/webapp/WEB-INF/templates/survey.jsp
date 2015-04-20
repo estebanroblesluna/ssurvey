@@ -66,7 +66,7 @@
 		    var $currentTime;
 		    
 		    $(function() {
-		    	$currentTime = 300000;
+		    	$currentTime = 3000;
 		        $submitTimer = setInterval(function () {updateTimer()}, 1000);
 		    });
 		
@@ -100,12 +100,13 @@
 		var actualPosition = 0;
 		var flags = new Array(numberOfQuestions+1);
 		for (var i = 0; i < flags.length; i++) flags[i] = false; 
+		var presentation = true;
 		
 		function validateOpenAnswer(container){
 			var button = $(".submit-answer-button",container)
 			button.popover({
 				"content": "You can't leave this unanswered.",
-				"placement": "bottom",
+				"placement": "right",
 				"container": "body",
 				"trigger": "manual"
 			})
@@ -115,7 +116,7 @@
 			var button = $(".submit-answer-button",container)
 			button.popover({
 				"content": "You must choice at least one option.",
-				"placement": "bottom",
+				"placement": "right",
 				"container": "body",
 				"trigger": "manual"
 			})
@@ -125,7 +126,7 @@
 			var button = $(".submit-answer-button",container)
 			button.popover({
 				"content": "You must choice one option.",
-				"placement": "bottom",
+				"placement": "right",
 				"container": "body",
 				"trigger": "manual"
 			})
@@ -135,7 +136,7 @@
 			var button = $(".submit-answer-button",container)
 			button.popover({
 				"content": "Please, sort the items.",
-				"placement": "left",
+				"placement": "right",
 				"container": "body",
 				"trigger": "manual"
 			})
@@ -144,7 +145,7 @@
 			var button = $(".submit-answer-button",container)
 			button.popover({
 				"content": "You must choice one option.",
-				"placement": "left",
+				"placement": "right",
 				"container": "body",
 				"trigger": "manual"
 			})
@@ -184,7 +185,12 @@
 		
 		$(".submit-answer-button").click(function(){
 			var container = $(this).closest(".question-container");
-			if(validateAnswer(container)){
+			if (presentation) {
+				presentation = false;
+				container.hide(500, function(){
+					container.next().show(500);
+				})
+			} else if(validateAnswer(container)){
 				container.hide(500, function(){
 					if (actualSize < 100 && flags[actualPosition] == false) {
 						flags[actualPosition] = true;
@@ -229,6 +235,7 @@
 		
 		$(".previous-question-button").click(function(){
 			var container = $(this).closest(".question-container");
+			if (actualSize == 1) presentation = true;
 			if (actualSize > 0 && flags[actualPosition] == true) {
 				flags[actualPosition] = false;
 				actualSize -= 100 / numberOfQuestions;
@@ -254,19 +261,29 @@
 
 	<form method="POST" id="surveyForm">
 		<div class="container">
-
-			<c:forEach varStatus="status" var="question"
-				items="${survey.questions}">
-				<c:choose>
-					<c:when test="${status.index == 0}">
-						<div class="question-container"
-							data-questionType="${question.type}">
-					</c:when>
-					<c:otherwise>
-						<div class="question-container" hidden="hidden"
-							data-questionType="${question.type}">
-					</c:otherwise>
-				</c:choose>
+			<div class="question-container" data-questionType="presentation">
+				<div class="col-md-12">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								<span class="glyphicon glyphicon-hand-right"></span>
+								Survey Presentation
+							</h3>
+						</div>
+						<div class="panel-body">
+							<h4 style="text-align: center;">${survey.presentation}</h4>
+						</div>
+						<div class="panel-footer text-left">
+							<button type="button"
+								class="btn btn-success submit-answer-button">
+								<span class="glyphicon glyphicon-ok-sign"></span> Start
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<c:forEach varStatus="status" var="question" items="${survey.questions}">
+				<div class="question-container" hidden="hidden" data-questionType="${question.type}">
 				<div class="col-md-12">
 					<div class="panel panel-primary">
 
@@ -421,9 +438,8 @@
 						</c:choose>
 						<div class="panel-footer text-left">
 							<button type="button"
-								class="btn btn-primary previous-question-button"
-								<c:if test="${status.index==0}">disabled="disabled" 
-											
+								class="btn btn-primary previous-question-button" 
+								<c:if test="${status.index==0}">disabled="disabled"
 											</c:if>>
 								<span class="glyphicon glyphicon-arrow-left"></span> Previous
 							</button>
