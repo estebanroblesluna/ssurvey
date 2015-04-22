@@ -63,12 +63,14 @@
 		    var $currentTime;
 		    
 		    $(function() {
-		    	$currentTime = 3000;
+		    	$currentTime = 4000;
 		        $submitTimer = setInterval(function () {updateTimer()}, 1000);
 		    });
 		
 		    function updateTimer() {
-		        var $timeString = ($currentTime/1000) + " seconds";
+		    	debugger;
+		        var $timeString = Math.max((($currentTime-1000)/1000), 0) + " seconds";
+		    	debugger;
 		        $submitButton.html("<span class=\"glyphicon glyphicon-ok-sign\"></span> Submit (" + $timeString + ")");
 		        if ($currentTime == 0) {
 		        	clearInterval($submitTimer);
