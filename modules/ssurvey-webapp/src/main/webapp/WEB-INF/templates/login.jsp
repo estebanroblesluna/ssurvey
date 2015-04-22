@@ -24,7 +24,7 @@
 </head>
 <body>
 	<div class="container container-main">
-		<div class="panel panel-primary">
+		<div class="panel panel-primary" style="width:400px;">
 			<div class="panel-heading">
 				<h3 class="panel-title ssurvey-title">
 					<i class="fa fa-files-o"></i> SSurvey

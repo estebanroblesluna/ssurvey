@@ -28,15 +28,12 @@
 					var badge = $(".rank-order",$(this));
 					badge.attr("class","rank-order badge");
 					badge.html($(this).index()+1);
-					$("#ordered").find('li').each(function(){
-						if($(this).has(".alert-danger")) { 
+					var container = $(".question-container[style='display: block;']")
+					container.find(".ordered").find('li').each(function(){
+						if($(this).has(".alert-danger")) {
 							$(this).find(".alert-danger").remove();
-							//$('#rankedList .alert-danger').remove();
 						}
 					})
-					//$( "alert-danger" ).filter( document.getElementById( "ordered" ) ).remove();
-					//badge.remove( ".alert" );
-					//$('.alert alert-danger').empty();
 				})
 				ui.item.closest(".rank-question").data("answered",ui.item.closest(".question-container").find(".unordered-answers").find(".list-group-item").length == 0)
 			}
@@ -209,12 +206,11 @@
 				actualPosition++;
 			} else {
 				if (container.attr("data-questionType") == 'RANK_ANSWER_QUESTION' ){
-					$("#unordered").find('li').each(function(){
+					container.find(".unordered").find('li').each(function(){
 						if(!($(this).has(".alert-danger").length)) { 
 							$(this).append($('<div class="alert alert-danger" role="alert" style="padding: 5px;margin-top: 10px;margin-bottom: 0px;width: 310px;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span><span class="sr-only">Error:</span>You must drop this answer into the dash box below</div>'));	
 						}
 					})
-					//$(this).popover("show");
 					var button = $(this);
 					setTimeout(function() {
 				    $(button).popover('hide');
@@ -271,7 +267,7 @@
 							</h3>
 						</div>
 						<div class="panel-body">
-							<h4 style="text-align: center;">${survey.presentation}</h4>
+							<h4 style="text-align:justify; padding: 15px;">${survey.presentation}</h4>
 						</div>
 						<div class="panel-footer text-left">
 							<button type="button"
@@ -408,7 +404,7 @@
 								</div>
 								<div class="panel-body">
 									<div class="panel-body rank-question" data-answerd="false">
-										<ol id="unordered" class="list-group sortable unordered-answers"
+										<ol class="unordered list-group sortable unordered-answers"
 											style="border: 2px solid; margin-bottom: 5px; margin-left: 5px; margin-top: 5px; margin-right: 5px;">
 											<c:forEach var="option" items="${question.options}">
 												<li class="list-group-item" >
@@ -423,9 +419,9 @@
 											<img src="/static/img/up2.png" alt="Up2" style="width: 15; margin-top: -15;">
 											Drag the answers into the dashed box: 
 											<img src="/static/img/down2.png" alt="Down2" style="width: 15; margin-top: 10;">
-										</h6>
+										</h5>
 
-										<ol id="ordered" class="list-group sortable ordered-answers" 
+										<ol class="ordered list-group sortable ordered-answers" 
 											style="border: 2px dashed; margin-bottom: 5px; margin-left: 5px; margin-top: 5px; margin-right: 5px;">
 										</ol>
 
