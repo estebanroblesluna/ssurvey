@@ -401,7 +401,7 @@
 								<div class="panel-heading">
 									<h3 class="panel-title">
 										<span class="glyphicon glyphicon-hand-right"></span>
-										${question.name}
+										${question.name} (being 1 the most important, and ${fn:length(question.options)} the least important)
 									</h3>
 								</div>
 								<div class="panel-body">
