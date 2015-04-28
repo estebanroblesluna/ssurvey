@@ -2,16 +2,16 @@ package com.ssurvey.model;
 
 import java.util.List;
 
-public class RankAnswerQuestion extends Question {
+public class RankQuestion extends Question {
 
   private List<String> options;
 
-  public RankAnswerQuestion() {
+  public RankQuestion() {
     this.setType(this.getType());
   }
 
   public String getType() {
-    return QuestionType.RANK_ANSWER_QUESTION.toString();
+    return QuestionType.RANK_QUESTION.toString();
   }
 
   public List<String> getOptions() {
@@ -23,6 +23,6 @@ public class RankAnswerQuestion extends Question {
   }
 
   public Answer answer(List<String> answers) {
-    return new RankAnswerAnswer(this,answers);
+    return new RankAnswer(this,answers);
   }
 }

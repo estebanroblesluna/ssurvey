@@ -2,15 +2,15 @@ package com.ssurvey.model;
 
 import java.util.List;
 
-public class OpenAnswerAnswer extends Answer {
+public class OpenAnswer extends Answer {
 
   private String answer;
 
-  public OpenAnswerAnswer() {
+  public OpenAnswer() {
     this.setType(this.getType());
   }
 
-  public OpenAnswerAnswer(Question question, List<String> answers) {
+  public OpenAnswer(Question question, List<String> answers) {
     super(question);
     this.setAnswer(answers.get(0));
     this.setType(this.getType());
@@ -25,6 +25,6 @@ public class OpenAnswerAnswer extends Answer {
   }
 
   public String getType() {
-    return QuestionType.OPEN_ANSWER_QUESTION.toString();
+    return QuestionType.OPEN_QUESTION.toString();
   }
 }

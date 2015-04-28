@@ -43,21 +43,21 @@
 			</bag>
 		</joined-subclass>
 
-		<joined-subclass name="NumericAnswerQuestion" table="numeric_answer_question">
+		<joined-subclass name="NumericQuestion" table="numeric_question">
 			<key column="question_id" />
 			<property name="upperBound" type="long" column="upper_bound" />
 			<property name="lowerBound" type="long" column="lower_bound" />
 		</joined-subclass>
 
-		<joined-subclass name="RankAnswerQuestion" table="rank_answer_question">
+		<joined-subclass name="RankQuestion" table="rank_question">
 			<key column="question_id" />
-			<bag name="options" table="rank_answer_question_options" lazy="false">
+			<bag name="options" table="rank_question_options" lazy="false">
 				<key column="question_id" />
 				<element type="string" column="name" />
 			</bag>
 		</joined-subclass>
 
-		<joined-subclass name="OpenAnswerQuestion" table="open_answer_question">
+		<joined-subclass name="OpenQuestion" table="open_question">
 			<key column="question_id" />
 			<property name="upperBound" type="long" column="upper_bound" />
 		</joined-subclass>
@@ -141,21 +141,21 @@
 			</bag>
 		</joined-subclass>
 
-		<joined-subclass name="NumericAnswerAnswer" table="numeric_answer_answer">
+		<joined-subclass name="NumericAnswer" table="numeric_answer">
 			<key column="answer_id" />
 			<property name="answer" type="int" column="answer" />
 		</joined-subclass>
 
-		<joined-subclass name="RankAnswerAnswer" table="rank_answer_answer">
+		<joined-subclass name="RankAnswer" table="rank_answer">
 			<key column="answer_id" />
-			<list name="answers" table="rank_answer_answer_answers" lazy="false">
+			<list name="answers" table="rank_answer_answers" lazy="false">
 				<key column="answer_id" />
 				<list-index column="ord" />
 				<element type="string" column="name" />
 			</list>
 		</joined-subclass>
 
-		<joined-subclass name="OpenAnswerAnswer" table="open_answer_answer">
+		<joined-subclass name="OpenAnswer" table="open_answer">
 			<key column="answer_id" />
 			<property type="string" name="answer" column="answer" />
 		</joined-subclass>

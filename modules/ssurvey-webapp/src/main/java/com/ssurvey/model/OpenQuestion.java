@@ -2,11 +2,11 @@ package com.ssurvey.model;
 
 import java.util.List;
 
-public class OpenAnswerQuestion extends Question {
+public class OpenQuestion extends Question {
 
   private long upperBound;
 
-  public OpenAnswerQuestion() {
+  public OpenQuestion() {
     this.setType(this.getType());
   }
 
@@ -19,10 +19,10 @@ public class OpenAnswerQuestion extends Question {
   }
 
   public String getType() {
-    return QuestionType.OPEN_ANSWER_QUESTION.toString();
+    return QuestionType.OPEN_QUESTION.toString();
   }
 
   public Answer answer(List<String> answers) {
-    return new OpenAnswerAnswer(this,answers);
+    return new OpenAnswer(this,answers);
   }
 }

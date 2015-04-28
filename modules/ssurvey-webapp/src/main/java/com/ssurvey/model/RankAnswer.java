@@ -4,15 +4,15 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public class RankAnswerAnswer extends Answer {
+public class RankAnswer extends Answer {
 
   private List<String> answers;
 
-  public RankAnswerAnswer() {
+  public RankAnswer() {
     this.setType(this.getType());
   }
 
-  public RankAnswerAnswer(Question question, List<String> answers) {
+  public RankAnswer(Question question, List<String> answers) {
     super(question);
     answers = new LinkedList<String>(Arrays.asList(answers.get(0).split("[|]")));
     this.setType(this.getType());
@@ -28,6 +28,6 @@ public class RankAnswerAnswer extends Answer {
   }
 
   public String getType() {
-    return QuestionType.RANK_ANSWER_QUESTION.toString();
+    return QuestionType.RANK_QUESTION.toString();
   }
 }

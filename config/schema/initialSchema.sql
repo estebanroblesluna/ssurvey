@@ -251,13 +251,13 @@ CREATE TABLE `multiple_choice_question_options` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `numeric_answer_answer`
+-- Table structure for table `numeric_answer`
 --
 
-DROP TABLE IF EXISTS `numeric_answer_answer`;
+DROP TABLE IF EXISTS `numeric_answer`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `numeric_answer_answer` (
+CREATE TABLE `numeric_answer` (
   `answer_id` bigint(20) NOT NULL,
   `answer` int(11) DEFAULT NULL,
   PRIMARY KEY (`answer_id`),
@@ -267,13 +267,13 @@ CREATE TABLE `numeric_answer_answer` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `numeric_answer_question`
+-- Table structure for table `numeric_question`
 --
 
-DROP TABLE IF EXISTS `numeric_answer_question`;
+DROP TABLE IF EXISTS `numeric_question`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `numeric_answer_question` (
+CREATE TABLE `numeric_question` (
   `question_id` bigint(20) NOT NULL,
   `upper_bound` bigint(20) DEFAULT NULL,
   `lower_bound` bigint(20) DEFAULT NULL,
@@ -284,13 +284,13 @@ CREATE TABLE `numeric_answer_question` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `open_answer_answer`
+-- Table structure for table `open_answer`
 --
 
-DROP TABLE IF EXISTS `open_answer_answer`;
+DROP TABLE IF EXISTS `open_answer`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `open_answer_answer` (
+CREATE TABLE `open_answer` (
   `answer_id` bigint(20) NOT NULL,
   `answer` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`answer_id`),
@@ -300,13 +300,13 @@ CREATE TABLE `open_answer_answer` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `open_answer_question`
+-- Table structure for table `open_question`
 --
 
-DROP TABLE IF EXISTS `open_answer_question`;
+DROP TABLE IF EXISTS `open_question`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `open_answer_question` (
+CREATE TABLE `open_question` (
   `question_id` bigint(20) NOT NULL,
   `upper_bound` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`question_id`),
@@ -333,13 +333,13 @@ CREATE TABLE `question` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `rank_answer_answer`
+-- Table structure for table `rank_answer`
 --
 
-DROP TABLE IF EXISTS `rank_answer_answer`;
+DROP TABLE IF EXISTS `rank_answer`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `rank_answer_answer` (
+CREATE TABLE `rank_answer` (
   `answer_id` bigint(20) NOT NULL,
   PRIMARY KEY (`answer_id`),
   KEY `FK_55fb3d0mhxwst54meoru4gkba` (`answer_id`),
@@ -348,30 +348,30 @@ CREATE TABLE `rank_answer_answer` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `rank_answer_answer_answers`
+-- Table structure for table `rank_answer_answers`
 --
 
-DROP TABLE IF EXISTS `rank_answer_answer_answers`;
+DROP TABLE IF EXISTS `rank_answer_answers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `rank_answer_answer_answers` (
+CREATE TABLE `rank_answer_answers` (
   `answer_id` bigint(20) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `ord` int(11) NOT NULL,
   PRIMARY KEY (`answer_id`,`ord`),
   KEY `FK_qenronfe7o4798cxbpmjreiuo` (`answer_id`),
-  CONSTRAINT `FK_qenronfe7o4798cxbpmjreiuo` FOREIGN KEY (`answer_id`) REFERENCES `rank_answer_answer` (`answer_id`)
+  CONSTRAINT `FK_qenronfe7o4798cxbpmjreiuo` FOREIGN KEY (`answer_id`) REFERENCES `rank_answer` (`answer_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `rank_answer_question`
+-- Table structure for table `rank_question`
 --
 
-DROP TABLE IF EXISTS `rank_answer_question`;
+DROP TABLE IF EXISTS `rank_question`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `rank_answer_question` (
+CREATE TABLE `rank_question` (
   `question_id` bigint(20) NOT NULL,
   PRIMARY KEY (`question_id`),
   KEY `FK_l7s67s6bbypv2oj6amc6v0p9i` (`question_id`),
@@ -380,17 +380,17 @@ CREATE TABLE `rank_answer_question` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `rank_answer_question_options`
+-- Table structure for table `rank_question_options`
 --
 
-DROP TABLE IF EXISTS `rank_answer_question_options`;
+DROP TABLE IF EXISTS `rank_question_options`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `rank_answer_question_options` (
+CREATE TABLE `rank_question_options` (
   `question_id` bigint(20) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   KEY `FK_fxy2atkomub4yioitgbef51g9` (`question_id`),
-  CONSTRAINT `FK_fxy2atkomub4yioitgbef51g9` FOREIGN KEY (`question_id`) REFERENCES `rank_answer_question` (`question_id`)
+  CONSTRAINT `FK_fxy2atkomub4yioitgbef51g9` FOREIGN KEY (`question_id`) REFERENCES `rank_question` (`question_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

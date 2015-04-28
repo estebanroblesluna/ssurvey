@@ -2,12 +2,12 @@ package com.ssurvey.model;
 
 import java.util.List;
 
-public class NumericAnswerQuestion extends Question {
+public class NumericQuestion extends Question {
 
   private long upperBound;
   private long lowerBound;
 
-  public NumericAnswerQuestion() {
+  public NumericQuestion() {
     this.setType(this.getType());
   }
 
@@ -28,10 +28,10 @@ public class NumericAnswerQuestion extends Question {
   }
 
   public String getType() {
-    return QuestionType.NUMERIC_ANSWER_QUESTION.toString();
+    return QuestionType.NUMERIC_QUESTION.toString();
   }
 
   public Answer answer(List<String> answers) {
-    return new NumericAnswerAnswer(this,answers);
+    return new NumericAnswer(this,answers);
   }
 }
