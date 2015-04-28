@@ -79,7 +79,7 @@
 	        var $submitButton = $form.find(".submit-answer-button");
 	        $(function() {
 	        	clearInterval($submitTimer);
-	        	$submitButton.html("<span class=\"glyphicon glyphicon-ok-sign\"></span> Submit (3 seconds)");
+	        	$submitButton.html("<span class=\"glyphicon glyphicon-ok-sign\"></span> Submit (5 seconds)");
 		    });
 		}
 		
