@@ -83,6 +83,12 @@ body {
 		color: #fafafa;
 		background-color: #006599;
 	}
+	.progress {
+		display: none;
+	}
+	.progress-mobile {
+		display: block;
+	}
 }
 
 .navbar-default .navbar-button:hover,.navbar-default .navbar-button:focus
@@ -94,6 +100,13 @@ body {
 	background-color: #fff;
 	margin-top: 15px;
 	margin-bottom: 0px;
+}
+
+.progress-mobile {
+	color: #fff;
+	margin-top: 18px;
+	padding-left:15px;
+	width: 65px;
 }
 
 .progress-bar-success {

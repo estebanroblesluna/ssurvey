@@ -1,7 +1,7 @@
 <div class="panel-heading">
 	<h3 class="panel-title">
 		<span class="glyphicon glyphicon-hand-right"></span>
-		${question.name} (being 1 the most important, and ${fn:length(question.options)} the least important)
+		${question.name}
 	</h3>
 </div>
 <div class="panel-body">
@@ -19,7 +19,7 @@
 		</ol>
 		<h5 style="text-align: center;">
 			<img src="/static/img/up2.png" alt="Up2" style="width: 15; margin-top: -15;">
-			Drag the answers into the dashed box: 
+			Drag the options into the dashed box:
 			<img src="/static/img/down2.png" alt="Down2" style="width: 15; margin-top: 10;">
 		</h5>
 

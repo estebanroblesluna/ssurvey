@@ -16,7 +16,7 @@
 		<div class="col-md-6 col-md-offset-3">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					<h3 class="panel-title">${survey.name}</h3>
+					<h3 class="panel-title"> </h3>
 				</div>
 				<div class="message">
 					<p><br>

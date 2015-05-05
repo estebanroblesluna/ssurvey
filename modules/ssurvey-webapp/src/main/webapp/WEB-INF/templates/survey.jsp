@@ -11,11 +11,13 @@
 <link rel="stylesheet" type="text/css" href="/static/css/main.css"/>
 <script src="/static/js/bootstrap.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>${survey.name}</title>
+<title>Survey</title>
 <link rel=icon href=/static/img/favicon.ico type="image/png"/>
 <script type="text/javascript">
 	$(function() {
-
+		
+		$(".progress-mobile").html("<h5>(0 / "+ ${fn:length(survey.questions)} + ")</h5>");
+		
 		$(".sortable").sortable({
 			connectWith: "ol",
 		    cursor: 'move',
@@ -190,6 +192,7 @@
 						actualSize += 100 / numberOfQuestions;
 						$(".progress-bar").width(actualSize + "%");
 						$(".progress-bar").text(actualSize.toFixed(2) + "%");
+						$(".progress-mobile").html("<h5>("+actualPosition+" / "+numberOfQuestions+ ")</h5>");
 					}
 					
 					if(container.next().length == 0){
@@ -226,18 +229,26 @@
 				actualSize -= 100 / numberOfQuestions;
 				$(".progress-bar").width(actualSize + "%");
 				$(".progress-bar").text(actualSize.toFixed(2) + "%");
+				$(".progress-mobile").html("<h5>("+(actualPosition-1)+" / "+numberOfQuestions+ ")</h5>");
 			}
 			if(container.prev().length == 0){
+				actualPosition--;
 				return;
 			} else {
 				container.hide(500, function(){
 					container.prev().show(500);
+					if (actualPosition == numberOfQuestions) stopTimer();
+					actualPosition--;
+					if (container.attr("data-questionType") == 'RANK_QUESTION' ){
+						container.find(".unordered").find('li').each(function(){
+							if($(this).has(".alert-danger")) {
+								$(this).find(".alert-danger").remove();
+							}
+						})
+					}
 				});
 			}
-			if (actualPosition == numberOfQuestions) stopTimer();
-			actualPosition--;
 		})
-		
 	});
 </script>
 </head>
@@ -252,7 +263,7 @@
 						<div class="panel-heading">
 							<h3 class="panel-title">
 								<span class="glyphicon glyphicon-hand-right"></span>
-								Survey Presentation
+								Welcome
 							</h3>
 						</div>
 						<div class="panel-body">
