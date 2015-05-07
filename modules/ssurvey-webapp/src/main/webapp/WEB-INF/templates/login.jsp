@@ -6,10 +6,8 @@
 <title>Login</title>
 <link rel=icon href=/static/img/favicon.ico type="image/png">
 <link rel="stylesheet" type="text/css" href="static/css/bootstrap.css" />
-<link rel="stylesheet" type="text/css"
-	href="static/css/font-awesome.min.css" />
-<link rel="stylesheet" type="text/css"
-	href="static/css/bootstrap-social.css" />
+<link rel="stylesheet" type="text/css" href="static/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="static/css/bootstrap-social.css" />
 <link rel="stylesheet" type="text/css" href="static/css/login.css" />
 <link rel="stylesheet" type="text/css" href="static/css/main.css" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -24,7 +22,7 @@
 </head>
 <body>
 	<div class="container container-main">
-		<div class="panel panel-primary" style="width:400px;">
+		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title ssurvey-title">
 					<i class="fa fa-files-o"></i> Welcome to 

@@ -134,10 +134,19 @@ label.rank-item {
 	margin-left: 5px
 }
 
+@media (max-width : 400px) {
+	.panel.panel-primary {
+		width:90%;
+	}
+}
+
 .panel-primary {
 	border-radius: 0;
 	border-width: 0;
 	box-shadow: 2px 2px 4px #888888;
+	width:70%;
+	margin-left:auto;
+	margin-right:auto;
 }
 
 .panel-primary .panel-heading {
