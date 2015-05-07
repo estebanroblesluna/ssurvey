@@ -43,6 +43,7 @@ public class SurveyController extends SSurveyGenericController {
       return mv;
     } else if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() == "anonymousUser") {
       ModelAndView mv = new ModelAndView("redirect:/?url=" + request.getRequestURI());
+      mv.addObject("name", survey.getName());
       return mv;
     } else {
       Account account = this.getLoggedUser();

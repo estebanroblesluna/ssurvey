@@ -27,7 +27,15 @@
 		<div class="panel panel-primary" style="width:400px;">
 			<div class="panel-heading">
 				<h3 class="panel-title ssurvey-title">
-					<i class="fa fa-files-o"></i> SSurvey
+					<i class="fa fa-files-o"></i> Welcome to 
+					<c:choose>
+      					<c:when test="${empty param.name}">
+      						SSurvey
+     					</c:when>
+     					<c:otherwise>
+							${param.name}
+      					</c:otherwise>
+					</c:choose>
 				</h3>
 			</div>
 			<div class="panel-body">
